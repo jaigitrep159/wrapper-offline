@@ -6,14 +6,6 @@ const md5 = require("js-md5");
 const base64 = require("js-base64");
 const http = require("http");
 
-// Fallback option for compatibility between Wrapper and https://github.com/Windows81/Text2Speech-Haxxor-JS.
-let get;
-try {
-	get = require("../misc/get");
-} catch {
-	get = require("./get");
-}
-
 module.exports = (voiceName, text) => {
 	return new Promise(async (res, rej) => {
 		const voice = voices[voiceName];

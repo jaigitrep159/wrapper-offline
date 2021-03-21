@@ -30,7 +30,6 @@ header {
 	padding: 0 15px;
 	display: flex;
 	justify-content: space-between;
-	flex-shrink: 0; /* prevents the header from shrinking */
 }
 #logo {
 	margin-top: 4px;
@@ -124,14 +123,11 @@ header dropdowns
 /**
 footer
 **/
-footer {
-	/* style */
+footer{
 	background: #1e1e1e;
-	/* layout */
 	margin-top: auto; /* footer at the foot */
 	display: flex;
-	justify-content: space-between;
-	flex-shrink: 0; /* prevents the footer from shrinking */
+	justify-content: space-between
 }
 footer nav { margin:5px 10px}
 /* links */

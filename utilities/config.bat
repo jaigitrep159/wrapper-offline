@@ -4,7 +4,7 @@
 
 :: Opens this file in Notepad when run
 setlocal
-if "%SUBSCRIPT%"=="" ( pushd "C:\Users\Commenter\Desktop\wrapper-offline\utilities\" & start notepad.exe config.bat & exit )
+if "%SUBSCRIPT%"=="" ( start notepad.exe config.bat & exit )
 endlocal
 
 :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n

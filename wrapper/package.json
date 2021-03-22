@@ -17,7 +17,7 @@
 		"js-base64": "^3.6.0",
 		"js-md5": "^0.7.3",
 		"mp3-duration": "^1.1.0",
-		"node-stream-zip": "^1.9.1",
+		"node-stream-zip": "^1.13.2",
 		"node-zip": "github:kyriosli/node-zip",
 		"xmldoc": "^1.1.2"
 	}

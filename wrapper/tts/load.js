@@ -277,7 +277,7 @@ function processVoice(voiceName, text) {
 				});
 				http.get(
 					{
-						host: "seamus-server.tk",
+						host: "localhost:8181",
 						path: `/vfproxy/speech.php?${q}`,
 					},
 					(r) => {

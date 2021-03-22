@@ -97,9 +97,15 @@ if exist "wrapper\static\info-nowave.json" (
 ) else ( 
 	echo ^(5^) Waveforms are[91m OFF [0m
 )
+:: Truncated Themelist
+if exist "wrapper\_THEMES\themelist-allthemes.xml" (
+	echo ^(6^) Truncated themelist is[92m ON [0m
+) else ( 
+	echo ^(6^) Truncated themelist is[91m OFF [0m
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	echo ^(6^) Original LVM Character IDs are[91m OFF [0m
+	echo ^(7^) Original LVM Character IDs are[91m OFF [0m
 )
 :: Dev options
 :: These are really specific options that no casual user would ever really need
@@ -206,10 +212,18 @@ if "!choice!"=="?5" (
 	echo Turning this off will simply add a repeating pre-made pattern in place of true waveforms.
 	goto reaskoptionscreen
 )
+:: Waveforms
+if "!choice!"=="6" goto allthemechange
+if "!choice!"=="?6" (
+	echo Cuts down the amount of themes that clog up the themelist in the videomaker.
+	echo Keeping this off is highly suggested.
+	echo However, if you want to see everything the program has to offer, turn this on.
+	goto reaskoptionscreen
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	if "!choice!"=="6" goto extractchars
-	if "!choice!"=="?6" (
+	if "!choice!"=="7" goto extractchars
+	if "!choice!"=="?7" (
 		echo When first getting Wrapper: Offline, all non-stock characters are put into a single zip file.
 		echo This is because if they're all separate, extracting takes forever and is incredibly annoying.
 		echo If you wish to import characters made on the LVM when it was still up and hosted by Vyond,
@@ -421,6 +435,24 @@ if exist "info-nowave.json" (
 	:: enable
 	ren info.json info-nowave.json
 	ren info-wave.json info.json
+)
+popd
+goto optionscreen
+
+:::::::::::::::::::::::::
+:: Truncated Themelist ::
+:::::::::::::::::::::::::
+:allthemechange
+echo Toggling setting...
+pushd wrapper\_THEMES
+if exist "themelist-allthemes.xml" (
+	:: disable
+	ren themelist.xml themelist-lessthemes.xml
+	ren themelist-allthemes.xml themelist.xml
+) else ( 
+	:: enable
+	ren themelist.xml themelist-allthemes.xml
+	ren themelist-lessthemes.xml themelist.xml
 )
 popd
 goto optionscreen

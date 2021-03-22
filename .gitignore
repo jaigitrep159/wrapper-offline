@@ -29,6 +29,8 @@ server/store/3a981f5cb2739137/infographics/*
 server/store/3a981f5cb2739137/commoncraft/*
 .DS_Store
 .DS_Store
+vfproxy/*
+bbbb/*
 
 # Personal Basilisk files
 utilities/basilisk/Basilisk-Portable/User/Basilisk/Profiles/Default/*

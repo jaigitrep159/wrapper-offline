@@ -43,16 +43,16 @@ No members of the original team are officially working on Offline, even if they 
 
 Developers will have (D) on their name, to show they are officially working on Wrapper: Offline. Everyone else has simply contributed something at some point.
 Wrapper: Offline credits:
-| Name            | Contribution                     |
-| --------------- | -------------------------------- |
-| Benson (D)      | Wrapper: Offline                 |
-| NathanTDA       | Logo                             |
-| Blukas/GoTube   | Import idea, Mega Comedy World 2 |
-| VisualPlugin    | Text to speech voices            |
-| Imageny         | Text to speech voices            |
-| creepyjokes2000 | Waveform fix, improved actions   |
-| JoshAnimate     | Headgear fix                     |
-| RegularSpark (D)| Fixing 1.2.3 to actually work    |
+| Name            | Contribution                                           |
+| --------------- | -------------------------------------------------------|
+| Benson (D)      | Wrapper: Offline                                       |
+| NathanTDA       | Logo                                                   |
+| Blukas/GoTube   | Import idea, Mega Comedy World 2                       |
+| VisualPlugin    | Text to speech voices                                  |
+| Imageny         | Text to speech voices                                  |
+| creepyjokes2000 | Waveform fix, improved actions                         |
+| JoshAnimate     | Headgear fix                                           |
+| RegularSpark (D)| Fixing 1.2.3 to actually work, truncated themelist.    |
 
 These are unaffiliated people that they haven't directly done anything for the project (and probably don't even know it exists) but still deserve credit for their things. Kinda like a shoutout but in a project's readme. ***Please do not contact them about Wrapper: Offline.***
 | Name               | Contribution                     |

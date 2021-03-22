@@ -52,6 +52,7 @@ Wrapper: Offline credits:
 | Imageny         | Text to speech voices            |
 | creepyjokes2000 | Waveform fix, improved actions   |
 | JoshAnimate     | Headgear fix                     |
+| RegularSpark (D)| Fixing 1.2.3 to actually work    |
 
 These are unaffiliated people that they haven't directly done anything for the project (and probably don't even know it exists) but still deserve credit for their things. Kinda like a shoutout but in a project's readme. ***Please do not contact them about Wrapper: Offline.***
 | Name               | Contribution                     |

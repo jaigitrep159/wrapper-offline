@@ -695,15 +695,17 @@ if !VERBOSEWRAPPER!==y (
 	if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
 )
 
-:: Start Node.js and http-server
-echo Loading Node.js and http-server...
+:: Start Node.js, http-server and PHP for VFProxy
+echo Loading Node.js, http-server and PHP ^(for VFProxy only^)...
 pushd utilities
 if !VERBOSEWRAPPER!==y (
 	if !DRYRUN!==n ( start /MIN open_http-server.bat )
 	if !DRYRUN!==n ( start /MIN open_nodejs.bat )
+	if !DRYRUN!==n ( start /MIN open_vfproxy_php.bat )
 ) else (
 	if !DRYRUN!==n ( start SilentCMD open_http-server.bat )
 	if !DRYRUN!==n ( start SilentCMD open_nodejs.bat )
+	if !DRYRUN!==n ( start SilentCMD open_vfproxy_php.bat )
 )
 popd
 

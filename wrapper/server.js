@@ -24,7 +24,6 @@ const thl = require('./theme/load');
 const tsv = require('./tts/voices');
 const tsl = require('./tts/load');
 const evt = require('./events');
-const clb = require('./data/clientbug');
 const url = require('url');
 
 const functions = [

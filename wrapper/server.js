@@ -48,7 +48,6 @@ const functions = [
 	mvu,
 	stp,
 	stl,
-	clb,
 ];
 
 module.exports = http.createServer((req, res) => {

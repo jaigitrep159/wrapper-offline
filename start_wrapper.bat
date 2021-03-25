@@ -3,7 +3,7 @@
 :: Project Runner: xomdjl_#1337
 :: License: MIT
 set WRAPPER_VER=1.2.3
-set WRAPPER_BUILD=48
+set WRAPPER_BUILD=56
 title Wrapper: Offline v%WRAPPER_VER% ^(build %WRAPPER_BUILD%^) [Initializing...]
 
 ::::::::::::::::::::

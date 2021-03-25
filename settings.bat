@@ -103,9 +103,15 @@ if exist "wrapper\_THEMES\themelist-allthemes.xml" (
 ) else ( 
 	echo ^(6^) Truncated themelist is[91m OFF [0m
 )
+:: Discord RPC
+if exist "wrapper\main-norpc.js" (
+	echo ^(7^) Discord rich prescence is[92m ON [0m
+) else ( 
+	echo ^(7^) Discord rich prescence is[91m OFF [0m
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	echo ^(7^) Original LVM Character IDs are[91m OFF [0m
+	echo ^(8^) Original LVM Character IDs are[91m OFF [0m
 )
 :: Dev options
 :: These are really specific options that no casual user would ever really need
@@ -220,10 +226,24 @@ if "!choice!"=="?6" (
 	echo However, if you want to see everything the program has to offer, turn this on.
 	goto reaskoptionscreen
 )
+:: Rich prescence
+if "!choice!"=="7" goto rpcchange
+if "!choice!"=="?7" (
+	echo By default, Discord rich presence is enabled.
+        echo:
+	echo It's used to show when you're using Wrapper: Offline
+        echo in your "Playing A Game" status on Discord, much like
+        echo how lots of modern computer games will show on your
+        echo Discord status when you're playing them.
+        echo:
+	echo Turning this off will make Offline stop saying
+        echo when you're using it on Discord.
+	goto reaskoptionscreen
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	if "!choice!"=="7" goto extractchars
-	if "!choice!"=="?7" (
+	if "!choice!"=="8" goto extractchars
+	if "!choice!"=="?8" (
 		echo When first getting Wrapper: Offline, all non-stock characters are put into a single zip file.
 		echo This is because if they're all separate, extracting takes forever and is incredibly annoying.
 		echo If you wish to import characters made on the LVM when it was still up and hosted by Vyond,
@@ -453,6 +473,24 @@ if exist "themelist-allthemes.xml" (
 	:: enable
 	ren themelist.xml themelist-allthemes.xml
 	ren themelist-lessthemes.xml themelist.xml
+)
+popd
+goto optionscreen
+
+::::::::::::::::::
+:: Discord RPC  ::
+::::::::::::::::::
+:rpcchange
+echo Toggling setting...
+pushd wrapper
+if exist "main-norpc.js" (
+	:: disable
+	ren main.js main-rpc.js
+	ren main-norpc.js main.js
+) else ( 
+	:: enable
+	ren main.js main-norpc.js
+	ren main-rpc.js main.js
 )
 popd
 goto optionscreen

@@ -5,6 +5,8 @@ const asset = require('../asset/main');
 const get = require('../request/get');
 const qs = require('querystring');
 const brotli = require('brotli');
+const md5 = require("js-md5");
+const base64 = require("js-base64");
 const https = require('https');
 const http = require('http');
 

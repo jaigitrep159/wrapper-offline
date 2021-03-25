@@ -8,8 +8,11 @@ This file contains tons of useful information based on questions I get a lot abo
 Wrapper: Offline (simply called "Offline" for the rest of this page) is a continuation of the original Wrapper project, which was taken down approximately on 2020-04-17. Unlike the original, Offline can not be taken down. Everything it needs to run is stored entirely on your computer. While its current use is for making content, the motive is to make a historical archive for the original Flash-based themes used with this editor.
 
 ### Where can I get updates?
+#### Discord
 You can join the Discord server here to get updates as they come out: <https://discord.gg/b7YSRkg>
 If you don't want to use Discord, you could ask a friend who does to let you know when an update comes out, and they can send you the download link. Please do not email me asking for the latest version.
+#### GitHub
+Wrapper: Offline also has a GitHub repository! Get updates faster through here: <https://github.com/Wrapper-Offline/Wrapper-Offline-Public>
 
 ### Will it work forever? Even after Flash is retired?
 It should, that's the goal. Perhaps in the future when we all run 6000-bit machines implanted into our brains it won't be compatible with that anymore, but I'm sure there'll always be a way to run it. There is also futureproofing for Flash's discontinuation, since Offline includes a Flash install and a version of ungoogled-chromium that supports Flash. By default, it starts from this, but you can change that in settings.bat. The included Chrome should not be used for browsing beyond using Flash content. You can also look into projects like [Lightspark](http://lightspark.github.io/) and [ruffle](https://ruffle.rs/) that are attempting to recreate Flash.

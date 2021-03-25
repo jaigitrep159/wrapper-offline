@@ -1,8 +1,10 @@
 :: Wrapper: Offline Launcher
-:: Author: benson#0411
+:: Original Author: benson#0411
+:: Project Runner: xomdjl_#1337
 :: License: MIT
 set WRAPPER_VER=1.2.3
-title Wrapper: Offline v%WRAPPER_VER% [Initializing...]
+set WRAPPER_BUILD=48
+title Wrapper: Offline v%WRAPPER_VER% ^(build %WRAPPER_BUILD%^) [Initializing...]
 
 ::::::::::::::::::::
 :: Initialization ::
@@ -85,8 +87,9 @@ if not exist "utilities\checks\disclaimer.txt" (
 
 :: Welcome, Director Ford!
 echo Wrapper: Offline
-echo A project from VisualPlugin adapted by Benson and the Wrapper: Offline Team
-echo Version !WRAPPER_VER!
+echo A project from VisualPlugin originally adapted by Benson
+echo Adapted by xomdjl_ and the Wrapper: Offline Team
+echo Version !WRAPPER_VER!, build !WRAPPER_BUILD!
 echo:
 
 :: Confirm measurements to proceed.
@@ -123,7 +126,7 @@ if !VERBOSEWRAPPER!==n (
 	echo:
 )
 
-title Wrapper: Offline v!WRAPPER_VER! [Checking dependencies...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Checking dependencies...]
 
 :: Preload variables
 set NEEDTHEDEPENDERS=n
@@ -296,7 +299,7 @@ if !NEEDTHEDEPENDERS!==y (
 	goto skip_dependency_install
 )
 
-title Wrapper: Offline v!WRAPPER_VER! [Installing dependencies...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Installing dependencies...]
 
 :: Preload variables
 set INSTALL_FLAGS=ALLUSERS=1 /norestart
@@ -683,7 +686,7 @@ echo:
 :: Starting Wrapper ::
 ::::::::::::::::::::::
 
-title Wrapper: Offline v!WRAPPER_VER! [Loading...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Loading...]
 
 :: Close existing node apps
 :: Hopefully fixes EADDRINUSE errors??
@@ -742,14 +745,14 @@ echo Wrapper: Offline has been started^^! The video list should now be open.
 :: Post-Start ::
 ::::::::::::::::
 
-title Wrapper: Offline v!WRAPPER_VER!
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^)
 if !VERBOSEWRAPPER!==y ( goto wrapperstarted )
 :wrapperstartedcls
 cls
 :wrapperstarted
 
 echo:
-echo Wrapper: Offline v!WRAPPER_VER! running
+echo Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) running
 echo A project from VisualPlugin adapted by Benson and the Wrapper: Offline Team
 echo:
 if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
@@ -854,7 +857,7 @@ goto wrapperidle
 echo Opening the importer...
 call utilities\import.bat
 cls
-title Wrapper: Offline v!WRAPPER_VER!
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^)
 set JUSTIMPORTED=y
 goto wrapperstartedcls
 
@@ -1001,7 +1004,7 @@ echo You must answer Yes or No. && goto exitwrapperretry
 
 :point_extraction
 
-title Wrapper: Offline v!WRAPPER_VER! [Shutting down...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Shutting down...]
 
 :: Shut down Node.js, PHP and http-server
 if !VERBOSEWRAPPER!==y (
@@ -1025,7 +1028,7 @@ if !DRYRUN!==y ( echo Go wet your run next time. )
 pause & exit
 
 :exitwithstyle
-title Wrapper: Offline v!WRAPPER_VER! [Shutting down... WITH STYLE]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Shutting down... WITH STYLE]
 echo SHUTTING DOWN THE WRAPPER OFFLINE
 PING -n 3 127.0.0.1>nul
 color 9b

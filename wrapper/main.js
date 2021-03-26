@@ -6,7 +6,7 @@ require("./server");
 const rpc = new RPC.Client({
 	transport: "ipc"
 });
-let bld = "fish ghost presenceAAAA";
+let bld = "68";
 rpc.on("ready", () => {
 	rpc.setActivity({
 		// state: "Video List",

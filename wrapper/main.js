@@ -2,25 +2,35 @@
 const RPC = require("discord-rpc");
 require("./server");
 
+
+// Loads env.json for Wrapper version and build number
+const env = Object.assign(process.env,
+	require('./env'));
+// env.json variables
+let version = env.WRAPPER_VER;
+let build = env.WRAPPER_BLD;
+
+
 // Discord rich presence
 const rpc = new RPC.Client({
 	transport: "ipc"
 });
-let bld = "68";
 rpc.on("ready", () => {
+	// Sets RPC activity
 	rpc.setActivity({
 		// state: "Video List",
 		// disabled until automatic rpc status is done
-		details: "Version 1.2.3, build " + bld,
+		details: "Version " + version +", build " + build,
 		startTimestamp: new Date(),
 		largeImageKey: "icon",
-		largeImageText: "Wrapper Offline 1.2.3, build " + bld,
-		smallImageKey: "Wrapper Offline 1.2.3",
-		smallImagetext: "Wrapper Offline 1.2.3",
+		largeImageText: "Wrapper: Offline",
+		smallImageKey: "Wrapper: Offline",
+		smallImagetext: "Wrapper: Offline",
 	});
+	// Logs "Rich presence is on!" in the console
 	console.log("Rich presence is on!")
 });
 rpc.login({
-	clientId: "791123556984422411"
+	clientId: "825080302178926633"
 });
 

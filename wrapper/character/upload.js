@@ -12,7 +12,7 @@ module.exports = function (req, res, url) {
 		fs.unlinkSync(path);
 
 		res.statusCode = 302;
-		const url = `/cc?themeId=family&original_asset_id=${numId}'
+		const url = `/cc?themeId=family&original_asset_id=${numId}`
 		res.setHeader('Location', url);
 		res.end();
 	});

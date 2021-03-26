@@ -37,22 +37,24 @@ Original Wrapper credits:
 | Name         | Contribution         |
 | ------------ | -------------------- |
 | VisualPlugin | GoAnimate Wrapper    |
-| Imageny      | Custom/Modded Assets |
+| _xomdjl      | Custom/Modded Assets |
 | CLarramore   | Bug fixes            |
+| PoleyMagik   | Asset Recreation     |
 No members of the original team are officially working on Offline, even if they have contributed. Some members of the original team have asked to not be given credit, and they have been removed.
 
 Developers will have (D) on their name, to show they are officially working on Wrapper: Offline. Everyone else has simply contributed something at some point.
 Wrapper: Offline credits:
-| Name            | Contribution                                           |
-| --------------- | -------------------------------------------------------|
-| Benson (D)      | Wrapper: Offline                                       |
-| NathanTDA       | Logo                                                   |
-| Blukas/GoTube   | Import idea, Mega Comedy World 2                       |
-| VisualPlugin    | Text to speech voices                                  |
-| Imageny         | Text to speech voices                                  |
-| creepyjokes2000 | Waveform fix, improved actions                         |
-| JoshAnimate     | Headgear fix                                           |
-| RegularSpark (D)| Fixing 1.2.3 to actually work, truncated themelist.    |
+| Name             | Contribution                                           |
+| ---------------- | -------------------------------------------------------|
+| Benson (D)       | Wrapper: Offline                                       |
+| NathanTDA        | Logo                                                   |
+| Blukas/GoTube (D)| Import idea, Mega Comedy World 2                       |
+| VisualPlugin     | Text to speech voices                                  |
+| _xomdjl  (D)     | Text to speech voices                                  |
+| creepyjokes2000  | Waveform fix, improved actions                         |
+| JoshAnimate      | Headgear fix                                           |
+| RegularSpark (D) | Fixing 1.2.3 to actually work, truncated themelist.    |
+| KrisAnimate      | Chromium parameter                                     |
 
 These are unaffiliated people that they haven't directly done anything for the project (and probably don't even know it exists) but still deserve credit for their things. Kinda like a shoutout but in a project's readme. ***Please do not contact them about Wrapper: Offline.***
 | Name               | Contribution                     |

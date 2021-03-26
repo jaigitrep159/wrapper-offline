@@ -33,3 +33,7 @@ set DRYRUN=n
 
 :: Truncates the amount of themes that clog up the themelist, leaving this off is reccomended.
 set ALLTHEMES=n
+
+:: Enables Discord RPC for Wrapper: Offline
+:: SO WE CAN KNOW IF GOTEST IS ACTUALLY MAKING A VIDEO OR NOT
+set discordrpc=n

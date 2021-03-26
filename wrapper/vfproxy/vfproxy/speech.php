@@ -20,7 +20,6 @@ $email = $randomstring . $domain;
    file_put_contents($wavname,file_get_contents($url));
    $command = 'cd ..\lame && lame.exe -q0 -b128 --resample 16 "../vfproxy/' . $wavname . '" "../vfproxy/' . $mp3name . '"';
    shell_exec($command);
-   unlink($wavname);
    $file = $mp3name;
    if (isset($_GET['download'])) {
    if (($_GET['download']) == "true") {
@@ -29,6 +28,7 @@ $email = $randomstring . $domain;
    } else {
 	   playFile($file);
    }
+   unlink($wavname);
    unlink($mp3name);
 
 function downloadFile($file){

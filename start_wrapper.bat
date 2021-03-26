@@ -3,7 +3,7 @@
 :: Project Runner: xomdjl_#1337
 :: License: MIT
 set WRAPPER_VER=1.2.3
-set WRAPPER_BUILD=56
+set WRAPPER_BUILD=68
 title Wrapper: Offline v%WRAPPER_VER% ^(build %WRAPPER_BUILD%^) [Initializing...]
 
 ::::::::::::::::::::
@@ -732,9 +732,9 @@ if !INCLUDEDCHROMIUM!==n (
 	echo Opening Wrapper: Offline using included Chromium...
 	pushd utilities\ungoogled-chromium
 	if !APPCHROMIUM!==y (
-		if !DRYRUN!==n ( start chrome.exe --user-data-dir=the_profile --app=http://localhost:4343 )
+		if !DRYRUN!==n ( start chrome.exe --allow-outdated-plugins --user-data-dir=the_profile --app=http://localhost:4343 )
 	) else (
-		if !DRYRUN!==n ( start chrome.exe --user-data-dir=the_profile http://localhost:4343 )
+		if !DRYRUN!==n ( start chrome.exe --allow-outdated-plugins --user-data-dir=the_profile http://localhost:4343 )
 	)
 	popd
 )

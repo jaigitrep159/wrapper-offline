@@ -9,12 +9,12 @@ const rpc = new RPC.Client({
   
    rpc.on("ready", () => {
     rpc.setActivity({
-      details: "Version 1.2.3 (Build 56)",
+      details: "Version 1.2.3 (Build 68)",
       startTimestamp: new Date(),
       largeImageKey: "icon",
-      largeImageText: "Wrapper Offline 1.2.3 (Build 56)",
-      smallImageKey: "Wrapper Offline 1.2.3 (Build 56)",
-      smallImagetext: "Wrapper Offline 1.2.3 (Build 56)",
+      largeImageText: "Wrapper Offline 1.2.3 (Build 68)",
+      smallImageKey: "Wrapper Offline 1.2.3 (Build 68)",
+      smallImagetext: "Wrapper Offline 1.2.3 (Build 68)",
     });
   
   

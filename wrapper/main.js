@@ -30,6 +30,7 @@ rpc.on("ready", () => {
 	// Logs "Rich presence is on!" in the console
 	console.log("Rich presence is on!")
 });
+// Connects RPC to app
 rpc.login({
 	clientId: "825080302178926633"
 });

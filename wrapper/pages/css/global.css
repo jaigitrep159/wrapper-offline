@@ -30,6 +30,7 @@ header {
 	padding: 0 15px;
 	display: flex;
 	justify-content: space-between;
+	flex-shrink: 0;
 }
 #logo {
 	margin-top: 4px;
@@ -128,6 +129,7 @@ footer{
 	margin-top: auto; /* footer at the foot */
 	display: flex;
 	justify-content: space-between
+	flex-shrink: 0;
 }
 footer nav { margin:5px 10px}
 /* links */

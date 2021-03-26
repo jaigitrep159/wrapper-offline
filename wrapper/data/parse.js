@@ -469,4 +469,7 @@ module.exports = {
 		}
 		fs.writeFileSync(fUtil.getFileIndex('movie-', '.xml', id), xml);
 	},
+	async unpackCharXml(xml, id) {
+		fs.writeFileSync(fUtil.getFileIndex('char-', '.xml', id), xml);
+	},
 }

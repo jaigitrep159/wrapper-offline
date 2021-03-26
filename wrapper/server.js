@@ -9,6 +9,7 @@ const chl = require('./character/load');
 const chs = require('./character/save');
 const mvu = require('./movie/upload');
 const asu = require('./asset/upload');
+const chu = require('./character/upload');
 const stl = require('./static/load');
 const stp = require('./static/page');
 const asl = require('./asset/load');
@@ -38,6 +39,7 @@ const functions = [
 	asL,
 	tsl,
 	chr,
+        chu,
 	ast,
 	mvm,
 	mvl,

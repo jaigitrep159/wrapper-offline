@@ -8,7 +8,7 @@ module.exports = function (req, res, url) {
 	new formidable.IncomingForm().parse(req, (e, f, files) => {
 		const path = files.import.path, buffer = fs.readFileSync(path);
 		const numId = fUtil.getNextFileId('char-', '.xml');
-		parse.unpackXml(buffer, numId);
+		parse.unpackCharXml(buffer, numId);
 		fs.unlinkSync(path);
 
 		res.statusCode = 302;

@@ -1,26 +1,26 @@
-// wrapper offline rich presence and a core part of wrapper offline
+// Core part of Wrapper: Offline
 const RPC = require("discord-rpc");
 require("./server");
 
-// discord rpc
+// Discord rich presence
 const rpc = new RPC.Client({
-    transport: "ipc"
-  });
-  
-   rpc.on("ready", () => {
-    rpc.setActivity({
-      details: "Version 1.2.3 (Build 68)",
-      startTimestamp: new Date(),
-      largeImageKey: "icon",
-      largeImageText: "Wrapper Offline 1.2.3 (Build 68)",
-      smallImageKey: "Wrapper Offline 1.2.3 (Build 68)",
-      smallImagetext: "Wrapper Offline 1.2.3 (Build 68)",
-    });
-  
-  
-    console.log("Rich presence is on!")
-  });
-  rpc.login({
-    clientId: "791123556984422411"
-  });
+	transport: "ipc"
+});
+let bld = "fish ghost presenceAAAA";
+rpc.on("ready", () => {
+	rpc.setActivity({
+		// state: "Video List",
+		// disabled until automatic rpc status is done
+		details: "Version 1.2.3, build " + bld,
+		startTimestamp: new Date(),
+		largeImageKey: "icon",
+		largeImageText: "Wrapper Offline 1.2.3, build " + bld,
+		smallImageKey: "Wrapper Offline 1.2.3",
+		smallImagetext: "Wrapper Offline 1.2.3",
+	});
+	console.log("Rich presence is on!")
+});
+rpc.login({
+	clientId: "791123556984422411"
+});
 

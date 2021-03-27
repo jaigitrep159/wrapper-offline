@@ -3,8 +3,8 @@
 :: Project Runner: xomdjl_#1337
 :: License: MIT
 set WRAPPER_VER=1.2.3
-set WRAPPER_BUILD=68
-title Wrapper: Offline v%WRAPPER_VER% ^(build %WRAPPER_BUILD%^) [Initializing...]
+set WRAPPER_BLD=72
+title Wrapper: Offline v%WRAPPER_VER% ^(build %WRAPPER_BLD%^) [Initializing...]
 
 ::::::::::::::::::::
 :: Initialization ::
@@ -89,7 +89,7 @@ if not exist "utilities\checks\disclaimer.txt" (
 echo Wrapper: Offline
 echo A project from VisualPlugin originally adapted by Benson
 echo Adapted by xomdjl_ and the Wrapper: Offline Team
-echo Version !WRAPPER_VER!, build !WRAPPER_BUILD!
+echo Version !WRAPPER_VER!, build !WRAPPER_BLD!
 echo:
 
 :: Confirm measurements to proceed.
@@ -126,7 +126,7 @@ if !VERBOSEWRAPPER!==n (
 	echo:
 )
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Checking dependencies...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Checking dependencies...]
 
 :: Preload variables
 set NEEDTHEDEPENDERS=n
@@ -299,7 +299,7 @@ if !NEEDTHEDEPENDERS!==y (
 	goto skip_dependency_install
 )
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Installing dependencies...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Installing dependencies...]
 
 :: Preload variables
 set INSTALL_FLAGS=ALLUSERS=1 /norestart
@@ -686,31 +686,52 @@ echo:
 :: Starting Wrapper ::
 ::::::::::::::::::::::
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Loading...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Loading...]
 
 :: Close existing node apps
 :: Hopefully fixes EADDRINUSE errors??
 if !VERBOSEWRAPPER!==y (
-	echo Closing any existing node and/or PHP apps...
-	if !DRYRUN!==n ( TASKKILL /IM node.exe /F )
-	if !DRYRUN!==n ( TASKKILL /IM php.exe /F )
-	echo:
+	if !CEPSTRAL!==n (
+		echo Closing any existing node and/or PHP apps...
+		if !DRYRUN!==n ( TASKKILL /IM node.exe /F )
+		if !DRYRUN!==n ( TASKKILL /IM php.exe /F )
+		echo:
+	) else (
+		echo Closing any existing node apps...
+		if !DRYRUN!==n ( TASKKILL /IM node.exe /F )
+	)
 ) else (
-	if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
-	if !DRYRUN!==n ( TASKKILL /IM php.exe /F 2>nul )
+	if !CEPSTRAL!==n (
+		if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
+		if !DRYRUN!==n ( TASKKILL /IM php.exe /F 2>nul )
+	) else (
+		if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
+	)
 )
 
 :: Start Node.js, http-server and PHP for VFProxy
-echo Loading Node.js, http-server and PHP ^(for VFProxy only^)...
+if !CEPSTRAL!==n (
+	echo Loading Node.js, http-server and PHP ^(for VFProxy only^)...
+) else (
+	echo Loading Node.js and http-server...
+)
 pushd utilities
 if !VERBOSEWRAPPER!==y (
 	if !DRYRUN!==n ( start /MIN open_http-server.bat )
 	if !DRYRUN!==n ( start /MIN open_nodejs.bat )
-	if !DRYRUN!==n ( start /MIN open_vfproxy_php.bat )
+	if !DRYRUN!==n ( 
+		if !CEPSTRAL!==n ( 
+			start /MIN open_vfproxy_php.bat
+		)
+	)
 ) else (
 	if !DRYRUN!==n ( start SilentCMD open_http-server.bat )
 	if !DRYRUN!==n ( start SilentCMD open_nodejs.bat )
-	if !DRYRUN!==n ( start SilentCMD open_vfproxy_php.bat )
+	if !DRYRUN!==n ( 
+		if !CEPSTRAL!==n (
+			start SilentCMD open_vfproxy_php.bat
+		)
+	)
 )
 popd
 
@@ -745,14 +766,14 @@ echo Wrapper: Offline has been started^^! The video list should now be open.
 :: Post-Start ::
 ::::::::::::::::
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^)
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
 if !VERBOSEWRAPPER!==y ( goto wrapperstarted )
 :wrapperstartedcls
 cls
 :wrapperstarted
 
 echo:
-echo Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) running
+echo Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) running
 echo A project from VisualPlugin adapted by Benson and the Wrapper: Offline Team
 echo:
 if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
@@ -857,7 +878,7 @@ goto wrapperidle
 echo Opening the importer...
 call utilities\import.bat
 cls
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^)
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
 set JUSTIMPORTED=y
 goto wrapperstartedcls
 
@@ -1004,7 +1025,7 @@ echo You must answer Yes or No. && goto exitwrapperretry
 
 :point_extraction
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Shutting down...]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down...]
 
 :: Shut down Node.js, PHP and http-server
 if !VERBOSEWRAPPER!==y (
@@ -1028,7 +1049,7 @@ if !DRYRUN!==y ( echo Go wet your run next time. )
 pause & exit
 
 :exitwithstyle
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BUILD!^) [Shutting down... WITH STYLE]
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down... WITH STYLE]
 echo SHUTTING DOWN THE WRAPPER OFFLINE
 PING -n 3 127.0.0.1>nul
 color 9b

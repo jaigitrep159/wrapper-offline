@@ -11,7 +11,7 @@ endlocal
 set VERBOSEWRAPPER=n
 
 :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n
-set SKIPCHECKDEPENDS=n
+set SKIPCHECKDEPENDS=y
 
 :: Won't install dependencies, regardless of check results. Overridden by SKIPCHECKDEPENDS. Mostly useless, why did I add this again? Default: n
 set SKIPDEPENDINSTALL=n
@@ -31,9 +31,5 @@ set BROWSER_TYPE=chrome
 :: Runs through all of the scripts code, while never launching or installing anything. Useful for development. Default: n
 set DRYRUN=n
 
-:: Truncates the amount of themes that clog up the themelist, leaving this off is reccomended.
-set ALLTHEMES=n
-
-:: Enables Discord RPC for Wrapper: Offline
-:: SO WE CAN KNOW IF GOTEST IS ACTUALLY MAKING A VIDEO OR NOT
-set discordrpc=n
+:: Makes it so it uses the Cepstral website instead of VFProxy. Default: n
+set CEPSTRAL=n

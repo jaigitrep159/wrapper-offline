@@ -109,9 +109,17 @@ if exist "wrapper\main-norpc.js" (
 ) else ( 
 	echo ^(7^) Discord rich prescence is[91m OFF [0m
 )
+:: Cepstral
+if !CEPSTRAL!==n (
+	if exist "wrapper\tts\info-cepstral.json" (
+		echo ^(8^) Provider for Cepstral/VoiceForge voices is[92m included VFProxy [0m
+	)
+) else (
+	echo ^(8^) Provider for Cepstral/VoiceForge voices is[91m Cepstral website [0m
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	echo ^(8^) Original LVM Character IDs are[91m OFF [0m
+	echo ^(9^) Original LVM Character IDs are[91m OFF [0m
 )
 :: Dev options
 :: These are really specific options that no casual user would ever really need
@@ -240,10 +248,29 @@ if "!choice!"=="?7" (
         echo when you're using it on Discord.
 	goto reaskoptionscreen
 )
+:: Cepstral
+if "!choice!"=="8" goto cepstralchange
+if "!choice!"=="?8" (
+	echo By default, Wrapper: Offline uses the included VFProxy
+	echo for the VoiceForge voices, as VoiceForge was turned
+	echo into a mobile app, causing the original API to be
+	echo deleted. Someone managed to hack the APK and find the
+	echo link, but it outputs in WAV only, so we made a PHP
+	echo wrapper for it ^(VFProxy^) which is intended to bypass
+	echo ratelimits and automatically convert it to MP3 using LAME.
+	echo:
+	echo However, some people seem to be having issues with getting
+	echo it working without any problem.
+	echo:
+	echo Toggling this setting will make it so Wrapper: Offline no
+	echo longer launches VFProxy and instead gets the Cepstral voices
+	echo from the actual Cepstral website's demo.
+	goto reaskoptionscreen
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	if "!choice!"=="8" goto extractchars
-	if "!choice!"=="?8" (
+	if "!choice!"=="9" goto extractchars
+	if "!choice!"=="?9" (
 		echo When first getting Wrapper: Offline, all non-stock characters are put into a single zip file.
 		echo This is because if they're all separate, extracting takes forever and is incredibly annoying.
 		echo If you wish to import characters made on the LVM when it was still up and hosted by Vyond,
@@ -493,6 +520,32 @@ if exist "main-norpc.js" (
 	ren main-rpc.js main.js
 )
 popd
+goto optionscreen
+
+:::::::::::::::
+:: Cepstral  ::
+:::::::::::::::
+:cepstralchange
+echo Toggling setting...
+pushd wrapper\tts
+if exist "info-cepstral.json" (
+	:: disable
+	ren info.json info-vfproxy.json
+	ren info-cepstral.json info.json
+) else ( 
+	:: enable
+	ren info.json info-cepstral.json
+	ren info-vfproxy.json info.json
+)
+popd
+set TOTOGGLE=CEPSTRAL
+if !CEPSTRAL!==n (
+	set TOGGLETO=y
+) else (
+	set TOGGLETO=n
+)
+set CFGLINE=35
+goto toggleoption
 goto optionscreen
 
 ::::::::::::::::::::::::

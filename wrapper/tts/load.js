@@ -280,7 +280,7 @@ function processVoice(voiceName, text) {
 				http.get(
 					{
 						host: "localhost",
-						port: "1337",
+						port: "8181",
 						path: `/vfproxy/speech.php?${q}`,
 					},
 					(r) => {

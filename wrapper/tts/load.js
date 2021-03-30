@@ -316,39 +316,6 @@ function processVoice(voiceName, text) {
 				);
 				break;
 			}
-			case "festival": {
-                var req = https.request({
-                        hostname: "texttomp3.online",
-                        path: "/php/logic/textToSpeech.php",
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF8",
-							Host: "www.texttomp3.online",
-							Origin: "https://www.texttomp3.online",
-							Referer: "https://www.texttomp3.online/",
-							"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
-                        },
-                    },
-                    (r) => {
-						var buffers = [];
-						r.on("data", (b) => buffers.push(b));
-                        r.on("end", () => {
-							const mp3 = Buffer.concat(buffers).toString();
-							const loc = `https://www.texttomp3.online/audio_tmp/${mp3}`
-							get(loc).then(res).catch(rej);
-						});
-						r.on("error", rej);
-					});
-                    req.write(qs.encode({
-                        msg: text,
-                        voice: voice.arg,
-						usebackmusic: 0,
-						backmusicfile: "",
-						backmusicvolume: ""
-                    }));
-					req.end();
-					break;
-			}
 			case "wavenet": {
                 var req = https.request({
                         hostname: "texttospeechapi.wideo.co",

@@ -1,37 +1,5 @@
 ﻿{
 	"voices": {
-		"slt": {
-			"country": "US",
-			"language": "en",
-			"gender": "F",
-			"source": "festival",
-			"arg": "27",
-			"desc": "SLT"
-		},
-		"bdl": {
-			"country": "US",
-			"language": "en",
-			"gender": "M",
-			"source": "festival",
-			"arg": "23",
-			"desc": "BDL"
-		},
-		"rms": {
-			"country": "US",
-			"language": "en",
-			"gender": "M",
-			"source": "festival",
-			"arg": "22",
-			"desc": "RMS"
-		},
-		"jmk": {
-			"country": "US",
-			"language": "en",
-			"gender": "M",
-			"source": "festival",
-			"arg": "24",
-			"desc": "JMK"
-		},
 		"heather2": {
 			"country": "US",
 			"language": "en",
@@ -845,7 +813,7 @@
 			"language": "en",
 			"gender": "M",
 			"source": "voiceforge",
-			"arg": "DesignerDave",
+			"arg": "Designer",
 			"desc": "Designer Dave"
 		},
 		"diesel": {
@@ -869,7 +837,7 @@
 			"language": "en",
 			"gender": "F",
 			"source": "voiceforge",
-			"arg": "EvilGenius",
+			"arg": "Evilgenius",
 			"desc": "Evil Genius"
 		},
 		"frank": {
@@ -973,7 +941,7 @@
 			"language": "en",
 			"gender": "F",
 			"source": "voiceforge",
-			"arg": "ShyGirl",
+			"arg": "Shygirl",
 			"desc": "Shy Girl"
 		},
 		"susan": {
@@ -1236,7 +1204,7 @@
 			"country": "SA",
 			"language": "ar",
 			"gender": "F",
-			"arg": "ar_sa_hd_salma_22k_lf.bvcu",
+			"arg": "salma22k",
 			"source": "acapela",
 			"desc": "Salma"
 		},
@@ -1244,7 +1212,7 @@
 			"country": "SA",
 			"language": "ar",
 			"gender": "F",
-			"arg": "ar_sa_hd_leila_22k_lf.bvcu",
+			"arg": "leila22k",
 			"source": "acapela",
 			"desc": "Leila"
 		},
@@ -1260,7 +1228,7 @@
 			"country": "SA",
 			"language": "ar",
 			"gender": "M",
-			"arg": "ar_sa_hd_mehdi_22k_lf.bvcu",
+			"arg": "mehdi22k",
 			"source": "acapela",
 			"desc": "Mehdi"
 		},
@@ -1268,7 +1236,7 @@
 			"country": "SA",
 			"language": "ar",
 			"gender": "M",
-			"arg": "ar_sa_hd_nizar_22k_lf.bvcu",
+			"arg": "Nizar22k",
 			"source": "acapela",
 			"desc": "Nizar"
 		},

@@ -110,16 +110,23 @@ if exist "wrapper\main-norpc.js" (
 	echo ^(7^) Discord rich prescence is[91m OFF [0m
 )
 :: Cepstral
-if !CEPSTRAL!==n (
-	if exist "wrapper\tts\info-cepstral.json" (
-		echo ^(8^) Provider for Cepstral/VoiceForge voices is[92m included VFProxy [0m
+if exist "wrapper\tts\info-cepstral.json" (
+	echo ^(8^) Provider for Cepstral/VoiceForge voices is[92m included VFProxy [0m
+	if exist "wrapper\tts\load-seamus.js" (
+		echo     ^(9^) VFProxy server is[92m PHP Webserver ^(localhost:8181^) [0m
+	) else (
+		if !CEPSTRAL!==y (
+			echo     ^(9^) VFProxy server is[91m seamus-server.tk [0m
+		)
 	)
 ) else (
-	echo ^(8^) Provider for Cepstral/VoiceForge voices is[91m Cepstral website [0m
+	if !CEPSTRAL!==y (
+		echo ^(8^) Provider for Cepstral/VoiceForge voices is[91m Cepstral website [0m
+	)
 )
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	echo ^(9^) Original LVM Character IDs are[91m OFF [0m
+	echo ^(10^) Original LVM Character IDs are[91m OFF [0m
 )
 :: Dev options
 :: These are really specific options that no casual user would ever really need
@@ -267,10 +274,21 @@ if "!choice!"=="?8" (
 	echo from the actual Cepstral website's demo.
 	goto reaskoptionscreen
 )
+if "!choice!"=="9" goto vfproxyserverchange
+if "!choice!"=="?9" (
+	echo This setting runs the localhost version of xomdjl_'s VFProxy.
+	echo This makes it easier to use without having to use an external server.
+	echo:
+	echo However, some people seem to be having problems with this.
+	echo:
+	echo Toggling this setting will allow you to use either the localhost VFProxy
+	echo or the seamus-server.tk host of VFProxy.
+	goto reaskoptionscreen
+)
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-	if "!choice!"=="9" goto extractchars
-	if "!choice!"=="?9" (
+	if "!choice!"=="10" goto extractchars
+	if "!choice!"=="?10" (
 		echo When first getting Wrapper: Offline, all non-stock characters are put into a single zip file.
 		echo This is because if they're all separate, extracting takes forever and is incredibly annoying.
 		echo If you wish to import characters made on the LVM when it was still up and hosted by Vyond,
@@ -536,6 +554,32 @@ if exist "info-cepstral.json" (
 	:: enable
 	ren info.json info-cepstral.json
 	ren info-vfproxy.json info.json
+)
+popd
+set TOTOGGLE=CEPSTRAL
+if !CEPSTRAL!==n (
+	set TOGGLETO=y
+) else (
+	set TOGGLETO=n
+)
+set CFGLINE=35
+goto toggleoption
+goto optionscreen
+
+:::::::::::::::
+:: Cepstral  ::
+:::::::::::::::
+:vfproxyserverchange
+echo Toggling setting...
+pushd wrapper\tts
+if exist "load-seamus.js" (
+	:: disable
+	ren load.js load-localvfproxy.js
+	ren load-seamus.js load.js
+) else ( 
+	:: enable
+	ren load.js load-seamus.js
+	ren load-localvfproxy.js load.js
 )
 popd
 set TOTOGGLE=CEPSTRAL

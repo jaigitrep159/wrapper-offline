@@ -5,15 +5,16 @@ this css has the general header/footer layout stuff
 /**
 general
 **/
-html,body{
+html, body {
 	background: #fff;
 	color: #474747;
 	font: 16px/1.5 'Sailec', Arial, sans-serif;
-	width:100%;height:100%;
+	width: 100%;
+	height: 100%;
 }
 body {
 	display: flex; 
-  flex-direction: column; 
+	flex-direction: column; 
 }
 
 
@@ -30,6 +31,7 @@ header {
 	padding: 0 15px;
 	display: flex;
 	justify-content: space-between;
+	flex-shrink: 0;
 }
 #logo {
 	margin-top: 4px;
@@ -126,11 +128,12 @@ main {
 /**
 footer
 **/
-footer{
+footer {
 	background: #1e1e1e;
 	margin-top: auto; /* footer at the foot */
 	display: flex;
-	justify-content: space-between
+	justify-content: space-between;
+	flex-shrink: 0
 }
 footer nav { margin:5px 10px}
 /* links */

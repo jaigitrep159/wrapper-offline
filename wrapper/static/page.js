@@ -131,11 +131,7 @@ module.exports = function (req, res, url) {
 			document.title='${title}',flashvars=${JSON.stringify(params.flashvars)}
 		</script>
 		<script>
-			if(window.location.pathname == '/player') {
-				function hideHeader() {
-					document.getElementById("header").style.display = "none";
-				}
-			} else if(window.location.pathname == '/go_full') {
+			if(window.location.pathname == '/player' || window.location.pathname == '/go_full') {
 				function hideHeader() {
 					document.getElementById("header").style.display = "none";
 				}
@@ -152,7 +148,7 @@ module.exports = function (req, res, url) {
 	
 	<header id="header">
 		<a href="/">
-			<h1 style="margin:0"><img id="logo" src="/pages/img/list_logo.png" alt="Wrapper: Offline"/></h1>
+			<h1 style="margin:0"><img id="logo" src="/pages/img/list_logo.svg" alt="Wrapper: Offline"/></h1>
 		</a>
 		<nav id="headbuttons">
 			<div class="dropdown_contain button_small">

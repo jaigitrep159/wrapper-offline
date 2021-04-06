@@ -40,9 +40,10 @@ Original Wrapper credits:
 | Name         | Contribution         |
 | ------------ | -------------------- |
 | VisualPlugin | GoAnimate Wrapper    |
-| _xomdjl      | Custom/Modded Assets |
+| xomdjl_      | Custom/Modded Assets |
 | CLarramore   | Bug fixes            |
 | PoleyMagik   | Asset Recreation     |
+
 No members of the original team are officially working on Offline, even if they have contributed. Some members of the original team have asked to not be given credit, and they have been removed.
 
 Project Lead will have (PL) on their name and developers will have (D) on their name, to show they are officially working on Wrapper: Offline. Everyone else has simply contributed something at some point.
@@ -53,7 +54,7 @@ Wrapper: Offline credits:
 | NathanTDA        | Logo                                                   |
 | Blukas/GoTube (D)| Import idea, Mega Comedy World 2                       |
 | VisualPlugin     | Text to speech voices                                  |
-| _xomdjl (PL) (D) | VFProxy, Text to speech voices                         |
+| xomdjl_ (PL) (D) | VFProxy, Text to speech voices                         |
 | creepyjokes2000  | Waveform fix, improved actions                         |
 | JoshAnimate      | Headgear fix                                           |
 | RegularSpark (D) | Fixing 1.2.3 to actually work, truncated themelist     |

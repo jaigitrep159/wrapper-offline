@@ -131,7 +131,7 @@ module.exports = function (req, res, url) {
 			document.title='${title}',flashvars=${JSON.stringify(params.flashvars)}
 		</script>
 		<script>
-			if(window.location.pathname == '/player' || window.location.pathname == '/go_full') {
+			if(window.location.pathname == '/player') {
 				function hideHeader() {
 					document.getElementById("header").style.display = "none";
 				}

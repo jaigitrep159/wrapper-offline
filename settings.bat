@@ -111,7 +111,7 @@ if exist "wrapper\main-norpc.js" (
 )
 :: Cepstral
 if exist "wrapper\tts\info-cepstral.json" (
-	echo ^(8^) Provider for Cepstral/VoiceForge voices is[92m included VFProxy [0m
+	echo ^(8^) Provider for Cepstral/VoiceForge voices is[92m VFProxy [0m
 	if exist "wrapper\tts\load-seamus.js" (
 		echo     ^(9^) VFProxy server is[92m PHP Webserver ^(localhost:8181^) [0m
 	) else (

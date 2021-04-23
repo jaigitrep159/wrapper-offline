@@ -5,12 +5,17 @@ This changelog is based off [Keep a Changelog](https://keepachangelog.com) and ~
 ## Version 1.2.3 - 2021-03-06 - i am HUNGRY FOR UPDATES!!!
 ### Added
   - Character browser
+  - Truncated themelist
+  - Character uploading
+  - Discord RPC
 ### Changed
   - Centered character creator
 ### Fixed
   - Remove the Voicery TTS engine following their shutdown
-  - Voiceforge fix
-  - fullscreen in video player
+  - Voiceforge fix AKA VFProxy
+  - Fullscreen in video player
+  - Effects
+  - Fixed header shrinking
 
 ## Version 1.2.2 - 2020-07-06 - sufferingggggg
 ### Changed

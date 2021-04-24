@@ -145,9 +145,13 @@ echo:
 cls
 
 if %CONTFAILRENDER%==1 (
-	if not exist "%FFMPEGINPUT%" ( goto error2 )
-	if not exist "%TEMPPATH%" ( goto error2 )
+	if not exist "%FFMPEGINPUT%" (
+		if not exist "%TEMPPATH%" (
+			goto error2
+		)
+	) else (
 	goto render_step_ask
+	)
 ) else (
 	goto screen_recorder_setup
 )
@@ -270,7 +274,7 @@ echo When you're done recording, press any key in this window to stop
 echo recording your video. Alternatively, press Q in the FFMPEG
 echo window to also stop recording.
 echo:
-set /p START_FFMPEG= Press Enter whenever you're ready.
+pause
 start ffmpeg\ffmpeg.exe -rtbufsize 150M -f dshow -framerate 25 -i video="screen-capture-recorder":audio="virtual-audio-capturer" -c:v libx264 -r 25 -preset fast -tune zerolatency -crf 17 -pix_fmt yuv420p -movflags +faststart -c:a aac -ac 2 -b:a 512k -y "%TEMPPATH%"
 echo:
 echo When you're finished recording,

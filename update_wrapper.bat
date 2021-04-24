@@ -12,14 +12,22 @@ echo Otherwise, press any key.
 echo:
 set /p GITPULL= Option:
 if "%GITPULL%"=="1" (
-	cls
-	echo Pulling latest version of repository from GitHub through Git...
-	PING -n 4 127.0.0.1>nul
-	call git pull
-	echo:
-	echo Latest version of repository pulled^!
-	echo:
-	pause
+	if not exist ".git" (
+		echo No .git folder, eh?
+		PING -n 4 127.0.0.1>nul
+		echo You were supposed to download it using THE INSTALLER^!
+		PING -n 4 127.0.0.1>nul
+		set GITPULL=
+	) else (
+		cls
+		echo Pulling latest version of repository from GitHub through Git...
+		PING -n 4 127.0.0.1>nul
+		call git pull
+		echo:
+		echo Latest version of repository pulled^!
+		echo:
+		pause
+	)
 )
 if "%GITPULL%"=="" (
 	echo NO UPDATE FOR YOU^!

@@ -5,7 +5,7 @@ This changelog is based off [Keep a Changelog](https://keepachangelog.com) and ~
 ## Version 1.3.0 - 2021-04-24 - feature packed
 ### Added
   - Basilisk
-  - Exporting workaround
+  - Exporting workaround using FFMPEG, Avidemux and some virtual drivers
   - Mac files (Unfinished)
   - Upgrade script using Git
   - Google Wavenet and Microsoft Azure voices

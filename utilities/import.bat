@@ -244,7 +244,7 @@ for %%a in (import_these\*) do (
 	)
 	:linereached
 	:: Print our string and a blank line for the next one
-	echo !cfxml!>> temp.xml
+	echo 	!cfxml!>> temp.xml
 	echo:>> temp.xml
 	:: Print the last of theme.xml to our temp file
 	more +!cfline! theme.xml>> temp.xml

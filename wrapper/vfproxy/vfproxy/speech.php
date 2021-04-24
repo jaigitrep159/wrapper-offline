@@ -4,7 +4,7 @@ $vName = $_GET['voice'];
 $text = $_GET['msg'];
 $permitted_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $randomstring = substr(str_shuffle($permitted_chars), 10, 20);
-$arr = array("@gmail.com", "@outlook.com", "@icloud.com", "@yahoo.com");
+$arr = array("@gmail.com", "@hotmail.com", "@outlook.com", "@comcast.net", "@aol.com", "@yandex.com", "@icloud.com", "@yahoo.com", "@mail.com");
 shuffle($arr);
 $domain = $arr[0];
 $email = $randomstring . $domain;
@@ -20,6 +20,7 @@ $email = $randomstring . $domain;
    file_put_contents($wavname,file_get_contents($url));
    $command = 'cd ..\lame && lame.exe -q0 -b128 --resample 16 "../vfproxy/' . $wavname . '" "../vfproxy/' . $mp3name . '"';
    shell_exec($command);
+   unlink($wavname);
    $file = $mp3name;
    if (isset($_GET['download'])) {
    if (($_GET['download']) == "true") {
@@ -28,7 +29,6 @@ $email = $randomstring . $domain;
    } else {
 	   playFile($file);
    }
-   unlink($wavname);
    unlink($mp3name);
 
 function downloadFile($file){

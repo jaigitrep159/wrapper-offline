@@ -10,7 +10,6 @@ module.exports = function (req, res, url) {
 		const numId = fUtil.getNextFileId('char-', '.xml');
 		parse.unpackCharXml(buffer, numId);
 		fs.unlinkSync(path);
-
 		res.statusCode = 302;
 		const url = `/cc?themeId=family&original_asset_id=c-${numId}`
 		res.setHeader('Location', url);

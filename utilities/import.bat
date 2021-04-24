@@ -130,6 +130,11 @@ for %%a in (import_these\*) do (
 
 	:: Ask category
 	if !cftype!=="img" (
+	    echo NOTE: If you're importing a backdrop, the
+		echo backdrop MUST be 550x310. If you go any
+        echo larger, it will zoom into the top-right
+        echo corner. We have no idea why it does that.
+        echo:
 		echo Press 1 to import !cfname! as a backdrop.
 		echo Press 2 to import !cfname! as a prop.
 		:imgaskretry

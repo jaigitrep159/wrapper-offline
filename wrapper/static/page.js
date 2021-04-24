@@ -211,6 +211,10 @@ module.exports = function (req, res, url) {
 				function hideHeader() {
 					document.getElementById("header").style.display = "none";
 				}
+			} else if(window.location.pathname == '/go_full') {
+				function hideHeader() {
+					document.getElementById("header").style.display = "none";
+				}
 			}
 		</script>
 		<link rel="stylesheet" type="text/css" href="/pages/css/modern-normalize.css">

@@ -444,7 +444,7 @@ echo Press 4 to export another video
 echo:
 set /p WHATTODONEXT= Option:
 if %WHATTODONEXT%==1 (
-	start %OUTPUT_PATH%\%OUTPUT_FILE%
+	start "%OUTPUT_PATH%\%OUTPUT_FILE%"
 	goto last_step
 ) else if %WHATTODONEXT%==2 (
 	start explorer.exe /select,"%OUTPUT_PATH%\%OUTPUT_FILE%"

@@ -27,6 +27,7 @@ const url = require("url");
 
 const functions = [mvL, pmc, asl, chl, thl, thL, chs, chu, cht, asL, tsl, chr, ast, mvm, mvl, mvs, mvt, tsv, asu, mvu, stp, stl];
 
+// Creates an HTTP server
 module.exports = http
 	.createServer((req, res) => {
 		try {

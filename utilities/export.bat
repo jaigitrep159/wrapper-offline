@@ -1,4 +1,9 @@
+:: W:O Video Exporting Script
+:: Author: xomdjl_#1337 (ytpmaker1000@gmail.com)
+:: License: MIT
+
 @echo off
+title Wrapper: Offline Exporting Script
 
 :: To be quite honest I had to visit some old StackOverflow threads for help on this. ~xom
 

@@ -275,6 +275,7 @@ echo recording your video. Alternatively, press Q in the FFMPEG
 echo window to also stop recording.
 echo:
 pause
+if not exist "misc\temp" ( mkdir misc\temp )
 start ffmpeg\ffmpeg.exe -rtbufsize 150M -f dshow -framerate 25 -i video="screen-capture-recorder":audio="virtual-audio-capturer" -c:v libx264 -r 25 -preset fast -tune zerolatency -crf 17 -pix_fmt yuv420p -movflags +faststart -c:a aac -ac 2 -b:a 512k -y "%TEMPPATH%"
 echo:
 echo When you're finished recording,

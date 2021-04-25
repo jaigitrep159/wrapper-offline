@@ -48,22 +48,6 @@ Some members of the original team have asked to not be given credit, and they ha
 
 Developers will have (D) on their name, to show they are officially working on Wrapper: Offline. Beta testers will have (B) on their name to show that they are beta testers for Wrapper: Offline. Contributors will have (C) on their name to show that they are making contributions to Wrapper: Offline by sharing some of their files with us. Everyone else has simply contributed something at some point.
 Wrapper: Offline credits:
-<<<<<<< Updated upstream
-| Name             | Contribution                                           |
-| ---------------- | -------------------------------------------------------|
-| Benson (D)       | Wrapper: Offline                                       |
-| NathanSaturnBOİ  | Logo                                                   |
-| Blukas/GoTube (D)| Import idea, Mega Comedy World 2                       |
-| VisualPlugin     | Text to speech voices                                  |
-| xomdjl_ (PL) (D) | VFProxy, Text to speech voices                         |
-| creepyjokes2000  | Waveform fix, improved actions                         |
-| JoshAnimate      | Headgear fix                                           |
-| RegularSpark (D) | Fixing 1.2.3 to actually work, truncated themelist     |
-| KrisAnimate      | Chromium parameter                                     |
-| narutofan420 (D) | W:O installer and updater                              |
-| 2Epik4u (PL) (D) | Discord rich presence                                  |
-=======
-
 
 | Name                             | Contribution                                                                                                  								          |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -82,7 +66,6 @@ Wrapper: Offline credits:
 | MegaT (C)                        | CC browser code  																																	  |
 | narutofan420                     | New CSS theme on video and theme lists, dark mode character creator  																				  |
 | Spark (D) (B)                    | Video list grid view, rewriting faq.html, other small tweaks. 																						  |
->>>>>>> Stashed changes
 
 These are unaffiliated people that they haven't directly done anything for the project (and probably don't even know it exists) but still deserve credit for their things. Kinda like a shoutout but in a project's readme. ***Please do not contact them about Wrapper: Offline.***
 

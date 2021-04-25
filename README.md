@@ -41,8 +41,8 @@ Original Wrapper credits:
 | ------------ | -------------------- |
 | VisualPlugin (C) | GoAnimate Wrapper    |
 | xomdjl_ (D)      | Custom/Modded Assets |
-| CLarramore (D)   | Bug fixes            |
-| Poley Magik   | Asset Recreation     |
+| mommadomma (D)   | Bug fixes            |
+| It'sJay   | Asset Recreation     |
 
 Some members of the original team have asked to not be given credit, and they have been removed.
 
@@ -52,10 +52,10 @@ Wrapper: Offline credits:
 | Name                             | Contribution                                                                                                  								          |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Benson (D)                       | Wrapper: Offline                                                                                                    							      |
-| Poley Magik                   | CC Toon adventure, Expanded Color Palette, Head props and wearables and much more.     														      |
+| It'sJay (D)                   | CC Toon adventure, Expanded Color Palette, Head props and wearables and much more.     														      |
 | NathanSaturnBOİ	                        | Logo                                                                                                                   							  |
 | VisualPlugin (C)                 | Text to speech voices, background importing, tons of bug fixes and more  											    							  |
-| CLarramore (D) (B) 		       | Various bug fixes and development for some of the features 																						  |
+| mommadomma (D) (B) 		       | Various bug fixes and development for some of the features 																						  |
 | **xomdjl_** (D)         	       | Lead developer for v1.3.0 and onward, export script, pick a theme page, implementing the Flashpoint version of Basilisk browser, TTS voices and more |                                                            |
 | creepyjokes2000 (D)        	   | Waveform fix, improved actions                                                                                         							  |
 | JoshAnimate                 	   | Headgear fix                                                                                                           							  |

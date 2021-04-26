@@ -686,7 +686,7 @@ if !ADMINREQUIRED!==y (
 	color 20
 	if !VERBOSEWRAPPER!==n ( cls )
 	echo:
-	echo Dependencies needing Admin now installed^^!
+	echo Dependencies needing Admin now installed^!
 	echo:
 	echo Wrapper: Offline no longer needs Admin rights,
 	echo please restart normally by double-clicking.
@@ -704,7 +704,7 @@ if !ADMINREQUIRED!==y (
 	exit
 )
 color 0f
-echo All dependencies now installed^^! Continuing with Wrapper: Offline boot.
+echo All dependencies now installed^! Continuing with Wrapper: Offline boot.
 echo:
 
 :skip_dependency_install
@@ -802,7 +802,7 @@ if !INCLUDEDCHROMIUM!==n (
 )
 )
 
-echo Wrapper: Offline has been started^^! The video list should now be open.
+echo Wrapper: Offline has been started^! The video list should now be open.
 
 ::::::::::::::::
 :: Post-Start ::
@@ -819,7 +819,7 @@ popd
 echo Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) running
 echo A project from VisualPlugin adapted by the Wrapper: Offline Team
 echo:
-if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
+if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^! Use the quit option ^(0^) when you're done. )
 if !VERBOSEWRAPPER!==y ( echo Verbose mode is on, see the two extra CMD windows for extra output. )
 if !DRYRUN!==y ( echo Don't forget, nothing actually happened, this was a dry run. )
 if !JUSTIMPORTED!==y ( echo Note: You'll need to reload the editor for your file to appear. )
@@ -910,21 +910,21 @@ if /i "!choice!"=="watch benson on youtube" goto w_a_t_c_h
 if /i "!choice!"=="browser slayer" goto slayerstestaments
 if /i "!choice!"=="patch" goto patchtime
 if /i "!choice!"=="random" goto sayarandom
-if /i "!choice!"=="grounded" echo OH OH OH OH OH OH OH OH OH OH OH OH OH OH OH OH^^!^^!^^!^^!^^!^^!^^! %USERNAME%, HOW DARE YOU TYPE "GROUNDED" INTO START_WRAPPER.BAT^^!^^!^^! THAT'S IT^^! YOU'RE GROUNDED GROUNDED GROUNDED GROUNDED FOR %RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM% YEARS^^!^^!^^!^^!^^!^^!^^!^^!^^!^^!^^! GO TO YOUR ROOM RIGHT FREAKING NOW^^!^^!^^! & goto wrapperidle
+if /i "!choice!"=="grounded" echo OH OH OH OH OH OH OH OH OH OH OH OH OH OH OH OH^!^!^!^!^!^!^! %USERNAME%, HOW DARE YOU TYPE "GROUNDED" INTO START_WRAPPER.BAT^!^!^! THAT'S IT^! YOU'RE GROUNDED GROUNDED GROUNDED GROUNDED FOR %RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM% YEARS^!^!^!^!^!^!^!^!^!^!^! GO TO YOUR ROOM RIGHT FREAKING NOW^!^!^! & goto wrapperidle
 if /i "!choice!"=="die please" echo die please & goto wrapperidle
 if /i "!choice!"=="goanimate city" start https://discord.gg/goanimate & goto wrapperidle
 if /i "!choice!"=="spark" echo you suck at development & goto wrapperidle
-if /i "!choice!"=="wrapper 2" echo what is wrapper 2 doing in wrapper offline? get them out of here^^! & goto wrapperidle
+if /i "!choice!"=="wrapper 2" echo what is wrapper 2 doing in wrapper offline? get them out of here^! & goto wrapperidle
 if /i "!choice!"=="fire" echo kindle fire on the iphone
 if /i "!choice!"=="32k" echo i'm gonna kill you with the 32k pasho watch the fuck out & goto wrapperidle
 if /i "!choice!"=="6" echo 6 DIAMOND CHESTPLATES WHAT & goto wrapperidle
 if /i "!choice!"=="gotest334" echo Enough & goto wrapperidle
 if /i "!choice!"=="indian" echo 'that's all those indians can do they just think about colors all day' - Blukas's Dad & goto wrapperidle
-if /i "!choice!"=="the sex show" echo time to cumz^^! & goto wrapperidle
+if /i "!choice!"=="the sex show" echo time to cumz^! & goto wrapperidle
 if /i "!choice!"=="kenos" echo HOLY SHIT IT'S KENOS HOLY ShIT OH MY GOD & goto wrapperidle
 if /i "!choice!"=="muslim" echo Muslim Banker supports your decision to type 'muslim' & goto wrapperidle
 if /i "!choice!"=="build 18" echo fuck you & goto wrapperidle
-if /i "!choice!"=="christmas jones" echo ragein gagein thinks he's so smart, i'll- i'll copyright your livestreams and you'- you'll get taken down^^! & goto wrapperidle
+if /i "!choice!"=="christmas jones" echo ragein gagein thinks he's so smart, i'll- i'll copyright your livestreams and you'- you'll get taken down^! & goto wrapperidle
 if /i "!choice!"=="icy" echo you're being hacked by me and the esa gang right now & goto wrapperidle
 if /i "!choice!"=="horny" echo horny wrapper devs & goto wrapperidle
 :: dev options

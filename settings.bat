@@ -679,7 +679,7 @@ if %errorLevel% == 0 (
 	echo Opening FlashPatch...
 	start utilities\FlashPatch.exe
 	PING -n 4 127.0.0.1>nul
-	echo Started FlashPatch^^!
+	echo Started FlashPatch^!
 	echo:
 	pause
 	echo FlashPatch was already run.>%tmp%\flashpatchocxWO.txt

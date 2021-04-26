@@ -1290,7 +1290,7 @@ title candypaper nointernet PATCHED edition
 color 43
 echo OH MY GODDDDD
 PING -n 3 127.0.0.1>nul
-echo SWEETSSHEET LACKOFINTERNS PATCHED DETECTED^^!^^!^^!^^!^^!^^!^^!^^!^^!^^!^^!^^!
+echo SWEETSSHEET LACKOFINTERNS PATCHED DETECTED^!^!^!^!^!^!^!^!^!^!^!^!
 PING -n 3 127.0.0.1>nul
 echo can never be use again...
 PING -n 4 127.0.0.1>nul

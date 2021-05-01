@@ -24,6 +24,10 @@ set OUTPUT_FILE=%OUTPUT_FILENAME%.mp4
 SETLOCAL ENABLEDELAYEDEXPANSION
 set SUBSCRIPT=y
 call config.bat
+set FINDMOVIEIDCHOICE=""
+set CONTFAILRENDER=""
+set BROWSERCHOICE=""
+set ISVIDEOWIDE=0
 if not exist "ffmpeg\ffmpeg.exe" ( goto error )
 if not exist "avidemux\avidemux.exe" ( goto error )
 if "%RESTARTVALUE%"=="1" (
@@ -88,6 +92,7 @@ echo Press 3 to find it in the video list on the included Chromium
 echo Press 4 to find it in the video list on the included Basilisk
 echo Press 5 if you already have your movie ID ready
 echo:
+:MovieChoice
 set /p FINDMOVIEIDCHOICE= Choice:
 goto findMovieId
 
@@ -117,7 +122,7 @@ if %FINDMOVIEIDCHOICE%==1 (
 ) else if %FINDMOVIEIDCHOICE%==3 (
 	echo:
 	echo Opening the video list in the included Chromium...
-	start ungoogled-chromium\chrome.exe --allow-outdated-plugins --app="http://localhost:%PORT%"
+	start ungoogled-chromium\chromium.exe --allow-outdated-plugins --app="http://localhost:%PORT%"
 	echo:
 	echo Please enter your movie ID when found.
 	echo It should be in this format: m-%RANDOM%
@@ -138,7 +143,12 @@ if %FINDMOVIEIDCHOICE%==1 (
 	echo It should be in this format: m-%RANDOM%
 	echo:
 	set /p MOVIEID= Movie ID: 
+) else (
+	echo You must choose a valid option.
+	echo:
+	goto MovieChoice
 )
+
 echo:
 echo Are you continuing a failed render?
 echo:
@@ -196,6 +206,7 @@ echo Press 1 if it's meant to be widescreen.
 echo Press 2 if it's meant to be standard.
 echo:
 :iswidereask
+set ISWIDEPROMPT=0
 set /p ISWIDEPROMPT= Is Wide?:
 if %ISWIDEPROMPT%==1 (
 	set WIDTH=1920
@@ -214,6 +225,7 @@ echo Press 1 if you left off at Step 2 (Avidemux)
 echo Press 2 if you left off at Step 3 (Encoding)
 echo:
 :whichstepreask
+set WHICHSTEP=""
 set /p WHICHSTEP= Option: 
 echo:
 if %WHICHSTEP%==1 (
@@ -242,7 +254,7 @@ echo Press 1 for Basilisk
 echo Press 2 for Chromium
 echo Press 3 for your custom set browser
 echo Press 4 for your default browser
-echo:
+:BrowserSelect
 set /p BROWSERCHOICE= Browser:
 echo:
 if %BROWSERCHOICE%==1 (
@@ -252,7 +264,7 @@ if %BROWSERCHOICE%==1 (
 ) else if %BROWSERCHOICE%==2 (
 	echo Opening your movie in Chromium...
 	PING -n 3 127.0.0.1>nul
-	start ungoogled-chromium\chrome.exe --allow-outdated-plugins --app="http://localhost:%PORT%/recordWindow?movieId=%MOVIEID%&isWide=%ISWIDE%"
+	start ungoogled-chromium\chromium.exe --allow-outdated-plugins --app="http://localhost:%PORT%/recordWindow?movieId=%MOVIEID%&isWide=%ISWIDE%"
 ) else if %BROWSERCHOICE%==3 (
 	echo Opening your movie in your custom set browser...
 	PING -n 3 127.0.0.1>nul
@@ -264,7 +276,7 @@ if %BROWSERCHOICE%==1 (
 ) else (
 	echo You're supposed to pick which browser to use. Try again.
 	echo:
-	set /p BROWSERCHOICE= Browser:
+	goto BrowserSelect
 )
 
 echo:
@@ -328,12 +340,18 @@ echo:
 echo Press 1 if it's widescreen. ^(1920x1080^)
 echo Press 2 if it's standard. ^(1680x1080^)
 echo:
+:VideoWideSelect
 set /p ISVIDEOWIDE= Which One?:
 if %ISVIDEOWIDE%==1 (
 	set WIDTH=1920
 ) else if %ISVIDEOWIDE%==2 (
 	set WIDTH=1680
+) else (
+	echo You must choose either widescreen or standard.
+	echo:
+	goto VideoWideSelect
 )
+
 echo:
 echo How much would you like to increase
 echo or decrease the volume?

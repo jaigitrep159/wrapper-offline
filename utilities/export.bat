@@ -321,7 +321,10 @@ echo For convenience, we'd recommend saving it to
 echo the utilities\misc\temp folder with the name
 echo "rewriteable.avi".
 echo:
-set /p GOTO_STEP3= Press Enter to go to the next step.
+echo When finished with this step, press any key to continue
+echo to the next step.
+echo:
+pause
 goto render_step3
 
 :render_step3
@@ -335,6 +338,7 @@ echo and then press Enter.
 echo:
 set /p FFMPEGINPUT= AVI:
 echo:
+cls
 echo Is the video widescreen ^(16:9^) or standard ^(14:9^)?
 echo:
 echo Press 1 if it's widescreen. ^(1920x1080^)
@@ -353,6 +357,7 @@ if %ISVIDEOWIDE%==1 (
 )
 
 echo:
+cls
 echo How much would you like to increase
 echo or decrease the volume?
 echo:
@@ -363,6 +368,7 @@ echo by 1.5.
 echo:
 set /p VOLUME= Volume:
 echo:
+cls
 echo Would you like the outro?
 echo:
 echo By default, the outro is on.
@@ -372,6 +378,71 @@ echo Otherwise, press 0.
 echo:
 set /p OUTRO= Response:
 echo:
+cls
+if %DEVMODE%==y (
+	echo ^(Developer mode-exclusive option^)
+	if exist "misc\OriginalOutro16by9.ts" (
+		echo It looks like you still have a custom outro
+		echo being used.
+		echo:
+		echo Would you like to reset the outro back to the
+		echo default one?
+		echo:
+		echo Press 1 if you'd like to reset it.
+		echo Otherwise, press Enter.
+		echo:
+		set /p RESETOUTRO= Response: 
+		echo:
+		if %RESETOUTRO%==1 (
+			pushd misc
+			if not exist "retired_outros" ( mkdir retired_outros )
+			ren Outro16by9.ts RetiredOutro.ts
+			set "last=0"
+			set "filename=retired_outros\RetiredOutro.ts"
+			if exist "retired_outros\RetiredOutro.ts" (
+				for /R %%i in ("retired_outros\RetiredOutro(*).ts") do (
+					for /F "tokens=2 delims=(^)" %%a in ("%%i") do if %%a GTR !last! set "last=%%a"
+				)
+				set/a last+=1
+				set "filename=retired_outros\RetiredOutro(!last!).ts"    
+			)
+			move "RetiredOutro.ts" "%filename%"
+			ren OriginalOutro16by9.ts Outro16by9.ts
+			echo The outro has been resetted back to default.
+			echo:
+			pause
+		)
+		cls
+	)
+	echo Would you like to use a custom outro
+	echo or the default outro?
+	echo:
+	echo Press 1 if you'd like to use a custom outro.
+	echo Otherwise, press Enter.
+	echo:
+	echo ^(Please note this will only affect the TS copy of the
+	echo 16:9 outro. For the 14:9 outro and the MP4 copies, you 
+	echo will have to take care of that manually.^)
+	echo:
+	set /p CUSTOMOUTROCHOICE= Response: 
+	echo:
+	cls
+	if %CUSTOMOUTROCHOICE%==1 (
+		echo Drag the path to your custom outro in here.
+		echo:
+		set /p CUSTOMOUTRO= Path: 
+		echo:
+		cls
+		pushd misc
+		ren Outro16by9.ts OriginalOutro16by9.ts
+		echo Encoding outro to compatible H.264/AAC .TS file with FFMPEG...
+		PING -n 3 127.0.0.1>nul
+		start ffmpeg\ffmpeg.exe -i "%CUSTOMOUTRO%" -vcodec h264 -acodec aac -y "%OUTRO169%"
+		echo Custom outro successfully encoded and added!
+		echo:
+		pause
+	)
+)
 echo Where would you like to output to?
 echo Press Enter to output to the utilities\renders folder.
 echo:

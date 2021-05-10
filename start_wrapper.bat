@@ -25,6 +25,12 @@ goto noerror_location
 :error_location
 echo Doesn't seem like this script is in a Wrapper: Offline folder.
 pause && exit
+:devmodeerror
+echo Ooh, sorry. You have to have developer mode on
+echo in order to access these features.
+echo:
+echo Please turn developer mode on, then try again.
+goto wrapperidle
 :noerror_location
 
 :: patch detection
@@ -928,9 +934,16 @@ if /i "!choice!"=="christmas jones" echo ragein gagein thinks he's so smart, i'l
 if /i "!choice!"=="icy" echo you're being hacked by me and the esa gang right now & goto wrapperidle
 if /i "!choice!"=="horny" echo horny wrapper devs & goto wrapperidle
 :: dev options
-if /i "!choice!"=="amnesia" goto wipe_save
-if /i "!choice!"=="restart" goto restart
-if /i "!choice!"=="folder" goto open_files
+if !DEVMODE!==y (
+	if /i "!choice!"=="amnesia" goto wipe_save
+	if /i "!choice!"=="restart" goto restart
+	if /i "!choice!"=="folder" goto open_files
+)
+if !DEVMODE!==n (
+	if /i "!choice!"=="amnesia" goto devmodeerror
+	if /i "!choice!"=="restart" goto devmodeerror
+	if /i "!choice!"=="folder" goto devmodeerror
+)
 echo Time to choose. && goto wrapperidle
 
 :reopen_webpage

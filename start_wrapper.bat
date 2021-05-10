@@ -29,7 +29,7 @@ pause && exit
 echo Ooh, sorry. You have to have developer mode on
 echo in order to access these features.
 echo:
-echo Please turn developer mode on, then try again.
+echo Please turn developer mode on in the settings, then try again.
 goto wrapperidle
 :noerror_location
 

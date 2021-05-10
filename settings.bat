@@ -18,6 +18,13 @@ goto noerror_location
 :error_location
 echo Doesn't seem like this script is in the Wrapper: Offline folder.
 goto end
+:devmodeerror
+echo Ooh, sorry. You have to have developer mode on
+echo in order to access these features.
+echo:
+echo Please turn developer mode on, then try again.
+echo:
+goto reaskoptionscreen
 :noerror_location
 
 :: Prevents CTRL+C cancelling and keeps window open when crashing
@@ -467,14 +474,6 @@ if !DEVMODE!==n (
 	if /i "!choice!"=="D4" ( goto devmodeerror )
 	if /i "!choice!"=="?D4" ( goto devmodeerror )
 )
-
-:devmodeerror
-echo Ooh, sorry. You have to have developer mode on
-echo in order to access these features.
-echo:
-echo Please turn developer mode on, then try again.
-echo:
-goto reaskoptionscreen
 
 if !DEVMODE!==y (
 	if /i "!choice!"=="D1" (

@@ -730,27 +730,27 @@ if !VERBOSEWRAPPER!==y (
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 		echo:
 		echo Closing any essential batch-scripts being run...
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq http-server" /T>nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq npm start" /T >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq HTTP-SERVER HASN'T STARTED" /T>nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq NODE.JS HASN'T STARTED YET" /T >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq VFProxy PHP Launcher for Wrapper: Offline" /T >nul 2>&1 )
 	) else (
 		echo Closing any existing node apps...
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		echo Closing any essential batch-scripts being run...
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq http-server" /T>nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq npm start" /T >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq HTTP-SERVER HASN'T STARTED" /T>nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq NODE.JS HASN'T STARTED YET" /T >nul 2>&1 )
 	)
 ) else (
 	if !CEPSTRAL!==n (
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq http-server" /T>nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq npm start" /T >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq HTTP-SERVER HASN'T STARTED" /T>nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq NODE.JS HASN'T STARTED YET" /T >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq VFProxy PHP Launcher for Wrapper: Offline" /T >nul 2>&1 )
 	) else (
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq http-server" /T>nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq npm start" /T >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq HTTP-SERVER HASN'T STARTED" /T>nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /F /FI "WindowTitle eq NODE.JS HASN'T STARTED YET" /T >nul 2>&1 )
 	)
 )
 
@@ -1099,8 +1099,8 @@ goto wrapperidle
 
 :restart
 TASKKILL /IM node.exe /F >nul 2>&1
-TASKKILL /F /FI "WindowTitle eq http-server" /T>nul 2>&1 )
-TASKKILL /F /FI "WindowTitle eq npm start" /T >nul 2>&1 )
+TASKKILL /F /FI "WindowTitle eq HTTP-SERVER HASN'T STARTED" /T>nul 2>&1 )
+TASKKILL /F /FI "WindowTitle eq NODE.JS HASN'T STARTED YET" /T >nul 2>&1 )
 if !CEPSTRAL!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 if !CEPSTRAL!==n ( TASKKILL /F /FI "WindowTitle eq VFProxy PHP Launcher for Wrapper: Offline" /T >nul 2>&1 )
 start "" /wait /B "%~F0" point_insertion

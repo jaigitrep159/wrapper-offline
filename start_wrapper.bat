@@ -1099,7 +1099,10 @@ goto wrapperidle
 
 :restart
 TASKKILL /IM node.exe /F >nul 2>&1
+TASKKILL /F /FI "WindowTitle eq http-server" /T>nul 2>&1 )
+TASKKILL /F /FI "WindowTitle eq npm start" /T >nul 2>&1 )
 if !CEPSTRAL!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
+if !CEPSTRAL!==n ( TASKKILL /F /FI "WindowTitle eq VFProxy PHP Launcher for Wrapper: Offline" /T >nul 2>&1 )
 start "" /wait /B "%~F0" point_insertion
 exit
 

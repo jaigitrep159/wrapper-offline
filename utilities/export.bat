@@ -28,7 +28,6 @@ set FINDMOVIEIDCHOICE=""
 set CONTFAILRENDER=""
 set BROWSERCHOICE=""
 set VF=""
-set WATERMARKARGS=""
 set ISVIDEOWIDE=0
 if not exist "ffmpeg\ffmpeg.exe" ( goto error )
 if not exist "avidemux\avidemux.exe" ( goto error )

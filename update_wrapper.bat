@@ -21,15 +21,15 @@ if "%GITPULL%"=="1" (
 		set GITPULL=
 	) else (
 		cls
-		pushd utilities
-		ren config.bat tmpcfg.bat
-		popd
 		echo Pulling latest version of repository from GitHub through Git...
 		PING -n 4 127.0.0.1>nul
+		pushd "utilities"
+		ren "config.bat" "tmpcfg.bat"
+		popd
 		call git pull
-		pushd utilities
-		del config.bat
-		ren tmpcfg.bat config.bat
+		pushd "utilities"
+		del "config.bat"
+		ren "tmpcfg.bat" "config.bat"
 		popd
 		echo:
 		echo Latest version of repository pulled^!

@@ -732,8 +732,6 @@ if !VERBOSEWRAPPER!==y (
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 		echo:
-		echo Closing any essential batch-scripts being run...
-		echo:
 	) else (
 		echo Closing any existing node apps and batch processes...
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )

@@ -15,6 +15,7 @@ set /p GITPULL= Option:
 if "%GITPULL%"=="1" (
 		cls
 		echo Checking for Git installation...
+		echo:
 		if not exist "%PROGRAMFILES%\Git" (
 			if not exist "%PROGRAMFILES(X86)%\Git" (
 				echo Could not detect Git in Program Files folders.
@@ -24,27 +25,33 @@ if "%GITPULL%"=="1" (
 				echo:
 				IF "%output%" EQU "" (
 					echo Okay, there's no sign of Git ANYWHERE on this computer.
-					echo:
+					PING -n 4 127.0.0.1>nul
 					echo That means YOU MUST HAVE INSTALLED THIS INCORRECTLY!
-					echo:
+					PING -n 4 127.0.0.1>nul
 					set GITPULL=""
 				) else (
 					echo The command-line worked, therefore Git is installed.
+					echo:
 				)
 			)
 		) else (
 			echo Git was detected in one of the Program Files folders, therefore it is installed.
 			echo:
 		)
+		echo Saving custom settings in temporary file...
+		pushd utilities
+		copy config.bat tmpcfg.bat>nul
+		popd
+		echo:
 		echo Pulling latest version of repository from GitHub through Git...
 		PING -n 4 127.0.0.1>nul
-		pushd "utilities"
-		ren "config.bat" "tmpcfg.bat"
-		popd
+		echo:
 		call git pull
-		pushd "utilities"
-		del "config.bat"
-		ren "tmpcfg.bat" "config.bat"
+		echo:
+		echo Deleting config.bat from repository and replacing it with user's copy...
+		pushd utilities
+		del config.bat
+		ren tmpcfg.bat config.bat
 		popd
 		echo:
 		echo Latest version of repository pulled^!

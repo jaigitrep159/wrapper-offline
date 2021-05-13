@@ -59,12 +59,16 @@ if "%GITPULL%"=="1" (
 								cls
 								goto update
 							)
+						) else (
+							goto nosignofgit
+						)
 					)
 					:nosignofgit
 					echo Okay, there's no sign of Git ANYWHERE on this computer.
 					PING -n 4 127.0.0.1>nul
 					echo That means YOU MUST HAVE INSTALLED THIS INCORRECTLY!
 					PING -n 4 127.0.0.1>nul
+					set GIT=n
 					goto noupdate
 				) else (
 					set GIT=y

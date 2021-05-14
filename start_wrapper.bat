@@ -4,6 +4,7 @@
 set SUBSCRIPT=y
 call utilities\metadata.bat
 cls
+set SUBSCRIPT=n
 title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Initializing...]
 
 ::::::::::::::::::::
@@ -1243,6 +1244,12 @@ echo You must answer Yes or No. && goto exitwrapperretry
 title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down...]
 
 :: Shut down Node.js, PHP and http-server
+
+:: Copies config.bat first to make sure nothing goes wrong
+pushd utilities
+copy config.bat tmpcfg.bat>nul
+popd
+
 if !VERBOSEWRAPPER!==y (
 	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
@@ -1263,11 +1270,6 @@ if !VERBOSEWRAPPER!==y (
 	)
 	echo:
 ) else (
-	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul )
-	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul )
-	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
-		if !DRYRUN!==n ( TASKKILL /FI WINDOWTITLE eq %%i" >nul )
-	)
 	if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
 	if !DRYRUN!==n ( 
 		if !CEPSTRAL!==n ( 
@@ -1283,6 +1285,12 @@ if !VERBOSEWRAPPER!==y (
 		)
 	)
 )
+
+:: Puts config.bat back to normal
+pushd utilities
+del config.bat
+ren tmpcfg.bat config.bat
+popd
 
 :: This is where I get off.
 echo Wrapper: Offline has been shut down.

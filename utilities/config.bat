@@ -8,7 +8,7 @@ if "%SUBSCRIPT%"=="" ( start notepad.exe "%CD%\%~nx0" & exit )
 endlocal
 
 :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n
-set VERBOSEWRAPPER=n
+set VERBOSEWRAPPER=y
 
 :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n
 set SKIPCHECKDEPENDS=y
@@ -43,15 +43,3 @@ set DEVMODE=n
 
 :: Tells settings.bat which port the frontend is hosted on. (If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json) Default: 4343
 set PORT=4343
-SUCCESS: The process "node.exe" with PID 8472 has been terminated.
-SUCCESS: The process "node.exe" with PID 4424 has been terminated.
-SUCCESS: The process "node.exe" with PID 11700 has been terminated.
-SUCCESS: The process "php.exe" with PID 5156 has been terminated.
-SUCCESS: Sent termination signal to the process "chromium.exe" with PID 13260.
-SUCCESS: Sent termination signal to the process "chromium.exe" with PID 9768.
-SUCCESS: Sent termination signal to the process "chromium.exe" with PID 1252.
-SUCCESS: Sent termination signal to the process "chromium.exe" with PID 9560.
-Wrapper: Offline has been shut down.
-This window will now close.
-Open start_wrapper.bat again to start W:O again.
-Press any key to continue . . . 

@@ -733,33 +733,31 @@ title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Loading...]
 if !VERBOSEWRAPPER!==y (
 	if !CEPSTRAL!==n (
 		echo Closing any existing node and/or PHP apps and batch processes...
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1 )
+		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
+		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 		echo:
 	) else (
 		echo Closing any existing node apps and batch processes...
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
+		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET) do (
+			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
+		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		echo:
 	)
 ) else (
 	if !CEPSTRAL!==n (
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1 )
+		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
+		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 	) else (
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
+		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET) do (
+			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
+		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 	)
 )
@@ -1250,13 +1248,8 @@ title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down...]
 
 :: Shut down Node.js, PHP and http-server
 if !VERBOSEWRAPPER!==y (
-	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
-	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
-	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
-	if !DRYRUN!==n ( 
-		if !CEPSTRAL!==n ( 
-			TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1
-		)
+	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 	)
 	if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 	if !DRYRUN!==n ( 
@@ -1276,10 +1269,8 @@ if !VERBOSEWRAPPER!==y (
 ) else (
 	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul )
 	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul )
-	if !DRYRUN!==n ( 
-		if !CEPSTRAL!==n ( 
-			TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul
-		)
+	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+		if !DRYRUN!==n ( TASKKILL /FI WINDOWTITLE eq %%i" >nul )
 	)
 	if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
 	if !DRYRUN!==n ( 
@@ -1312,15 +1303,15 @@ PING -n 3 127.0.0.1>nul
 color 9b
 echo BEWEWEWEWWW PSSHHHH KSHHHHHHHHHHHHHH
 PING -n 3 127.0.0.1>nul
-TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1
-TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1
+for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
+)
 TASKKILL /IM node.exe /F >nul 2>&1
 echo NODE DOT JS ANNIHILATED
 PING -n 3 127.0.0.1>nul
 if !CEPSTRAL!==n (
-	TASKKILL /FI "VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1
 	TASKKILL /IM php.exe /F >nul 2>&1
-	echo PHP DESTROYED
+	echo PHP DESTROYED....MAYBE...THE BATCH WINDOW WAS ALREADY DESTROYED
 	PING -n 3 127.0.0.1>nul
 )
 if !INCLUDEDCHROMIUM!==y (

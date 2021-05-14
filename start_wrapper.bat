@@ -749,15 +749,9 @@ if !VERBOSEWRAPPER!==y (
 	)
 ) else (
 	if !CEPSTRAL!==n (
-		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
-			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
-		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 	) else (
-		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET) do (
-			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
-		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 	)
 )
@@ -1106,11 +1100,13 @@ goto wrapperidle
 :: flows straight to restart below
 
 :restart
-TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
-TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
-if !CEPSTRAL!==n ( TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1 )
 TASKKILL /IM node.exe /F >nul 2>&1
 if !CEPSTRAL!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
+if !VERBOSEWRAPPER!==y (
+	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+		TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1
+	)
+)
 start "" /wait /B "%~F0" point_insertion
 exit
 

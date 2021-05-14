@@ -1160,7 +1160,6 @@ echo set CEPSTRAL=n>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Opens Offline in an included copy of Basilisk, sourced from BlueMaxima's Flashpoint.>> utilities\config.bat
 echo :: Allows continued use of Flash as modern browsers disable it. Default: n>> utilities\config.bat
-echo:>> utilities\config.bat
 echo set INCLUDEDBASILISK=n>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Makes it so both the settings and the Wrapper launcher shows developer options. Default: n>> utilities\config.bat
@@ -1168,7 +1167,8 @@ echo set DEVMODE=n>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> utilities\config.bat
 echo set PORT=4343>> utilities\config.bat
-goto optionscreen
+start "%CD%\%~nx0"
+exit
 
 :end
 endlocal

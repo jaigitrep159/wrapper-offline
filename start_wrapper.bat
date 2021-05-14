@@ -1307,7 +1307,7 @@ for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T 
 	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 )
 TASKKILL /IM node.exe /F >nul 2>&1
-echo NODE DOT JS ANNIHILATED
+echo NODE DOT JS ANNIHILATED....I THINK
 PING -n 3 127.0.0.1>nul
 if !CEPSTRAL!==n (
 	TASKKILL /IM php.exe /F >nul 2>&1

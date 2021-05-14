@@ -1,5 +1,6 @@
 :: Wrapper: Offline Metadata
-:: Important variables for things like the version number
+:: Important useful variables that are displayed by start_wrapper.bat
+:: You probably shouldn't touch this. This only exists to make things easier for the devs everytime we go up a build number or something like that.
 
 :: Opens this file in Notepad when run
 setlocal

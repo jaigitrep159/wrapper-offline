@@ -36,7 +36,6 @@ set CEPSTRAL=n
 
 :: Opens Offline in an included copy of Basilisk, sourced from BlueMaxima's Flashpoint.
 :: Allows continued use of Flash as modern browsers disable it. Default: n
-
 set INCLUDEDBASILISK=n
 
 :: Makes it so both the settings and the Wrapper launcher shows developer options. Default: n

@@ -1245,7 +1245,7 @@ title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down...]
 
 :: Shut down Node.js, PHP and http-server
 
-:: Copies config.bat first to make sure nothing goes wrong
+:: Copies config.bat first in case for whatever reason this messes it up (it's happened before trust me)
 pushd utilities
 copy config.bat tmpcfg.bat>nul
 popd

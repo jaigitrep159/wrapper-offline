@@ -1,9 +1,10 @@
 :: Wrapper: Offline Launcher
 :: Author: benson#0411
 :: License: MIT
-set WRAPPER_VER=1.3.0
-set WRAPPER_BLD=18
-title Wrapper: Offline v%WRAPPER_VER% ^(build %WRAPPER_BLD%^) [Initializing...]
+set SUBSCRIPT=y
+call utilities\metadata.bat
+cls
+title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Initializing...]
 
 ::::::::::::::::::::
 :: Initialization ::
@@ -734,6 +735,7 @@ if !VERBOSEWRAPPER!==y (
 		echo Closing any existing node and/or PHP apps and batch processes...
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
@@ -742,6 +744,7 @@ if !VERBOSEWRAPPER!==y (
 		echo Closing any existing node apps and batch processes...
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		echo:
 	)
@@ -749,12 +752,14 @@ if !VERBOSEWRAPPER!==y (
 	if !CEPSTRAL!==n (
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 	) else (
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
+		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 	)
 )
@@ -1247,6 +1252,7 @@ title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down...]
 if !VERBOSEWRAPPER!==y (
 	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq http-server" >nul 2>&1 )
 	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm start" >nul 2>&1 )
+	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq npm" >nul 2>&1 )
 	if !DRYRUN!==n ( 
 		if !CEPSTRAL!==n ( 
 			TASKKILL /FI "WINDOWTITLE eq VFProxy PHP Launcher for Wrapper: Offline" >nul 2>&1

@@ -221,7 +221,7 @@ if !DEVMODE!==y (
 	) else ( 
 		echo ^(D4^) Localhost port for Wrapper: Offline frontend is[91m !PORT! [0m
 	)
-	echo ^(D5^) Reset all the settings back to default
+	echo ^(D5^) Reset all the settings in config.bat back to default
 )
 :reaskoptionscreen
 echo:
@@ -527,11 +527,11 @@ if !DEVMODE!==y (
 	)
 	if /i "!choice!"=="D5" goto resetconfig
 	if /i "!choice!"=="?D5" (
-		echo Something might happen to config.bat which could totally screw
+		echo Something could happen to config.bat which could totally screw
 		echo the settings up.
 		echo:
-		echo Choosing this feature will COMPLETELY reset the settings back to
-		echo the default values.
+		echo Choosing this feature will COMPLETELY reset the settings that are
+		echo in config.bat back to the default values.
 		echo:
 		echo This is not recommended unless either a dev is using this to
 		echo reset it before publishing an update, config.bat went missing
@@ -1121,6 +1121,35 @@ goto optionscreen
 :: Reset Config ::
 ::::::::::::::::::
 :resetconfig
+echo This will COMPLETELY reset all the important settings back to the default.
+echo:
+echo Your settings will be located in the WrapperOffline
+echo folder in Documents if you choose to backup the
+echo settings.
+echo:
+echo This will not affect things like debug mode,
+echo dark mode, waveforms, watermarks or things like that.
+echo:
+echo Would you like to backup your settings?
+echo:
+echo Press 1 if you'd like to.
+echo Otherwise, press Enter.
+echo:
+set /p BACKUPCONFIGRES= Response:
+if "!backupconfigres!"=="1" (
+	if exist "!onedrive!" ( 
+		set DOCUMENTSPATH=!onedrive!\Documents
+	) else (
+		set DOCUMENTSPATH=!userprofile!\Documents
+	)
+	pushd !documentspath!
+	if not exist "WrapperOffline" ( mkdir WrapperOffline )
+	popd
+	copy "utilities\config.bat" "!documentspath!\WrapperOffline\config_backup.bat" /y
+)
+echo:
+echo Resetting settings...
+PING -n 4 127.0.0.1>nul
 if exist utilities\config.bat ( del utilities\config.bat )
 echo :: Wrapper: Offline Config>> utilities\config.bat
 echo :: This file is modified by settings.bat. It is not organized, but comments for each setting have been added.>> utilities\config.bat
@@ -1167,7 +1196,7 @@ echo set DEVMODE=n>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> utilities\config.bat
 echo set PORT=4343>> utilities\config.bat
-start "%CD%\%~nx0"
+start "" "%CD%\%~nx0"
 exit
 
 :end

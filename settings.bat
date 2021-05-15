@@ -1196,8 +1196,8 @@ echo set DEVMODE=n>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> utilities\config.bat
 echo set PORT=4343>> utilities\config.bat
-start "" "%CD%\%~nx0"
-exit
+cls
+%0
 
 :end
 endlocal

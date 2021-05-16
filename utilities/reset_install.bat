@@ -34,6 +34,7 @@ if exist "patch.jpg" echo why reset something patched && pause && exit
 
 :: Predefine variables
 set WRAPRESET=n
+set ERROR_DELBASILISK=n
 set ERROR_DELCACHE=n
 set ERROR_DELCHECKS=n
 set ERROR_DELCHROME=n
@@ -63,6 +64,11 @@ echo: && echo: && echo:
 color cf
 echo Are you ABSOLUTELY sure you wish to do this?
 echo You are entirely responsible for losing your videos.
+echo:
+echo ^(Before proceeding with this, you should probably
+echo run the included backup tool to backup any videos,
+echo characters and imported assets, then place that folder
+echo elsewhere so that you can put them back in later.^)
 echo:
 echo Type y to reset Offline, and n to close this script.
 :resetconfirmretry2
@@ -101,7 +107,7 @@ echo :: You should be using settings.bat, and not touching this. Offline relies 
 echo:>> utilities\config.bat
 echo :: Opens this file in Notepad when run>> utilities\config.bat
 echo setlocal>> utilities\config.bat
-echo if "%%SUBSCRIPT%%"=="" ( pushd "%~dp0" ^& start notepad.exe config.bat ^& exit )>> utilities\config.bat
+echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> utilities\config.bat
 echo endlocal>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n>> utilities\config.bat
@@ -128,11 +134,28 @@ echo:>> utilities\config.bat
 echo :: Runs through all of the scripts code, while never launching or installing anything. Useful for development. Default: n>> utilities\config.bat
 echo set DRYRUN=n>> utilities\config.bat
 echo:>> utilities\config.bat
+echo :: Makes it so it uses the Cepstral website instead of VFProxy. Default: n>> utilities\config.bat
+echo set CEPSTRAL=n>> utilities\config.bat
+echo:>> utilities\config.bat
+echo :: Opens Offline in an included copy of Basilisk, sourced from BlueMaxima's Flashpoint.>> utilities\config.bat
+echo :: Allows continued use of Flash as modern browsers disable it. Default: n>> utilities\config.bat
+echo set INCLUDEDBASILISK=n>> utilities\config.bat
+echo:>> utilities\config.bat
+echo :: Makes it so both the settings and the Wrapper launcher shows developer options. Default: n>> utilities\config.bat
+echo set DEVMODE=n>> utilities\config.bat
+echo:>> utilities\config.bat
+echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> utilities\config.bat
+echo set PORT=4343>> utilities\config.bat
+echo:>> utilities\config.bat
 
 :: Reset Chromium profile
 rd /q /s utilities\ungoogled-chromium\the_profile || set ERROR_DELCHROME=y
 md utilities\ungoogled-chromium\the_profile
 robocopy utilities\ungoogled-chromium\the_profile_initial utilities\ungoogled-chromium\the_profile /E
+
+:: Reset Basilisk profile
+rd /q /s utilities\basilisk\Basilisk-Portable\User\Basilisk\Profiles\Default || set ERROR_DELBASILISK=y
+md utilities\basilisk\Basilisk-Portable\User\Basilisk\Profiles\Default
 
 :: Reset SilentCMD (unnecessary but might as well)
 del /q /s utilities\SilentCMD.exe.config || set ERROR_DELSILENTCMD=y
@@ -144,13 +167,11 @@ md import || set ERROR_DELIMPORT=y & goto skipimportreset
 pushd import
 echo ^<?xml version="1.0" encoding="utf-8"?^> >>theme.xml
 echo ^<theme id="import" name="Imported Assets" cc_theme_id="import"^> >>theme.xml
-echo ^<^^!--Sorry that there's no indenting, I couldn't get the import script to keep that.--^> >>theme.xml
-echo ^<^^!--Also, be sure to leave a blank line before ^<theme^>, otherwise the import script breaks.--^> >>theme.xml
-echo ^<char id="327068788" name="the benson apparition" cc_theme_id="family" thumbnail_url="char-default.png" copyable="Y"^> >>theme.xml
-echo ^<tags^>family,every,copy,of,wrapper,offline,is,_free,software,but,is,also,_cat:personalized^</tags^> >>theme.xml
-echo ^</char^> >>theme.xml
+echo 	^<char id="327068788" name="the benson apparition" cc_theme_id="family" thumbnail_url="char-default.png" copyable="Y"^> >>theme.xml
+echo 	^<tags^>family,every,copy,of,wrapper,offline,is,_free,software,but,is,also,_cat:personalized^</tags^> >>theme.xml
+echo 	^</char^> >>theme.xml
 echo:>>theme.xml
-echo ^</theme^> >>theme.xml
+echo 	^</theme^> >>theme.xml
 popd
 utilities\7za.exe a "server\store\3a981f5cb2739137\import\import.zip" "server\store\3a981f5cb2739137\import\theme.xml" >nul || set ERROR_DELIMPORT=y & goto skipimportreset
 del /q /s utilities\import_these || set ERROR_DELIMPORT=y & goto skipimportreset
@@ -184,6 +205,11 @@ if !ERROR_DELCHROME!==n (
 ) else (
 	echo Chromium profile could not be deleted.
 )
+if !ERROR_DELBASILISK!==n (
+	echo Basilisk profile successfully deleted.
+) else (
+	echo Basilisk profile could not be deleted.
+)
 if !ERROR_DELSILENTCMD!==n (
 	echo SilentCMD config successfully deleted.
 ) else (
@@ -195,7 +221,7 @@ if !ERROR_DELIMPORT!==n (
 	echo Imported assets could not be deleted.
 )
 echo:
-echo Remember to remove any leftover dev files too, assuming you're a dev.
+echo Remember to remove any leftover dev files too or place them elsewhere, assuming you're a dev.
 
 :end
 if "%SUBSCRIPT%"=="" (

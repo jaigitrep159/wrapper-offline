@@ -171,7 +171,7 @@ echo 	^<char id="327068788" name="the benson apparition" cc_theme_id="family" th
 echo 	^<tags^>family,every,copy,of,wrapper,offline,is,_free,software,but,is,also,_cat:personalized^</tags^> >>theme.xml
 echo 	^</char^> >>theme.xml
 echo:>>theme.xml
-echo 	^</theme^> >>theme.xml
+echo ^</theme^> >>theme.xml
 popd
 utilities\7za.exe a "server\store\3a981f5cb2739137\import\import.zip" "server\store\3a981f5cb2739137\import\theme.xml" >nul || set ERROR_DELIMPORT=y & goto skipimportreset
 del /q /s utilities\import_these || set ERROR_DELIMPORT=y & goto skipimportreset

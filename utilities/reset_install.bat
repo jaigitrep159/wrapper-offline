@@ -65,10 +65,6 @@ color cf
 echo Are you ABSOLUTELY sure you wish to do this?
 echo You are entirely responsible for losing your videos.
 echo:
-echo ^(Before proceeding with this, you should probably
-echo run the included backup tool to backup any videos,
-echo characters and imported assets, then place that folder
-echo elsewhere so that you can put them back in later.^)
 echo:
 echo Type y to reset Offline, and n to close this script.
 :resetconfirmretry2
@@ -81,10 +77,38 @@ if /i '%resetchoice%'=='yes' goto dothereset
 if /i '%resetchoice%'=='no' exit
 goto resetconfirmretry2
 
+:backuptoolconfirm
+color 0f
+echo Before we proceed, would you like to run the
+echo backup tool to backup all your personal
+echo files, like the stuff in your _SAVED folder
+echo or the stuff you've imported? [Y/n]
+echo:
+:backuptoolconfirmretry
+set /p BACKUPCHOICE= Response:
+echo:
+if not '%backupchoice%'=='' set backupchoice=%backupchoice:~0,1%
+if /i '%backupchoice%'=='y' (
+	:launchbackuptool
+	start backup_and_restore.bat
+	echo After doing the backup, please move the folder
+	echo somewhere else outside of the Wrapper: Offline
+	echo directory in case this batch file accidentally
+	echo deletes the backup.
+	echo:
+	pause
+	goto dothereset
+)
+if /i '%backupchoice%'=='n' ( goto dothereset )
+if /i '%backupchoice%'=='yes' ( goto launchbackuptool )
+if /i '%backupchoice%'=='no' ( goto dothereset )
+goto backuptoolconfirmretry
+
 :dothereset
 
-color 0f
 set WRAPRESET=y
+echo The reset will start in exactly 10 seconds...
+PING -n 11 127.0.0.1>nul
 
 :: Reset _SAVED folder
 set count=0
@@ -92,6 +116,7 @@ pushd wrapper\_SAVED
 FOR /f "delims=" %%i IN ('attrib.exe ./*.* ^| find /v "File not found - " ^| find /c /v ""') DO SET FILE_COUNT=%%i
 popd
 start powershell -ExecutionPolicy RemoteSigned -File "wrapper\delete.ps1" -min "%FILE_COUNT%" || set ERROR_DELSAVE=y
+if not exist "wrapper\_SAVED\_NO_REMÖVE ( copy NUL "wrapper\_SAVED\_NO_REMÖVE" )
 
 :: Reset _CACHE folder
 rd /q /s wrapper\_CACHÉ || set ERROR_DELCACHE=y

@@ -894,9 +894,11 @@ if !DEVMODE!==y (
 	echo Type "amnesia" to wipe your save.
 	echo Type "restart" to restart Wrapper: Offline.
 	echo Type "folder" to open the files.
-	if !CONFIGURE!==y (
-		echo Type "open cmd" to open an additional CMD window for debugging and experiments if
-		echo you already closed the one that opened. ^(Must have verbose mode on^)
+	if !VERBOSEWRAPPER!==y (
+		if !CONFIGURE!==y (
+			echo Type "open cmd" to open an additional CMD window for debugging and experiments if
+			echo you already closed the one that opened. ^(Must have verbose mode on^)
+		)
 	)
 )
 echo:
@@ -1117,10 +1119,16 @@ title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
 goto wrapperstartedcls
 
 :launchcmd
-echo Launching the additional CMD window...
-pushd utilities
-start configure_wrapper.bat
-popd
+if !VERBOSEWRAPPER!==y (
+	echo Launching the additional CMD window...
+	pushd utilities
+	start configure_wrapper.bat
+	popd
+) else (
+	echo Sorry man, I can't open this window unless
+	echo you have developer mode, verbose mode and
+	echo configure all enabled.
+)
 goto wrapperidle
 
 :youfuckoff

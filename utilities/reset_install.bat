@@ -87,8 +87,11 @@ color 0f
 set WRAPRESET=y
 
 :: Reset _SAVED folder
-rd /q /s wrapper\_SAVED || set ERROR_DELSAVE=y
-md wrapper\_SAVED
+set count=0
+pushd wrapper\_SAVED
+for %%A in (*) do set /a count+=1
+popd
+call powershell -ExecutionPolicy RemoteSigned -File "wrapper\delete.ps1" -min "%count%" || set ERROR_DELSAVE=y
 
 :: Reset _CACHE folder
 rd /q /s wrapper\_CACHÉ || set ERROR_DELCACHE=y

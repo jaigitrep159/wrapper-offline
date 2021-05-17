@@ -89,8 +89,7 @@ set WRAPRESET=y
 :: Reset _SAVED folder
 set count=0
 pushd wrapper\_SAVED
-FOR /f "delims=" %%i IN ('attrib.exe ./*.* ^| find /v "File not found - " ^| find /c /v ""') DO SET myVar=%%i
-set /a FILE_COUNT=%myVar%-1
+FOR /f "delims=" %%i IN ('attrib.exe ./*.* ^| find /v "File not found - " ^| find /c /v ""') DO SET FILE_COUNT=%%i
 popd
 start powershell -ExecutionPolicy RemoteSigned -File "wrapper\delete.ps1" -min "%FILE_COUNT%" || set ERROR_DELSAVE=y
 

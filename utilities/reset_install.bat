@@ -71,9 +71,9 @@ echo Type y to reset Offline, and n to close this script.
 set /p RESETCHOICE= Response:
 echo:
 if not '%resetchoice%'=='' set resetchoice=%resetchoice:~0,1%
-if /i '%resetchoice%'=='y' goto dothereset
+if /i '%resetchoice%'=='y' goto backuptoolconfirm
 if /i '%resetchoice%'=='n' exit
-if /i '%resetchoice%'=='yes' goto dothereset
+if /i '%resetchoice%'=='yes' goto backuptoolconfirm
 if /i '%resetchoice%'=='no' exit
 goto resetconfirmretry2
 
@@ -116,12 +116,12 @@ pushd wrapper\_SAVED
 FOR /f "delims=" %%i IN ('attrib.exe ./*.* ^| find /v "File not found - " ^| find /c /v ""') DO SET FILE_COUNT=%%i
 popd
 start powershell -ExecutionPolicy RemoteSigned -File "wrapper\delete.ps1" -min "%FILE_COUNT%" || set ERROR_DELSAVE=y
-if not exist "wrapper\_SAVED\_NO_REMÖVE ( copy NUL "wrapper\_SAVED\_NO_REMÖVE" )
+if not exist "wrapper\_SAVED\_NO_REMÖVE" ( copy NUL "wrapper\_SAVED\_NO_REMÖVE">nul )
 
 :: Reset _CACHE folder
 rd /q /s wrapper\_CACHÉ || set ERROR_DELCACHE=y
 md wrapper\_CACHÉ
-copy NUL "wrapper\_CACHÉ\_NO_REMÖVE"
+copy NUL "wrapper\_CACHÉ\_NO_REMÖVE">nul
 
 :: Reset checks folder
 rd /q /s utilities\checks || set ERROR_DELCHECKS=y

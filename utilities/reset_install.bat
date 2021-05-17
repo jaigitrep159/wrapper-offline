@@ -128,7 +128,7 @@ rd /q /s utilities\checks || set ERROR_DELCHECKS=y
 md utilities\checks
 
 :: Reset settings
-del /q /s utilities\config.bat || set ERROR_DELCONFIG=y
+del /q /s utilities\config.bat>nul || set ERROR_DELCONFIG=y
 echo :: Wrapper: Offline Config>> utilities\config.bat
 echo :: This file is modified by settings.bat. It is not organized, but comments for each setting have been added.>> utilities\config.bat
 echo :: You should be using settings.bat, and not touching this. Offline relies on this file remaining consistent, and it's easy to mess that up.>> utilities\config.bat
@@ -201,7 +201,7 @@ echo 	^</char^> >>theme.xml
 echo:>>theme.xml
 echo ^</theme^> >>theme.xml
 popd
-utilities\7za.exe a "server\store\3a981f5cb2739137\import\import.zip" "server\store\3a981f5cb2739137\import\theme.xml" >nul || set ERROR_DELIMPORT=y & goto skipimportreset
+call utilities\7za.exe a "server\store\3a981f5cb2739137\import\import.zip" "server\store\3a981f5cb2739137\import\theme.xml" >nul || set ERROR_DELIMPORT=y & goto skipimportreset
 del /q /s utilities\import_these || set ERROR_DELIMPORT=y & goto skipimportreset
 md utilities\import_these || set ERROR_DELIMPORT=y & goto skipimportreset
 :skipimportreset

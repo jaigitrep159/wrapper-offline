@@ -91,7 +91,8 @@ if "%GITPULL%"=="1" (
 		popd
 		echo Saving imported assets to temporary files...
 		pushd server\store\3a981f5cb2739137
-		call utilities\7za.exe a importarchive.zip import\>nul
+		call utilities\7za.exe a "utilities\importarchive.zip" .\server\store\3a981f5cb2739137\import\*>nul
+		popd
 		echo Pulling latest version of repository from GitHub through Git...
 		PING -n 4 127.0.0.1>nul
 		echo:
@@ -106,9 +107,9 @@ if "%GITPULL%"=="1" (
 		pushd server\store\3a981f5cb2739137
 		rd /q /s import
 		md import
-		move "importarchive.zip" "import\">nul
+		move "utilities\importarchive.zip" %cd%\import>nul
 		pushd import
-		call utilities\7za.exe e importarchive.zip -y>nul
+		call utilities\7za.exe e "importarchive.zip" -y>nul
 		del importarchive.zip>nul
 		popd
 		del "wrapper\_THEMES\import.xml">nul

@@ -670,13 +670,14 @@ if !DEVMODE!==y (
 			pause
 			goto optionscreen
 		)
-		if /i "!choice!"=="?D7" (
-			echo Importing settings allows you to use another person's settings.
-			echo Exporting settings allows you to share your settings with another person.
-			echo:
-			echo Simple as that. 'Nuff said.
-			goto reaskoptionscreen
-		)
+	)
+	if /i "!choice!"=="?D7" (
+		echo Importing settings allows you to use another person's settings.
+		echo Exporting settings allows you to share your settings with another person.
+		echo:
+		echo Simple as that. 'Nuff said.
+		goto reaskoptionscreen
+	)
 			
 )
 if "!choice!"=="clr" goto optionscreen

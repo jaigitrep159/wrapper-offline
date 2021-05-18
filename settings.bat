@@ -1047,6 +1047,9 @@ if exist "server\characters\characters.zip" (
     echo:
     start utilities\7za.exe e "server\characters\characters.zip" -o"server\characters"
     echo The extraction process should be starting now.
+	echo:
+	echo Please leave both this window and the other window open, otherwise
+	echo it could fail hard.
     tasklist /FI "IMAGENAME eq 7za.exe" 2>NUL | find /I /N 7za.exe">NUL
 	if "!errorlevel!"=="0" (
 		echo:>nul

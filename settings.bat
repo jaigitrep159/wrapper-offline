@@ -8,6 +8,13 @@ title Wrapper: Offline Settings Script
 :: Initialize (stop command spam, clean screen, make variables work, set to UTF-8)
 @echo off && cls
 SETLOCAL ENABLEDELAYEDEXPANSION
+if exist "!onedrive!\Documents" (
+	set PATHTOEXPORTEDCONFIG=!onedrive!\Documents
+) else (
+	set PATHTOEXPORTEDCONFIG=!userprofile!\Documents
+)
+set CONFIGNAME1=%username%_config
+set CONFIGNAME=%CONFIGNAME1%.bat
 
 :: Move to base folder, and make sure it worked (otherwise things would go horribly wrong)
 pushd "%~dp0"
@@ -227,6 +234,7 @@ if !DEVMODE!==y (
 	) else (
 		echo ^(D6^) Using configure_wrapper.bat is[91m OFF [0m
 	)
+	echo ^(D7^) Import/export config.bat settings
 )
 :reaskoptionscreen
 echo:
@@ -564,6 +572,112 @@ if !DEVMODE!==y (
 		echo mostly having to do with things like Node.js or http-server.
 		goto reaskoptionscreen
 	)
+	if /i "!choice!"=="D7" (
+		echo Would you like to import a settings file
+		echo or export your settings?
+		echo:
+		echo Press 1 if you would like to import settings.
+		echo Press 2 if you would like to export settings.
+		echo:
+		:settinginexretry
+		set /p SETTINGSRES= Response:
+		if "!settingsres!"=="1" (
+			echo How would you like to import the settings file?
+			echo:
+			echo Press 1 if you'd like to drag it into the window and overwrite.
+			echo Press 2 if you'd like to drag it into the utilities folder and overwrite.
+			echo Press 3 if you already imported it but haven't restarted this window.
+			echo:
+			:importmethodretry
+			set /p IMPORTMETHODRES= Response: 
+			if "!importmethodres!"=="1" (
+				echo Drag your batch file in here.
+				echo:
+				echo ^(No need to worry about renaming it, it does that
+				echo in the copying to the directory.^)
+				echo:
+				:configpathreask
+				set /p CONFIGPATH= Path: 
+				for %%b in !CONFIGPATH! ( set EXT=%%~nxb )
+				if "!ext!"==.bat (
+					del utilities\config.bat>nul
+					copy "!configpath!" "utilities\config.bat">nul
+					echo Settings imported.
+					echo:
+					echo Press any key to refresh the settings.
+					pause
+					%0
+				) else (
+					echo Invalid file. Only *.bat is supported.
+					echo:
+					goto configpathreask
+				)
+			)
+			if "!importmethodres!"=="2" (
+				echo Opening the utilities folder...
+				start explorer.exe "%CD%\utilities"
+				echo Drag your settings in the folder.
+				echo:
+				echo If it's also named "config.bat", say yes to overwriting.
+				echo:
+				echo Otherwise, if it's named something else, delete "config.bat",
+				echo move the file in here and rename it to "config.bat".
+				echo:
+				echo The name MUST be "config.bat" OR ELSE none of the important
+				echo stuff in the launcher and stuff will work at all.
+				echo:
+				echo When finished importing the settings, you may press any key to
+				echo refresh the settings screen.
+				echo:
+				pause
+				%0
+			)
+			if "!importmethodres!"=="3" ( %0 )
+		)
+		if "!settingsres!"=="2" (
+			echo You have chosen to export your settings.
+			echo:
+			echo Would you like to name your settings file
+			echo something else?
+			echo:
+			echo If not, press Enter to name it %CONFIGNAME1%.
+			echo:
+			echo ^(You do not need to add ".bat", it does that automatically.^)
+			set /p CONFIGNAME1= Name: 
+			echo:
+			echo Would you like to export your settings somewhere
+			echo else?
+			echo:
+			echo If not, press Enter to save it to the WrapperOffline
+			echo folder in the Documents folder.
+			echo:
+			set /p PATHTOEXPORTEDCONFIG= Path:
+			echo:
+			if "!pathtoexportedconfig!"=="!onedrive!\Documents" (
+				if not exist "!pathtoexportedconfig!\WrapperOffline" ( mkdir "!pathtoexportedconfig!\WrapperOffline" )
+			)
+			if "!pathtoexportedconfig!"=="!userprofile!\Documents" (
+				if not exist "!pathtoexportedconfig!\WrapperOffline" ( mkdir "!pathtoexportedconfig!\WrapperOffline" )
+			)
+			copy "utilities\config.bat" "!pathtoexportedconfig!\!configname!">nul
+			echo:
+			if !VERBOSEWRAPPER!==n (
+				echo Settings exported to specified path.
+			) else (
+				echo Settings exported to directory "!pathtoexportedconfig!" with filename "!configname!".
+			)
+			echo:
+			pause
+			goto optionscreen
+		)
+		if /i "!choice!"=="?D7" (
+			echo Importing settings allows you to use another person's settings.
+			echo Exporting settings allows you to share your settings with another person.
+			echo:
+			echo Simple as that. 'Nuff said.
+			goto reaskoptionscreen
+		)
+			
 )
 if "!choice!"=="clr" goto optionscreen
 if "!choice!"=="cls" goto optionscreen

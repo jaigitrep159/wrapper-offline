@@ -90,14 +90,10 @@ if "%GITPULL%"=="1" (
 		copy config.bat tmpcfg.bat>nul
 		popd
 		echo Saving imported assets to temporary files...
-		pushd server\store\3a981f5cb2739137
-		call utilities\7za.exe a "utilities\importarchive.zip" .\server\store\3a981f5cb2739137\import\*>nul
-		popd
+		call utilities\7za.exe a "utilities\misc\temp\importarchive.zip" .\server\store\3a981f5cb2739137\import\*>nul
 		echo Pulling latest version of repository from GitHub through Git...
 		PING -n 4 127.0.0.1>nul
-		echo:
 		call git pull
-		echo:
 		echo Deleting config.bat from repository and replacing it with user's copy...
 		pushd utilities
 		del config.bat
@@ -107,13 +103,11 @@ if "%GITPULL%"=="1" (
 		pushd server\store\3a981f5cb2739137
 		rd /q /s import
 		md import
-		move "utilities\importarchive.zip" %cd%\import>nul
-		pushd import
-		call utilities\7za.exe e "importarchive.zip" -y>nul
-		del importarchive.zip>nul
 		popd
+		call utilities\7za.exe e "utilities\misc\temp\importarchive.zip" -o"server\store\3a981f5cb2739137\import" -y>nul
+		del utilities\misc\temp\importarchive.zip>nul
 		del "wrapper\_THEMES\import.xml">nul
-		copy "server\store\3a981f5cb2739137\theme.xml" "wrapper\_THEMES\import.xml">nul
+		copy "server\store\3a981f5cb2739137\import\theme.xml" "wrapper\_THEMES\import.xml">nul
 		echo Latest version of repository pulled^^!
 		echo:
 		pause & exit

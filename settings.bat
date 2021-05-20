@@ -598,7 +598,7 @@ if !DEVMODE!==y (
 				echo:
 				:configpathreask
 				set /p CONFIGPATH= Path: 
-				for %%b in !CONFIGPATH! ( set EXT=%%~nxb )
+				for %%b in !configpath! do ( set EXT=%%~nxb )
 				if "!ext!"==.bat (
 					del !cfg!>nul
 					copy "!configpath!" "!cfg!">nul

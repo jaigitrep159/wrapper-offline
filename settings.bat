@@ -600,8 +600,8 @@ if !DEVMODE!==y (
 				set /p CONFIGPATH= Path: 
 				for %%b in !CONFIGPATH! ( set EXT=%%~nxb )
 				if "!ext!"==.bat (
-					del utilities\config.bat>nul
-					copy "!configpath!" "utilities\config.bat">nul
+					del !cfg!>nul
+					copy "!configpath!" "!cfg!">nul
 					echo Settings imported.
 					echo:
 					echo Press any key to refresh the settings.
@@ -659,7 +659,7 @@ if !DEVMODE!==y (
 			if "!pathtoexportedconfig!"=="!userprofile!\Documents" (
 				if not exist "!pathtoexportedconfig!\WrapperOffline" ( mkdir "!pathtoexportedconfig!\WrapperOffline" )
 			)
-			copy "utilities\config.bat" "!pathtoexportedconfig!\!configname!">nul
+			copy "!cfg!" "!pathtoexportedconfig!\!configname!">nul
 			echo:
 			if !VERBOSEWRAPPER!==n (
 				echo Settings exported to specified path.
@@ -670,6 +670,7 @@ if !DEVMODE!==y (
 			pause
 			goto optionscreen
 		)
+		if "!settingsres!"=="" ( echo You must select a valid option. && goto settinginexretry )
 	)
 	if /i "!choice!"=="?D7" (
 		echo Importing settings allows you to use another person's settings.
@@ -1294,61 +1295,61 @@ if "!backupconfigres!"=="1" (
 	pushd !documentspath!
 	if not exist "WrapperOffline" ( mkdir WrapperOffline )
 	popd
-	copy "utilities\config.bat" "!documentspath!\WrapperOffline\config_backup.bat" /y
+	copy "!cfg!" "!documentspath!\WrapperOffline\config_backup.bat" /y
 )
 echo:
 echo Resetting settings...
 PING -n 4 127.0.0.1>nul
-if exist utilities\config.bat ( del utilities\config.bat )
-echo :: Wrapper: Offline Config>> utilities\config.bat
-echo :: This file is modified by settings.bat. It is not organized, but comments for each setting have been added.>> utilities\config.bat
-echo :: You should be using settings.bat, and not touching this. Offline relies on this file remaining consistent, and it's easy to mess that up.>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens this file in Notepad when run>> utilities\config.bat
-echo setlocal>> utilities\config.bat
-echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> utilities\config.bat
-echo endlocal>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n>> utilities\config.bat
-echo set VERBOSEWRAPPER=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n>> utilities\config.bat
-echo set SKIPCHECKDEPENDS=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Won't install dependencies, regardless of check results. Overridden by SKIPCHECKDEPENDS. Mostly useless, why did I add this again? Default: n>> utilities\config.bat
-echo set SKIPDEPENDINSTALL=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens Offline in an included copy of ungoogled-chromium. Allows continued use of Flash as modern browsers disable it. Default: y>> utilities\config.bat
-echo set INCLUDEDCHROMIUM=y>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens INCLUDEDCHROMIUM in headless mode. Looks pretty nice. Overrides CUSTOMBROWSER and BROWSER_TYPE. Default: y>> utilities\config.bat
-echo set APPCHROMIUM=y>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens Offline in a browser of the user's choice. Needs to be a path to a browser executable in quotes. Default: n>> utilities\config.bat
-echo set CUSTOMBROWSER=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Lets the launcher know what browser framework is being used. Mostly used by the Flash installer. Accepts "chrome", "firefox", and "n". Default: n>> utilities\config.bat
-echo set BROWSER_TYPE=chrome>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Runs through all of the scripts code, while never launching or installing anything. Useful for development. Default: n>> utilities\config.bat
-echo set DRYRUN=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Makes it so it uses the Cepstral website instead of VFProxy. Default: n>> utilities\config.bat
-echo set CEPSTRAL=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens Offline in an included copy of Basilisk, sourced from BlueMaxima's Flashpoint.>> utilities\config.bat
-echo :: Allows continued use of Flash as modern browsers disable it. Default: n>> utilities\config.bat
-echo set INCLUDEDBASILISK=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Makes it so both the settings and the Wrapper launcher shows developer options. Default: n>> utilities\config.bat
-echo set DEVMODE=n>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> utilities\config.bat
-echo set PORT=4343>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Enables configure_wrapper.bat. Useful for investigating things like problems with Node.js or http-server. Default: n>> utilities\config.bat
-echo set CONFIGURE=n>> utilities\config.bat
-echo:>> utilities\config.bat
+del !cfg!
+echo :: Wrapper: Offline Config>> !cfg!
+echo :: This file is modified by settings.bat. It is not organized, but comments for each setting have been added.>> !cfg!
+echo :: You should be using settings.bat, and not touching this. Offline relies on this file remaining consistent, and it's easy to mess that up.>> !cfg!
+echo:>> !cfg!
+echo :: Opens this file in Notepad when run>> !cfg!
+echo setlocal>> !cfg!
+echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> !cfg!
+echo endlocal>> !cfg!
+echo:>> !cfg!
+echo :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n>> !cfg!
+echo set VERBOSEWRAPPER=n>> !cfg!
+echo:>> !cfg!
+echo :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n>> !cfg!
+echo set SKIPCHECKDEPENDS=n>> !cfg!
+echo:>> !cfg!
+echo :: Won't install dependencies, regardless of check results. Overridden by SKIPCHECKDEPENDS. Mostly useless, why did I add this again? Default: n>> !cfg!
+echo set SKIPDEPENDINSTALL=n>> !cfg!
+echo:>> !cfg!
+echo :: Opens Offline in an included copy of ungoogled-chromium. Allows continued use of Flash as modern browsers disable it. Default: y>> !cfg!
+echo set INCLUDEDCHROMIUM=y>> !cfg!
+echo:>> !cfg!
+echo :: Opens INCLUDEDCHROMIUM in headless mode. Looks pretty nice. Overrides CUSTOMBROWSER and BROWSER_TYPE. Default: y>> !cfg!
+echo set APPCHROMIUM=y>> !cfg!
+echo:>> !cfg!
+echo :: Opens Offline in a browser of the user's choice. Needs to be a path to a browser executable in quotes. Default: n>> !cfg!
+echo set CUSTOMBROWSER=n>> !cfg!
+echo:>> !cfg!
+echo :: Lets the launcher know what browser framework is being used. Mostly used by the Flash installer. Accepts "chrome", "firefox", and "n". Default: n>> !cfg!
+echo set BROWSER_TYPE=chrome>> !cfg!
+echo:>> !cfg!
+echo :: Runs through all of the scripts code, while never launching or installing anything. Useful for development. Default: n>> !cfg!
+echo set DRYRUN=n>> !cfg!
+echo:>> !cfg!
+echo :: Makes it so it uses the Cepstral website instead of VFProxy. Default: n>> !cfg!
+echo set CEPSTRAL=n>> !cfg!
+echo:>> !cfg!
+echo :: Opens Offline in an included copy of Basilisk, sourced from BlueMaxima's Flashpoint.>> !cfg!
+echo :: Allows continued use of Flash as modern browsers disable it. Default: n>> !cfg!
+echo set INCLUDEDBASILISK=n>> !cfg!
+echo:>> !cfg!
+echo :: Makes it so both the settings and the Wrapper launcher shows developer options. Default: n>> !cfg!
+echo set DEVMODE=n>> !cfg!
+echo:>> !cfg!
+echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> !cfg!
+echo set PORT=4343>> !cfg!
+echo:>> !cfg!
+echo :: Enables configure_wrapper.bat. Useful for investigating things like problems with Node.js or http-server. Default: n>> !cfg!
+echo set CONFIGURE=n>> !cfg!
+echo:>> !cfg!
 cls
 %0
 

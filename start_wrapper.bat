@@ -551,6 +551,8 @@ if !NODEJS_DETECTED!==n (
 			echo:
 			if "!whatsystem!"=="1" set CPU_ARCHITECTURE=32
 			if "!whatsystem!"=="2" set CPU_ARCHITECTURE=64
+			if "!whatsystem!"=="32" echo Wasn't exactly the kind of response I was asking for but I'll take it anyways. & echo: & pause & set CPU_ARCHITECTURE=32
+			if "!whatsystem!"=="64" echo Wasn't exactly the kind of response I was asking for but I'll take it anyways. & echo: pause & set CPU_ARCHITECTURE=64			
 			if "!whatsystem!"=="" echo That's an invalid option. Please try again. && goto whatsystemreask
 		)
 		if "!cpuchoice!"=="3" echo Node.js will not be installed. && goto after_nodejs_install

@@ -35,6 +35,7 @@ goto metacopy
 :returnfrommetacopy
 if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may be in a read-only system/admin folder. & pause & exit )
 call utilities\metadata.bat
+goto noerror_location
 :devmodeerror
 echo Ooh, sorry. You have to have developer mode on
 echo in order to access these features.

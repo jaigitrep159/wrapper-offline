@@ -14,8 +14,7 @@ echo Otherwise, press any key.
 echo:
 set /p GITPULL= Option:
 if "%GITPULL%"=="1" (
-	cls
-	if "%SKIPCHECKDEPENDS%"=="n" (
+		cls
 		echo Checking for Git installation...
 		echo:
 		if not exist "%PROGRAMFILES%\Git" (
@@ -110,7 +109,8 @@ if "%GITPULL%"=="1" (
 		copy "server\store\3a981f5cb2739137\import\theme.xml" "wrapper\_THEMES\import.xml">nul
 		echo Latest version of repository pulled^^!
 		echo:
-		pause & exit
+		pause
+		goto end
 	)
 ) else (
 	set GIT=n
@@ -132,5 +132,8 @@ if "%GIT%"=="n" (
 	echo COME BACK, ONE YEAR^^!
 	PING -n 4 127.0.0.1>nul
 	echo:
-	pause & exit
+	pause
 )
+
+:end
+echo:

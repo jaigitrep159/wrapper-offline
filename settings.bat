@@ -140,58 +140,54 @@ if exist "wrapper\pages\css\global-dark.css" if not exist "wrapper\pages\html\_O
 if exist "wrapper\pages\html\_OLDLISTVIEW.txt" (
 	echo Dark mode cannot be enabled on the classic Video List.
 )
-:: Rich presence
-if exist "wrapper\main-norpc.js" (
-	echo ^(8^) Discord rich presence is[92m ON [0m
-) else ( 
-	echo ^(8^) Discord rich presence is[91m OFF [0m
-)
 :: Video Lists
 if exist "wrapper\pages\html\_LISTVIEW.txt" (
-	echo ^(9^) View on the video list is set to[91m List [0m
+	echo ^(8^) View on the video list is set to[91m List [0m
 )
 if exist "wrapper\pages\html\_GRIDVIEW.txt" (
-	echo ^(9^) View on the video list is set to[91m Grid [0m
+	echo ^(8^) View on the video list is set to[91m Grid [0m
 )
 if exist "wrapper\pages\html\_OLDLISTVIEW.txt" (
-	echo ^(9^) View on the video list is set to[91m Classic List [0m
+	echo ^(8^) View on the video list is set to[91m Classic List [0m
 )
 :: Watermark
 if exist "wrapper\static\info-nowatermark.json" (
-	echo ^(10^) Wrapper: Offline watermark is[92m ON [0m
+	echo ^(9^) Wrapper: Offline watermark is[92m ON [0m
 ) else ( 
-	echo ^(10^) Wrapper: Offline watermark is[91m OFF [0m
+	echo ^(9^) Wrapper: Offline watermark is[91m OFF [0m
 )
 :: Truncated themelist
 if exist "wrapper\_THEMES\_themelist-allthemes.xml" (
-	echo ^(11^) Truncated themelist is[92m ON [0m
+	echo ^(10^) Truncated themelist is[92m ON [0m
 ) else ( 
-	echo ^(11^) Truncated themelist is[91m OFF [0m
+	echo ^(10^) Truncated themelist is[91m OFF [0m
 )
 :: Cepstral
 if exist "wrapper\tts\info-cepstral.json" (
-	echo ^(12^) Provider for Cepstral/VoiceForge voices is[92m VFProxy [0m
+	echo ^(11^) Provider for Cepstral/VoiceForge voices is[92m VFProxy [0m
 	if exist "wrapper\tts\main-seamus.js" (
-		echo     ^(13^) VFProxy server is[92m PHP Webserver ^(localhost:8181^) [0m
+		echo     ^(12^) VFProxy server is[92m PHP Webserver ^(localhost:8181^) [0m
 	) else (
 		if !CEPSTRAL!==y (
-			echo     ^(13^) VFProxy server is[91m seamus-server.tk [0m
+			echo     ^(12^) VFProxy server is[91m seamus-server.tk [0m
 		)
 	)
 ) else (
 	if !CEPSTRAL!==y (
-		echo ^(12^) Provider for Cepstral/VoiceForge voices is[91m Cepstral website [0m
+		echo ^(11^) Provider for Cepstral/VoiceForge voices is[91m Cepstral website [0m
 	)
 )
 :: Developer mode
 if !DEVMODE!==y (
-	echo ^(14^) Developer mode is[92m ON [0m
+	echo ^(13^) Developer mode is[92m ON [0m
 ) else ( 
-	echo ^(14^) Developer mode is[91m OFF [0m
+	echo ^(13^) Developer mode is[91m OFF [0m
 )
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-    echo ^(15^) Original LVM character IDs are[91m OFF [0m
+    echo ^(14^) Original LVM character IDs are[91m OFF [0m
+) else (
+    echo ^(14^) Original LVM character IDs are[92m ON [0m
 )
 
 if !DEVMODE!==y (
@@ -342,27 +338,13 @@ if "!choice!"=="?7" (
 	echo Turning this off will revert Offline back to the original light theme.
 	goto reaskoptionscreen
 )
-:: Rich presence
-if "!choice!"=="8" goto rpcchange
-if "!choice!"=="?8" (
-	echo By default, Discord rich presence is enabled.
-        echo:
-	echo It's used to show when you're using Wrapper: Offline
-        echo in your "Playing A Game" status on Discord, much like
-        echo how lots of modern computer games will show on your
-        echo Discord status when you're playing them.
-        echo:
-	echo Turning this off will make Offline stop saying
-        echo when you're using it on Discord.
-	goto reaskoptionscreen
-)
 :: List/grid/oldlist view
-if "!choice!"=="9" (
+if "!choice!"=="8" (
 	if exist "wrapper\pages\html\_LISTVIEW.txt" goto gridview
 	if exist "wrapper\pages\html\_GRIDVIEW.txt" goto oldlistview
 	if exist "wrapper\pages\html\_OLDLISTVIEW.txt" goto listview
 )
-if "!choice!"=="?9" (
+if "!choice!"=="?8" (
 	echo By default, grid view is disabled.
         echo:
 	echo Most people are used to the table view, but some
@@ -375,7 +357,7 @@ if "!choice!"=="?9" (
 	goto reaskoptionscreen
 )
 :: Watermark
-if "!choice!"=="10" (
+if "!choice!"=="9" (
 	if !DEVMODE!==y (
 		echo ^(This message is only for those with Developer Mode on.^)
 		echo:
@@ -394,7 +376,7 @@ if "!choice!"=="10" (
 	)
 	goto watermarktoggle
 )
-if "!choice!"=="?10" (
+if "!choice!"=="?9" (
     echo By default, Wrapper: Offline puts a watermark in the corner of the screen to show that it was
     echo made using the software. If you do not want the watermark in the way and you need to use this
     echo software for things like media production and all that, you are free to toggle the option to
@@ -402,16 +384,16 @@ if "!choice!"=="?10" (
     goto reaskoptionscreen
 )
 :: Truncated themelist
-if "!choice!"=="11" goto allthemechange
-if "!choice!"=="?11" (
+if "!choice!"=="10" goto allthemechange
+if "!choice!"=="?10" (
 	echo Cuts down the amount of themes that clog up the themelist in the videomaker.
 	echo Keeping this off is highly suggested.
 	echo However, if you want to see everything the program has to offer, turn this on.
 	goto reaskoptionscreen
 )
 :: Cepstral
-if "!choice!"=="12" goto cepstralchange
-if "!choice!"=="?12" (
+if "!choice!"=="11" goto cepstralchange
+if "!choice!"=="?11" (
 	echo By default, Wrapper: Offline uses the included VFProxy
 	echo for the VoiceForge voices, as VoiceForge was turned
 	echo into a mobile app, causing the original API to be
@@ -428,8 +410,8 @@ if "!choice!"=="?12" (
 	echo from the actual Cepstral website's demo.
 	goto reaskoptionscreen
 )
-if "!choice!"=="13" goto vfproxyserverchange
-if "!choice!"=="?13" (
+if "!choice!"=="12" goto vfproxyserverchange
+if "!choice!"=="?12" (
 	echo This setting runs the localhost version of xomdjl_'s VFProxy.
 	echo This makes it easier to use without having to use an external server.
 	echo:
@@ -445,7 +427,7 @@ if "!choice!"=="?13" (
 	goto reaskoptionscreen
 )
 :: Check depends
-if "!choice!"=="14" (
+if "!choice!"=="13" (
 	set TOTOGGLE=DEVMODE
 	if !DEVMODE!==n (
 		set TOGGLETO=y
@@ -455,7 +437,7 @@ if "!choice!"=="14" (
 	set CFGLINE=42
 	goto toggleoption
 )
-if "!choice!"=="?14" (
+if "!choice!"=="?13" (
 	echo Wrapper: Offline is free and open-source, and a lot of folks in the community like to make mods for it.
 	echo:
 	echo Turning on developer mode will provide you with some useful features for development or making your own
@@ -466,8 +448,8 @@ if "!choice!"=="?14" (
 )
 :: Character solid archive
 if exist "server\characters\characters.zip" (
-    if "!choice!"=="15" goto extractchars
-    if "!choice!"=="?15" (
+    if "!choice!"=="14" goto extractchars
+    if "!choice!"=="?14" (
         echo When first getting Wrapper: Offline, all non-stock characters are put into a single zip file.
         echo This is because if they're all separate, extracting takes forever and is incredibly annoying.
         echo If you wish to import characters made on the LVM when it was still up and hosted by Vyond,
@@ -870,7 +852,7 @@ echo 	"THEME_FOLDER": "./_THEMES",>> !env!
 echo 	"PREMADE_FOLDER": "./_PREMADE",>> !env!
 echo 	"EXAMPLE_FOLDER": "./_EXAMPLES",>> !env!
 echo 	"WRAPPER_VER": "1.3.0",>> !env!
-echo 	"WRAPPER_BLD": "12",>> !env!
+echo 	"WRAPPER_BLD": "21",>> !env!
 echo 	"NODE_TLS_REJECT_UNAUTHORIZED": "0">> !env!
 echo }>> !env!
 set TOTOGGLE=PORT
@@ -986,24 +968,6 @@ if exist "cc-light.swf" (
 	:: enable
 	ren cc.swf cc-light.swf
 	ren cc-dark.swf cc.swf
-)
-popd
-goto optionscreen
-
-::::::::::::::::::
-:: Discord RPC  ::
-::::::::::::::::::
-:rpcchange
-echo Toggling setting...
-pushd wrapper
-if exist "main-norpc.js" (
-	:: disable
-	ren main.js main-rpc.js
-	ren main-norpc.js main.js
-) else ( 
-	:: enable
-	ren main.js main-norpc.js
-	ren main-rpc.js main.js
 )
 popd
 goto optionscreen

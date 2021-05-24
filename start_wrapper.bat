@@ -822,7 +822,7 @@ if !VERBOSEWRAPPER!==y (
 		)
 	)
 	if !DRYRUN!==n (
-		if !CONFIGURE!==n (
+		if !CONFIGURE!==y (
 			start /MIN configure_wrapper.bat
 		)
 	)

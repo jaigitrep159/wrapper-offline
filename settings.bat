@@ -13,8 +13,7 @@ if exist "!onedrive!\Documents" (
 ) else (
 	set PATHTOEXPORTEDCONFIG=!userprofile!\Documents
 )
-set CONFIGNAME1=%username%_config
-set CONFIGNAME=%CONFIGNAME1%.bat
+set CONFIGNAME=%username%_config
 
 :: Move to base folder, and make sure it worked (otherwise things would go horribly wrong)
 pushd "%~dp0"
@@ -1328,10 +1327,10 @@ cls
 			echo Would you like to name your settings file
 			echo something else?
 			echo:
-			echo If not, press Enter to name it super_config.bat.
+			echo If not, press Enter to name it !configname!.bat.
 			echo:
 			echo ^(You do not need to add ".bat", it does that automatically.^)
-			set /p CONFIGNAME1= Name: 
+			set /p CONFIGNAME= Name: 
 			echo:
 			echo Would you like to export your settings somewhere
 			echo else?
@@ -1347,12 +1346,12 @@ cls
 			if "!pathtoexportedconfig!"=="!userprofile!\Documents" (
 				if not exist "!pathtoexportedconfig!\WrapperOffline" ( mkdir "!pathtoexportedconfig!\WrapperOffline" )
 			)
-			copy "!cfg!" "!pathtoexportedconfig!\!configname1!.bat">nul
+			copy "!cfg!" "!pathtoexportedconfig!\!configname!.bat">nul
 			echo:
 			if !VERBOSEWRAPPER!==n (
 				echo Settings exported to specified path.
 			) else (
-				echo Settings exported to directory "!pathtoexportedconfig!" with filename "!configname1!.bat".
+				echo Settings exported to directory "!pathtoexportedconfig!" with filename "!configname!.bat".
 			)
 			echo:
 			pause

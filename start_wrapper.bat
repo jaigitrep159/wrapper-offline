@@ -350,8 +350,8 @@ if !ADMINREQUIRED!==y (
 			)
 			echo To do this, it must be started with Admin rights.
 			echo:
-			echo Close this window and re-open Wrapper: Offline as an Admin.
-			echo ^(right-click start_wrapper.bat and click "Run as Administrator"^)
+			echo Press any key to restart this window and accept
+			echo any admin prompts that pop up.
 			echo:
 			if !DRYRUN!==y (
 				echo ...yep, dry run is going great so far, let's skip the exit
@@ -359,12 +359,16 @@ if !ADMINREQUIRED!==y (
 				goto postadmincheck
 			)
 			pause
-			exit
+			echo Set UAC = CreateObject^("Shell.Application"^)>> %temp%\requestAdmin.vbs
+			echo UAC.ShellExecute "%~s0", "", "", "runas", 1>> %temp%\requestAdmin.vbs
+			start %temp%\requestAdmin.vbs
+			exit /B
 		)
 	)
 	if !VERBOSEWRAPPER!==y ( echo Admin rights detected. && echo:)
 )
 :postadmincheck
+if exist "%temp%\requestAdmin.vbs" ( del "%temp%\requestAdmin.vbs" )
 
 :: Flash Player
 if !FLASH_DETECTED!==n (
@@ -450,49 +454,43 @@ if !FLASH_DETECTED!==n (
 
 	if !BROWSER_TYPE!==chrome (
 		echo Starting the Clean Flash Player installer...
-		echo ^(Make sure to enable installing the PPAPI version^)
-		echo ^(If it fails due to a registry error, that's okay. It'll still work and be installed.^)
 		echo:
-		if not exist "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" (
+		if not exist "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" (
 			echo ...erm. Bit of an issue there actually. The installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You may be able to get the installer here:
-			echo https://github.com/CleanFlash/installer/releases/tag/v1.1
+			echo https://github.com/darktohka/clean-flash-builds/releases/tag/v1.6
 			echo Although Flash is needed, Offline will continue launching.
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" !INSTALL_FLAGS! /quiet )
+		if !DRYRUN!==n ( msiexec /i "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" !INSTALL_FLAGS! /quiet )
 	)
 	if !BROWSER_TYPE!==firefox (
 		echo Starting the Clean Flash Player installer...
-		echo ^(Make sure to enable installing the NPAPI version^)
-		echo ^(If it fails due to a registry error, that's okay. It'll still work and be installed.^)
-		if not exist "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" (
+		if not exist "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" (
 			echo ...erm. Bit of an issue there actually. The installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You may be able to get the installer here:
-			echo https://github.com/CleanFlash/installer/releases/tag/v1.1
+			echo https://github.com/darktohka/clean-flash-builds/releases/tag/v1.6
 			echo Although Flash is needed, Offline will continue launching.
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" !INSTALL_FLAGS! /quiet )
+		if !DRYRUN!==n ( msiexec /i "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" !INSTALL_FLAGS! /quiet )
 	)
 	if !BROWSER_TYPE!==trident (
 		echo Starting the Clean Flash Player installer...
-		echo ^(Make sure to enable installing the OCX version^)
-		echo ^(If it fails due to a registry error, that's okay. It'll still work and be installed.^)
-		if not exist "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" (
+		if not exist "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" (
 			echo ...erm. Bit of an issue there actually. The installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You may be able to get the installer here:
-			echo https://github.com/CleanFlash/installer/releases/tag/v1.1
+			echo https://github.com/darktohka/clean-flash-builds/releases/tag/v1.6
 			echo Although Flash is needed, Offline will continue launching.
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" !INSTALL_FLAGS! /quiet )
+		if !DRYRUN!==n ( msiexec /i "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" !INSTALL_FLAGS! /quiet )
 	)
 
 	echo Flash has been installed.

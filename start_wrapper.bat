@@ -684,6 +684,7 @@ if !HTTPSCERT_DETECTED!==n (
 			echo You must answer Yes or No. && goto certaskretry
 
 			:: Non-admin cert install
+			:certnonadmin
 			pushd utilities
 			start SilentCMD open_http-server.bat
 			popd

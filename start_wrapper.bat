@@ -524,7 +524,7 @@ if !NODEJS_DETECTED!==n (
 	)
 	if !CPU_ARCHITECTURE!==32 (
 		if !VERBOSEWRAPPER!==y ( echo 32-bit system detected, installing 32-bit Node.js. )
-		if not exist "utilities\installers\node_windows_x32.msi" (
+		if not exist "utilities\installers\node_windows_x86.msi" (
 			echo We have a problem. The 32-bit Node.js installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You should be able to find a copy on this website:
@@ -535,7 +535,7 @@ if !NODEJS_DETECTED!==n (
 		)
 		echo Proper Node.js installation doesn't seem possible to do automatically.
 		echo You can just keep clicking next until it finishes, and Wrapper: Offline will continue once it closes.
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x32.msi" !INSTALL_FLAGS! )
+		if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x86.msi" !INSTALL_FLAGS! )
 		goto nodejs_installed
 	)
 	if !CPU_ARCHITECTURE!==what (
@@ -556,7 +556,7 @@ if !NODEJS_DETECTED!==n (
 		:architecture_ask
 		set /p CPUCHOICE= Response:
 		echo:
-		if "!cpuchoice!"=="1" if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x32.msi" !INSTALL_FLAGS! ) && if !VERBOSEWRAPPER!==y ( echo Attempting 32-bit Node.js installation. ) && goto nodejs_installed
+		if "!cpuchoice!"=="1" if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x86.msi" !INSTALL_FLAGS! ) && if !VERBOSEWRAPPER!==y ( echo Attempting 32-bit Node.js installation. ) && goto nodejs_installed
 		if "!cpuchoice!"=="2" (
 			echo:
 			echo Press 1 if you're running Wrapper: Offline on a 32-bit system.
@@ -565,10 +565,10 @@ if !NODEJS_DETECTED!==n (
 			:whatsystemreask
 			set /p WHATSYSTEM= Response:
 			echo:
-			if "!whatsystem!"=="1" set CPU_ARCHITECTURE=32
-			if "!whatsystem!"=="2" set CPU_ARCHITECTURE=64
-			if "!whatsystem!"=="32" echo Wasn't exactly the kind of response I was asking for but I'll take it anyways. & echo: & pause & set CPU_ARCHITECTURE=32
-			if "!whatsystem!"=="64" echo Wasn't exactly the kind of response I was asking for but I'll take it anyways. & echo: & pause & set CPU_ARCHITECTURE=64			
+			if "!whatsystem!"=="1" set CPU_ARCHITECTURE=32 && if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x86.msi" !INSTALL_FLAGS! ) && if !VERBOSEWRAPPER!==y ( echo Attempting 32-bit Node.js installation. ) && goto nodejs_installed
+			if "!whatsystem!"=="2" set CPU_ARCHITECTURE=64 && if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x64.msi" !INSTALL_FLAGS! ) && if !VERBOSEWRAPPER!==y ( echo Attempting 64-bit Node.js installation. ) && goto nodejs_installed
+			if "!whatsystem!"=="32" echo Wasn't exactly the kind of response I was asking for but I'll take it anyways. && echo: && pause && set CPU_ARCHITECTURE=32 && if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x86.msi" !INSTALL_FLAGS! ) && if !VERBOSEWRAPPER!==y ( echo Attempting 32-bit Node.js installation. ) && goto nodejs_installed
+			if "!whatsystem!"=="64" echo Wasn't exactly the kind of response I was asking for but I'll take it anyways. && echo: && pause && set CPU_ARCHITECTURE=64 && if !DRYRUN!==n ( msiexec /i "utilities\installers\node_windows_x64.msi" !INSTALL_FLAGS! ) && if !VERBOSEWRAPPER!==y ( echo Attempting 32-bit Node.js installation. ) && goto nodejs_installed		
 			if "!whatsystem!"=="" echo That's an invalid option. Please try again. && goto whatsystemreask
 		)
 		if "!cpuchoice!"=="3" echo Node.js will not be installed. && goto after_nodejs_install

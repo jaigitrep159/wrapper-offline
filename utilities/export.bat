@@ -503,7 +503,7 @@ goto resetcustomoutro
 		cls
 		if %AVFILTERLIST%==1 (
 		goto filterlist
-		) else gogo filterargs (
+		) else goto filterargs (
 		)
 		
 		:filterlist

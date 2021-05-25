@@ -546,7 +546,7 @@ if !NODEJS_DETECTED!==n (
 		echo Which means it doesn't know which version of Node.js to install...
 		echo:
 		echo If you have no idea what that means, press 1 to just try anyway.
-		echoL
+		echo:
 		echo If you know what kind of architecture you're running, but Offline
 		echo didn't detect it, press 2.
 		echo:

@@ -1489,16 +1489,16 @@ goto returnfromconfigcopy
 
 :metacopy
 if not exist utilities ( md utilities )
-echo :: Wrapper: Offline Metadata>> utilities\config.bat
-echo :: Important useful variables that are displayed by start_wrapper.bat>> utilities\config.bat
-echo :: You probably shouldn't touch this. This only exists to make things easier for the devs everytime we go up a build number or something like that.>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens this file in Notepad when run>> utilities\config.bat
-echo setlocal>> utilities\config.bat
-echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> utilities\config.bat
-echo endlocal>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Version number and build number>> utilities\config.bat
-echo set WRAPPER_VER=1.3.0>> utilities\config.bat
-echo set WRAPPER_BLD=21>> utilities\config.bat
+echo :: Wrapper: Offline Metadata>> utilities\metadata.bat
+echo :: Important useful variables that are displayed by start_wrapper.bat>> utilities\metadata.bat
+echo :: You probably shouldn't touch this. This only exists to make things easier for the devs everytime we go up a build number or something like that.>> utilities\metadata.bat
+echo:>> utilities\metadata.bat
+echo :: Opens this file in Notepad when run>> utilities\metadata.bat
+echo setlocal>> utilities\metadata.bat
+echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> utilities\metadata.bat
+echo endlocal>> utilities\metadata.bat
+echo:>> utilities\metadata.bat
+echo :: Version number and build number>> utilities\metadata.bat
+echo set WRAPPER_VER=1.3.0>> utilities\metadata.bat
+echo set WRAPPER_BLD=21>> utilities\metadata.bat
 goto returnfrommetacopy

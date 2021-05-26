@@ -38,7 +38,13 @@ This changelog is based off [Keep a Changelog](https://keepachangelog.com) and ~
   - CC Browser loading Comedy World no matter what
   - The theme list page being scrambled when dark mode is off
   - A missing page error that can't be refreshed out of
-
+## Build 32
+### Added
+  - Voice clip importing workaround
+### Changed
+  - Version string format changed
+### Fixed
+  - Every single function showing everytime the export video script opens "start_wrapper.bat".
 ## Version 1.2.3 - 2021-03-06 - i am HUNGRY FOR UPDATES!!!
 ### Added
   - Character browser

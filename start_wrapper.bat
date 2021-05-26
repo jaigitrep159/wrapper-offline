@@ -4,8 +4,9 @@
 set SUBSCRIPT=y
 if not exist utilities\metadata.bat ( goto metamissing )
 call utilities\metadata.bat
+if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
 cls
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Initializing...]
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Initializing...]
 
 ::::::::::::::::::::
 :: Initialization ::
@@ -141,7 +142,7 @@ if !VERBOSEWRAPPER!==n (
 	echo:
 )
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Checking dependencies...]
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Checking dependencies...]
 
 :: Preload variables
 set NEEDTHEDEPENDERS=n
@@ -314,7 +315,7 @@ if !NEEDTHEDEPENDERS!==y (
 	goto skip_dependency_install
 )
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Installing dependencies...]
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Installing dependencies...]
 
 :: Preload variables
 set INSTALL_FLAGS=ALLUSERS=1 /norestart
@@ -780,14 +781,14 @@ echo:
 :: Starting Wrapper ::
 ::::::::::::::::::::::
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Loading...]
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Loading...]
 
 :: Close existing node apps
 :: Hopefully fixes EADDRINUSE errors??
 if !VERBOSEWRAPPER!==y (
 	if !CEPSTRAL!==n (
 		echo Closing any existing node and/or PHP apps and batch processes...
-		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline,Server for imported voice clips TTS voice) do (
 			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
@@ -887,7 +888,7 @@ echo Wrapper: Offline has been started^^! The video list should now be open.
 :: Post-Start ::
 ::::::::::::::::
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD!
 if !VERBOSEWRAPPER!==y ( goto wrapperstarted )
 :wrapperstartedcls
 cls
@@ -895,7 +896,7 @@ cls
 
 echo:
 popd
-echo Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) running
+echo Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! running
 echo A project from VisualPlugin adapted by the Wrapper: Offline Team
 echo:
 if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
@@ -1116,7 +1117,7 @@ goto wrapperidle
 echo Opening the importer...
 call utilities\import.bat
 cls
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD!
 set JUSTIMPORTED=y
 goto wrapperstartedcls
 
@@ -1132,7 +1133,7 @@ echo Updating W:O...
 cls
 call update_wrapper.bat
 cls
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD!
 goto wrapperstartedcls
 
 :backupandrestore
@@ -1146,7 +1147,7 @@ goto wrapperidle
 echo Launching settings..
 call settings.bat
 cls
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^)
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD!
 goto wrapperstartedcls
 
 :launchcmd
@@ -1182,7 +1183,7 @@ goto wrapperidle
 TASKKILL /IM node.exe /F >nul 2>&1
 if !CEPSTRAL!==n ( TASKKILL /IM php.exe /F >nul 2>&1 )
 if !VERBOSEWRAPPER!==y (
-	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline,Server for imported voice clips TTS voice) do (
 		TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1
 	)
 )
@@ -1319,7 +1320,7 @@ echo You must answer Yes or No. && goto exitwrapperretry
 
 :point_extraction
 
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down...]
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Shutting down...]
 
 :: Shut down Node.js, PHP and http-server
 
@@ -1328,8 +1329,11 @@ pushd utilities
 copy config.bat tmpcfg.bat>nul
 popd
 
+:: Deletes a temporary batch file again just in case
+if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
+
 if !VERBOSEWRAPPER!==y (
-	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline,Server for imported voice clips TTS voice) do (
 		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 	)
 	if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
@@ -1379,13 +1383,13 @@ if !DRYRUN!==y ( echo Go wet your run next time. )
 pause & exit
 
 :exitwithstyle
-title Wrapper: Offline v!WRAPPER_VER! ^(build !WRAPPER_BLD!^) [Shutting down... WITH STYLE]
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Shutting down... WITH STYLE]
 echo SHUTTING DOWN THE WRAPPER OFFLINE
 PING -n 3 127.0.0.1>nul
 color 9b
 echo BEWEWEWEWWW PSSHHHH KSHHHHHHHHHHHHHH
 PING -n 3 127.0.0.1>nul
-for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
+for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline,Server for imported voice clips TTS voice) do (
 	if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 )
 TASKKILL /IM node.exe /F >nul 2>&1

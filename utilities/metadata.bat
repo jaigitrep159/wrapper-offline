@@ -9,4 +9,4 @@ endlocal
 
 :: Version number and build number
 set WRAPPER_VER=1.3.0
-set WRAPPER_BLD=21
+set WRAPPER_BLD=32

@@ -78,7 +78,12 @@ if "%ERRORLEVEL%"=="0" (
 	pause
 	echo:
 	echo Starting Wrapper: Offline...
-	start ..\start_wrapper.bat
+	set SUBSCRIPT=n
+	pushd %~dp0..
+	:: Pushd twice just to be safe
+	pushd %~dp0..
+	start "" "start_wrapper.bat"
+	popd
 	PING -n 3 127.0.0.1>nul
 	echo Wrapper: Offline successfully launched^!
 	PING -n 4 127.0.0.1>nul

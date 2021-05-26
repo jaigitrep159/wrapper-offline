@@ -34,7 +34,7 @@ echo echo This is where the imported voice clip service is hosted.>> %tmp%\impor
 echo echo:>> %tmp%\importserver.bat
 echo echo HOW TO USE: Simply type a single period in the text to speech box ^^(.^^) and hit Generate.>> %tmp%\importserver.bat
 echo echo Your imported voice clip will then proceed to play. Whenever you import a new one, it will overwrite the old one.>> %tmp%\importserver.bat
-echo: 
+echo echo:>> %tmp%\importserver.bat
 echo call http-server -p 4334 -c-1 --trace-deprecation>> %tmp%\importserver.bat
 echo echo:>> %tmp%\importserver.bat
 echo pause ^& exit /B>> %tmp%\importserver.bat

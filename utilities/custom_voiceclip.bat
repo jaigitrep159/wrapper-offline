@@ -12,6 +12,7 @@ echo Press 1 to record your voice using the Windows Sound Recorder.
 echo Press 2 to record your voice with an external program ^(e.g. Audacity^)
 echo Press 3 if you have an audio file you'd like to use.
 echo:
+:vochoiceretry
 set /p VOCHOICE= Response: 
 if "%VOCHOICE%"=="1" (
 	echo Opening the Windows Sound Recorder...
@@ -61,6 +62,7 @@ if "%VOCHOICE%"=="2" (
 	if "%PROGRAMSNAME%"=="" ( echo Invalid program name. It can't be blank. Please try again. & goto programnameaskretry )
 )
 if "%VOCHOICE%"=="3" ( goto import )
+if "%VOCHOICE%"=="" ( echo Invalid option. Please try again. & goto vochoiceretry )
 :import
 echo Drag your audio file in here and hit Enter.
 echo ^(Only *.mp3 is supported. If it's not an .mp3 file, it will

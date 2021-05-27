@@ -58,6 +58,7 @@ if "%VOCHOICE%"=="2" (
 		echo:
 		pause & goto import
 	)
+	if "%PROGRAMSNAME%"=="" ( echo Invalid program name. It can't be blank. Please try again. & goto programnameaskretry )
 )
 if "%VOCHOICE%"=="3" ( goto import )
 :import

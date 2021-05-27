@@ -28,7 +28,7 @@ if "%VOCHOICE%"=="2" (
 	echo:
 	:programnameaskretry
 	set /p PROGRAMSNAME= Program name: 
-	for %%a in ("%PROGRAMFILES%" "%PROGRAMFILES(X86)%" "%COMMONFILES%" "%PROGRAMFILES%\%PROGRAMSNAME%" "%PROGRAMFILES(X86)%\%PROGRAMSNAME%" "%COMMONFILES%\%PROGRAMSNAME%" ) do (
+	for %%a in ( "%PROGRAMFILES%" "%PROGRAMFILES(X86)%" "%COMMONFILES%" "%PROGRAMFILES%\%PROGRAMSNAME%" "%PROGRAMFILES(X86)%\%PROGRAMSNAME%" "%COMMONFILES%\%PROGRAMSNAME%" ) do (
 		if exist "%%a\%PROGRAMSNAME%.exe" ( 
 			echo Detected %PROGRAMSNAME%.exe in at least one of the common program directories.
 			echo:

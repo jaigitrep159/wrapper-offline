@@ -54,7 +54,7 @@ On your first run:
    - If you can't figure out how to install HTTPS certs, you can go to localhost:4664 and add a security exception, but this'll need to be done on each browser you use Wrapper: Offline with.
 
 Every time you want to start:
-1. In a terminal, go to the folder named "server"  and enter http-server -p 4343 -S -C the.crt -K the.key
+1. In a terminal, go to the folder named "server"  and enter http-server -p 4664 -S -C the.crt -K the.key
 2. Now in a new terminal window, go to the folder named "wrapper" and enter npm start
 3. Open your preferred browser and enter localhost:4343 in the address bar.
 

@@ -90,6 +90,8 @@ if not "%VOEXT%"==.mp3 (
 echo Press 1 if you'd like to import another file.
 echo Otherwise, press Enter to exit.
 echo:
-set /p FUTURE= Response :
+:futureretry
+set /p FUTURE= Response: 
 if "%FUTURE%"=="1" ( cls & goto main )
 if "%FUTURE%"=="" exit
+echo Time to choose. & goto futureretry

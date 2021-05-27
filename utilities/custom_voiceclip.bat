@@ -7,6 +7,7 @@ title Wrapper: Offline custom voice clip importer
 :main
 echo Welcome to the Wrapper: Offline voice clip importer.
 echo:
+if exist "..\server\vo\rewriteable.mp3" ( echo Do keep in mind that if you import a new voice clip, it will overwrite & echo the one you previously imported. & echo: )
 echo Press 1 to record your voice using the Windows Sound Recorder.
 echo Press 2 to record your voice with an external program ^(e.g. Audacity^)
 echo Press 3 if you have an audio file you'd like to use.
@@ -66,20 +67,28 @@ echo automatically be converted using FFMPEG.^)
 echo:
 echo ^(It should also be worth noting that this will overwrite any
 echo voiceover files that are already there.^)
-set /p VOPATH= Path: 
+:vopathretry
+set /p VOPATH= Path:
+if not exist "%VOPATH%" ( echo Uhh, that file doesn't seem to exist. Please try again. && goto vopathretry ) 
 for %%b in "%VOPATH%" do ( set VOEXT=%%~xb )
 if not "%VOEXT%"==.mp3 (
-	echo Converting audio file to .mp3...
+	echo Converting audio file to .mp3 and importing resulting file...
+	call ffmpeg\ffmpeg.exe -i "%VOPATH% "..\server\vo\rewriteable.mp3" -y>nul
+	echo Successfully converted and imported^!
 	echo:
-	call ffmpeg\ffmpeg.exe -i "%VOPATH% "..\server\vo\rewriteable.mp3" -y
-	echo Successfully converted and imported.
-	echo:
-	pause & exit
+	goto future
 ) else (
 	echo Importing audio file...
-	echo:
 	copy "%VOPATH%" "..\server\vo\rewriteable.mp3" /y>nul
 	echo Voice clip imported successfully^!
 	echo:
-	pause & exit
+	goto future
 )
+
+:future
+echo Press 1 if you'd like to import another file.
+echo Otherwise, press Enter to exit.
+echo:
+set /p FUTURE= Response :
+if "%FUTURE%"=="1" ( cls & goto main )
+if "%FUTURE%"=="" exit

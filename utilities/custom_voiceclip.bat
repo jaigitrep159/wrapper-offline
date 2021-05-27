@@ -43,12 +43,20 @@ if "%VOCHOICE%"=="2" (
 			echo Please try re-entering your program name. Or, enter "nevermind" to try
 			echo something else.
 			echo:
-			echo ^(If it already found it, it is possible that this may be a bug.^)
+			echo ^(If it already found it, it is possible that this may be a bug. If that is
+			echo the case, just enter literally the word "whatever" to go to the next step.^)
 			echo:
 			goto programnameaskretry
 		)
 	)
 	if /i "%PROGRAMSNAME%"=="nevermind" ( cls & goto main )
+	if /i "%PROGRAMSNAME%"=="whatever" ( 
+		echo Well, you said the program already launched, so I'll just say what I'd usually say.
+		echo:
+		echo When finished recording, you may press any key to go to the next step.
+		echo:
+		pause & goto import
+	)
 )
 if "%VOCHOICE%"=="3" ( goto import )
 :import

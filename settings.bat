@@ -8,28 +8,19 @@ title Wrapper: Offline Settings Script
 :: Initialize (stop command spam, clean screen, make variables work, set to UTF-8)
 @echo off && cls
 SETLOCAL ENABLEDELAYEDEXPANSION
-if exist "!onedrive!\Documents" (
-	set PATHTOEXPORTEDCONFIG=!onedrive!\Documents
-) else (
-	set PATHTOEXPORTEDCONFIG=!userprofile!\Documents
-)
-set CONFIGNAME=%username%_config
+chcp 65001 >nul
 
 :: Move to base folder, and make sure it worked (otherwise things would go horribly wrong)
 pushd "%~dp0"
 if !errorlevel! NEQ 0 goto error_location
-if not exist utilities\config.bat ( goto error_location )
-if not exist start_wrapper.bat ( goto error_location )
+pushd ..
+if !errorlevel! NEQ 0 goto error_location
+if not exist utilities\reset_install.bat ( goto error_location )
+if not exist wrapper ( goto error_location )
 goto noerror_location
 :error_location
-echo Doesn't seem like this script is in the Wrapper: Offline folder.
+echo Doesn't seem like this script is in Wrapper: Offline's utilities folder.
 goto end
-:devmodeerror
-echo Ooh, sorry. You have to have developer mode on
-echo in order to access these features.
-echo:
-echo Please turn developer mode on, then try again.
-goto reaskoptionscreen
 :noerror_location
 
 :: Prevents CTRL+C cancelling and keeps window open when crashing
@@ -46,7 +37,6 @@ if exist "patch.jpg" echo MESSAGE GOES HERE && goto end
 :: Preload variable
 set CFG=utilities\config.bat
 set TMPCFG=utilities\tempconfig.bat
-set META=utilities\metadata.bat
 set ENV=wrapper\env.json
 set BACKTODEFAULTTOGGLE=n
 set BASILISKENABLE=n
@@ -60,11 +50,9 @@ set BACKTOCUSTOMTOGGLE2=n
 if "%SUBSCRIPT%"=="" ( 
 	set SUBSCRIPT=y
 	call !cfg!
-	call !meta!
 	set "SUBSCRIPT="
 ) else (
 	call !cfg!
-	call !meta!
 )
 
 ::::::::::
@@ -80,7 +68,7 @@ echo Enter a ? before the number for more info on the option.
 echo:
 
 if !DEVMODE!==y (
-	echo STANDARD OPTIONS:
+	echo Standard options:
 	echo:
 )
 
@@ -134,14 +122,11 @@ if exist "wrapper\static\page-nodebug.js" (
 	echo ^(6^) Debug mode is[91m OFF [0m
 )
 :: Dark mode
-if exist "wrapper\pages\css\global-light.css" if not exist "wrapper\pages\html\_OLDLISTVIEW.txt" (
+if exist "wrapper\pages\css\global-light.css" (
 	echo ^(7^) Dark mode is[92m ON [0m
 )
-if exist "wrapper\pages\css\global-dark.css" if not exist "wrapper\pages\html\_OLDLISTVIEW.txt" ( 
+if exist "wrapper\pages\css\global-dark.css" ( 
 	echo ^(7^) Dark mode is[91m OFF [0m
-)
-if exist "wrapper\pages\html\_OLDLISTVIEW.txt" (
-	echo Dark mode cannot be enabled on the classic Video List.
 )
 :: Rich presence
 if exist "wrapper\main-norpc.js" (
@@ -150,14 +135,11 @@ if exist "wrapper\main-norpc.js" (
 	echo ^(8^) Discord rich presence is[91m OFF [0m
 )
 :: Video Lists
-if exist "wrapper\pages\html\_LISTVIEW.txt" (
-	echo ^(9^) View on the video list is set to[91m List [0m
+if exist "wrapper\pages\html\oldlist.html" (
+	echo ^(9^) View on the video list is set to[94m List [0m
 )
-if exist "wrapper\pages\html\_GRIDVIEW.txt" (
-	echo ^(9^) View on the video list is set to[91m Grid [0m
-)
-if exist "wrapper\pages\html\_OLDLISTVIEW.txt" (
-	echo ^(9^) View on the video list is set to[91m Classic List [0m
+if exist "wrapper\pages\html\newlist.html" (
+	echo ^(9^) View on the video list is set to[94m Classic List [0m
 )
 :: Watermark
 if exist "wrapper\static\info-nowatermark.json" (
@@ -186,6 +168,8 @@ if exist "wrapper\tts\info-cepstral.json" (
 		echo ^(12^) Provider for Cepstral/VoiceForge voices is[91m Cepstral website [0m
 	)
 )
+:: Action pack switcher
+echo ^(16^) Switch action pack
 :: Developer mode
 if !DEVMODE!==y (
 	echo ^(14^) Developer mode is[92m ON [0m
@@ -197,15 +181,12 @@ if exist "server\characters\characters.zip" (
     echo ^(15^) Original LVM character IDs are[91m OFF [0m
 )
 
-if !DEVMODE!==y (
-	echo:
-	echo DEVELOPER OPTIONS:
-	echo:
-)
-
 :: Dev options
 :: These are really specific options that no casual user would ever really need
 if !DEVMODE!==y (
+	echo:
+	echo Developer options:
+	echo:
 	if !SKIPDEPENDINSTALL!==n (
 		echo ^(D1^) Installing dependencies is[92m ON [0m
 	) else ( 
@@ -231,7 +212,7 @@ if !DEVMODE!==y (
 		echo ^(D4^) Localhost port for Wrapper: Offline frontend is[91m !PORT! [0m
 	)
 	echo ^(D5^) Reset all the settings in config.bat back to default
-	echo ^(D6^) Import/export config.bat settings
+	echo ^(D7^) Import/export config.bat settings
 )
 :reaskoptionscreen
 echo:
@@ -323,20 +304,20 @@ if "!choice!"=="?6" (
 	echo By default, debug mode is enabled in the video editor.
 	echo:
 	echo While useful with showing asset IDs and paths, it freezes when you use character search in ANY theme, 
-        echo which can be very annoying to some.
-        echo:
+	echo which can be very annoying to some.
+	echo:
 	echo Turning this off will stop the asset IDs and paths from showing, and in addition,
-        echo will also make character search work again.
+    echo will also make character search work again.
 	goto reaskoptionscreen
 )
 :: Dark Mode
 if "!choice!"=="7" goto darkmodechange
 if "!choice!"=="?7" (
 	echo By default, dark mode is enabled on the video and theme lists.
-        echo:
+    echo:
 	echo Dark mode is used to help reduce eyestrain when viewing those lists, and
-        echo also improves the user experience quite a bit.
-        echo:
+    echo also improves the user experience quite a bit.
+	echo:
 	echo Turning this off will revert Offline back to the original light theme.
 	goto reaskoptionscreen
 )
@@ -344,32 +325,28 @@ if "!choice!"=="?7" (
 if "!choice!"=="8" goto rpcchange
 if "!choice!"=="?8" (
 	echo By default, Discord rich presence is enabled.
-        echo:
+    echo:
 	echo It's used to show when you're using Wrapper: Offline
-        echo in your "Playing A Game" status on Discord, much like
-        echo how lots of modern computer games will show on your
-        echo Discord status when you're playing them.
-        echo:
+	echo in your "Playing A Game" status on Discord, much like
+	echo how lots of modern computer games will show on your
+	echo Discord status when you're playing them.
+	echo:
 	echo Turning this off will make Offline stop saying
-        echo when you're using it on Discord.
+    echo when you're using it on Discord.
 	goto reaskoptionscreen
 )
-:: List/grid/oldlist view
-if "!choice!"=="9" (
-	if exist "wrapper\pages\html\_LISTVIEW.txt" goto gridview
-	if exist "wrapper\pages\html\_GRIDVIEW.txt" goto oldlistview
-	if exist "wrapper\pages\html\_OLDLISTVIEW.txt" goto listview
-)
+:: Video List
+if "!choice!"=="9" goto videolisttoggle
 if "!choice!"=="?9" (
-	echo By default, grid view is disabled.
-        echo:
-	echo Most people are used to the table view, but some
-	echo people wanted a grid view, so we added it incase
+	echo By default, the old list is disabled.
+    echo:
+	echo Most people are used to the new list, but some
+	echo people wanted a old style, so we added it incase
 	echo people wanted it.
-        echo:
+    echo:
 	echo Turning this on will make Offline show the
-        echo video list in a grid view rather than a
-		echo table view.
+    echo video list in a older style rather than
+	echo the new style
 	goto reaskoptionscreen
 )
 :: Watermark
@@ -487,6 +464,8 @@ if !DEVMODE!==n (
 	if /i "!choice!"=="?D5" ( goto devmodeerror )
 	if /i "!choice!"=="D6" ( goto devmodeerror )
 	if /i "!choice!"=="?D6" ( goto devmodeerror )
+	if /i "!choice!"=="D7" ( goto devmodeerror )
+	if /i "!choice!"=="?D7" ( goto devmodeerror )
 )
 
 if !DEVMODE!==y (
@@ -551,8 +530,8 @@ if !DEVMODE!==y (
 		echo code for config.bat.
 		goto reaskoptionscreen
 	)
-	if /i "!choice!"=="D6" goto import_exportconfig
-	if /i "!choice!"=="?D6" (
+	if /i "!choice!"=="D7" goto import_exportconfig
+	if /i "!choice!"=="?D7" (
 		echo Importing settings allows you to use another person's settings.
 		echo Exporting settings allows you to share your settings with another person.
 		echo:
@@ -847,8 +826,8 @@ echo 	"CACHÉ_FOLDER": "./_CACHÉ",>> !env!
 echo 	"THEME_FOLDER": "./_THEMES",>> !env!
 echo 	"PREMADE_FOLDER": "./_PREMADE",>> !env!
 echo 	"EXAMPLE_FOLDER": "./_EXAMPLES",>> !env!
-echo 	"WRAPPER_VER": "!WRAPPER_VER!",>> !env!
-echo 	"WRAPPER_BLD": "!WRAPPER_BLD!",>> !env!
+echo 	"WRAPPER_VER": "1.3.0",>> !env!
+echo 	"WRAPPER_BLD": "12",>> !env!
 echo 	"NODE_TLS_REJECT_UNAUTHORIZED": "0">> !env!
 echo }>> !env!
 set TOTOGGLE=PORT
@@ -927,32 +906,39 @@ goto optionscreen
 :: Dark Mode  ::
 ::::::::::::::::
 :darkmodechange
-echo Toggling setting...
+echo Toggling dark mode...
 pushd wrapper\pages\css
 if exist "global-light.css" (
 	:: disable
 	ren global.css global-dark.css
 	ren global-light.css global.css
-	ren themelist.css themelist-dark.css
-	ren themelist-light.css themelist.css
+	ren create.css create-dark.css
+	ren create-light.css create.css
 	ren list.css list-dark.css
 	ren list-light.css list.css
-	popd
-	pushd wrapper\static
-	ren page.js page-dark.js
-	ren page-light.js page.js
+	ren swf.css swf-dark.css
+	ren swf-light.css swf.css
 ) else ( 
 	:: enable
 	ren global.css global-light.css
 	ren global-dark.css global.css
-	ren themelist.css themelist-light.css
-	ren themelist-dark.css themelist.css
+	ren create.css create-light.css
+	ren create-dark.css create.css
 	ren list.css list-light.css
 	ren list-dark.css list.css
-	popd
-	pushd wrapper\static
-	ren page.js page-light.js
-	ren page-dark.js page.js
+	ren swf.css swf-light.css
+	ren swf-dark.css swf.css
+)
+popd
+pushd server\css
+if exist "global-light.css" (
+	:: disable
+	ren global.css global-dark.css
+	ren global-light.css global.css
+) else ( 
+	:: enable
+	ren global.css global-light.css
+	ren global-dark.css global.css
 )
 popd
 pushd server\animation\414827163ad4eb60
@@ -960,19 +946,23 @@ if exist "cc-light.swf" (
 	:: disable
 	ren cc.swf cc-dark.swf
 	ren cc-light.swf cc.swf
+	ren cc_browser.swf cc_browser-dark.swf
+	ren cc_browser-light.swf cc_browser.swf
 ) else ( 
 	:: enable
 	ren cc.swf cc-light.swf
 	ren cc-dark.swf cc.swf
+	ren cc_browser.swf cc_browser-light.swf
+	ren cc_browser-dark.swf cc_browser.swf
 )
 popd
 goto optionscreen
 
-::::::::::::::::::
-:: Discord RPC  ::
-::::::::::::::::::
+:::::::::::::::::
+:: Discord RPC ::
+:::::::::::::::::
 :rpcchange
-echo Toggling setting...
+echo Toggling Discord RPC...
 pushd wrapper
 if exist "main-norpc.js" (
 	:: disable
@@ -986,42 +976,27 @@ if exist "main-norpc.js" (
 popd
 goto optionscreen
 
-::::::::::::::::::
-:: Video List   ::
-::::::::::::::::::
-:gridview
-echo Toggling setting...
+::::::::::::::::
+:: Video List ::
+::::::::::::::::
+:videolisttoggle
+echo Switching video lists...
 pushd wrapper\pages\html
-
-ren list.html table.html
-ren grid.html list.html
-ren _LISTVIEW.txt _GRIDVIEW.txt
- 
+if exist "oldlist.html" (
+	:: switch to old
+	ren list.html newlist.html
+	ren oldlist.html list.html
+) else (
+	:: switch to new
+	ren list.html oldlist.html
+	ren newlist.html list.html
+)
 popd
 goto optionscreen
 
-:oldlistview
-echo Toggling setting...
-pushd wrapper\pages\html
-
-ren list.html grid.html
-ren oldlist.html list.html
-ren _GRIDVIEW.txt _OLDLISTVIEW.txt
- 
-popd
-goto optionscreen
-
-:listview
-echo Toggling setting...
-pushd wrapper\pages\html
-
-ren list.html oldlist.html
-ren table.html list.html
-ren _OLDLISTVIEW.txt _LISTVIEW.txt
- 
-popd
-goto optionscreen
-
+::::::::::::::::::::::::
+:: Extract Characters ::
+::::::::::::::::::::::::
 :extractchars
 if exist "server\characters\characters.zip" (
     echo Are you sure you wish to enable original LVM character IDs?
@@ -1073,6 +1048,17 @@ if exist "themelist-allthemes.xml" (
 	:: enable
 	ren themelist.xml themelist-allthemes.xml
 	ren themelist-lessthemes.xml themelist.xml
+)
+popd
+pushd wrapper\pages\html
+if exist "create-allthemes.html" (
+	:: disable
+	ren create.html create-lessthemes.html
+	ren create-allthemes.html create.xml
+) else ( 
+	:: enable
+	ren create.html create-allthemes.html
+	ren create-lessthemes.html create.html
 )
 popd
 goto optionscreen

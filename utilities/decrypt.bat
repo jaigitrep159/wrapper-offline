@@ -6,10 +6,6 @@ title Wrapper: Offline Asset Decryption Tool
 
 if not exist "rc4ed\rc4ed.exe" ( goto error )
 
-:error
-echo Seems like this isn't anywhere in the Wrapper: Offline folder.
-pause & exit /B
-
 :main
 echo Welcome to the Wrapper: Offline Asset Decryption tool.
 echo:
@@ -32,10 +28,11 @@ echo Drag your file in here.
 echo:
 :assetpathretry
 set /p ASSETPATH= Path: 
+for %%b in "%ASSETPATH%" do ( set AID=%%~nb & set AEXT=%%~xb )
+if not "%AEXT%"==.swf ( echo Invalid file. Must be *.swf. Either try again or put in another file. & goto assetpathretry )
 if "%ASSETPATH%"=="" ( echo Invalid option. Please try again. & goto assetpathretry )
 if /i "%ASSETPATH%"=="go back" ( cls & set GOBACK=1 & goto main )
 if "%ASSETPATH%"=="0" goto end
-for %%b in "%ASSETPATH%" do ( set AID=%%~nb )
 echo Decrypting file...
 if not exist "decrypted_assets" ( mkdir decrypted_assets )
 if exist "%AID%.swf" (
@@ -70,4 +67,8 @@ if "%SWFOPTION%"=="" ( echo Invalid option. Please try again. & goto donextretry
 
 :end
 echo Closing...
+pause & exit /B
+
+:error
+echo Seems like this isn't anywhere in the Wrapper: Offline folder.
 pause & exit /B

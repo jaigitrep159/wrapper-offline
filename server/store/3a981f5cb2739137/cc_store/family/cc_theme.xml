@@ -3128,6 +3128,19 @@
         <state id="thinking" filename="thinking.swf"/> 
         <state id="yawn" filename="yawn.swf"/> 
     </component> 
+	<component type="eye" id="004" path="004" name="004" thumb="thumbnail.swf" money="0" sharing="0" enable="Y"> 
+        <state id="angry" filename="angry.swf"/> 
+        <state id="asleep" filename="asleep.swf"/> 
+        <state id="cry" filename="cry.swf"/> 
+        <state id="default" filename="default.swf"/> 
+        <state id="happy" filename="happy.swf"/> 
+        <state id="sad" filename="sad.swf"/> 
+        <state id="schemeing" filename="schemeing.swf"/> 
+        <state id="shock" filename="shock.swf"/> 
+        <state id="sick" filename="sick.swf"/> 
+        <state id="thinking" filename="thinking.swf"/> 
+        <state id="yawn" filename="yawn.swf"/> 
+    </component> 
     <component type="eye" id="101" path="101" name="101" thumb="thumbnail.swf" money="0" sharing="0" enable="Y"> 
         <state id="angry" filename="angry.swf"/> 
         <state id="asleep" filename="asleep.swf"/> 
@@ -6557,6 +6570,19 @@
         <state id="yawn" filename="yawn.swf"/> 
     </component> 
     <component type="eye" id="003" path="003" name="003" thumb="thumbnail.swf" money="0" sharing="0" enable="Y"> 
+        <state id="angry" filename="angry.swf"/> 
+        <state id="asleep" filename="asleep.swf"/> 
+        <state id="cry" filename="cry.swf"/> 
+        <state id="default" filename="default.swf"/> 
+        <state id="happy" filename="happy.swf"/> 
+        <state id="sad" filename="sad.swf"/> 
+        <state id="schemeing" filename="schemeing.swf"/> 
+        <state id="shock" filename="shock.swf"/> 
+        <state id="sick" filename="sick.swf"/> 
+        <state id="thinking" filename="thinking.swf"/> 
+        <state id="yawn" filename="yawn.swf"/> 
+    </component>
+    <component type="eye" id="004" path="003" name="003" thumb="thumbnail.swf" money="0" sharing="0" enable="Y"> 
         <state id="angry" filename="angry.swf"/> 
         <state id="asleep" filename="asleep.swf"/> 
         <state id="cry" filename="cry.swf"/> 

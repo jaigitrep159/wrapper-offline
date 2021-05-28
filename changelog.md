@@ -2,6 +2,29 @@
 # Wrapper: Offline Changelog
 This changelog is based off [Keep a Changelog](https://keepachangelog.com) and ~~somewhat but not really~~ adheres to [Semantic Versioning](https://semver.org/). If you have no idea what that means, basically this changelog is formatted in a specific consistent way, and version numbers are formatted as X.Y.Z, X being a major not-backwards-compatible update, Y being a feature update, and X being bug fixes.
 
+## Version 1.3.1 - 2021-05-24 - the file size update + stability
+### Added
+### Removed (for cleanup you won't notice a thing)
+  - Removed configure_wrapper.bat as it was unnecessary
+  - Removed legacy_upgrade_wrapper.bat because there are no more legacy updates being pushed out
+  - Removed Git since it's downloaded upon installation
+  - Removed included biz themes (why???????)
+  - Removed blank Zimmer Twins theme from server\store\3a981f5cb2739137\cc_store
+  - Removed 2nd instance of GATOOLS.exe in server\store\3a981f5cb2739137
+  - Removed server\store\3a981f5cb2739137\zimmertwins.zip
+  - Removed wrapper\data folder
+  - Removed help.html
+  - Removed Vyond assets
+### Changed
+### Fixed
+  - Updater now checks for .git existence
+  - Lil' Peepz actions (thanks JoshToons!)
+  - Fixed bug where Wrapper tries to load thumbnails from localhost instead of localhost:4343
+  - Character scaling
+
+### Fixed
+  - Updater now checks for .git existence
+
 ## Version 1.3.0 - 2021-04-24 - feature packed
 ## Build 12
 ### Added

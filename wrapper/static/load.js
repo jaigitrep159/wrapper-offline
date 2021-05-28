@@ -30,7 +30,7 @@ module.exports = function (req, res, url) {
 				} else if (fs.existsSync(path)) {
 					if (t.contentReplace) {
 						content = fs.readFileSync(path, "utf8");
-						content = content.replace(/VERSIÖN/g, pjson.versionStr);
+						content = content.replace(/WRAPPER_VER/g, pjson.versionStr);
 						res.end(content);
 					} else {
 						fs.createReadStream(path).pipe(res);

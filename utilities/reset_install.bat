@@ -175,9 +175,6 @@ echo:>> utilities\config.bat
 echo :: Tells settings.bat which port the frontend is hosted on. ^(If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json^) Default: 4343>> utilities\config.bat
 echo set PORT=4343>> utilities\config.bat
 echo:>> utilities\config.bat
-echo :: Enables configure_wrapper.bat. Useful for investigating things like problems with Node.js or http-server. Default: n>> utilities\config.bat
-echo set CONFIGURE=n>> utilities\config.bat
-echo:>> utilities\config.bat
 
 :: Reset Chromium profile
 rd /q /s utilities\ungoogled-chromium\the_profile || set ERROR_DELCHROME=y

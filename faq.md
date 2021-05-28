@@ -101,10 +101,6 @@ Some of them will never generate if your message is too long, as the current lim
 ### Starters aren't working!
 I currently have no fix for this, you'll just have to either copy them directly from projects or recreate them.
 
-### Resizing set in the Character Creator breaks when playing!
-I currently have no fix for this, you'll just have to size them manually in the editor. Head resizing should be working fine, it's the size of the entire character that's broken.
-
-
 
 ## Can I use Offline on...
 

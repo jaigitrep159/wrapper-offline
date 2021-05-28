@@ -892,7 +892,7 @@ cls
 echo:
 popd
 echo Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! running
-echo A project from VisualPlugin adapted by the Wrapper: Offline Team
+echo A project from VisualPlugin adapted by the W:O Team
 echo:
 if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
 if !VERBOSEWRAPPER!==y ( echo Verbose mode is on, see the extra CMD windows for extra output. )
@@ -901,8 +901,8 @@ if !JUSTIMPORTED!==y ( echo Note: You'll need to reload the editor for your file
 :: Hello, code wanderer. Enjoy seeing all the secret options easily instead of finding them yourself.
 if !DEVMODE!==y (
 	echo:
-	echo STANDARD OPTIONS:
-	echo:
+	echo Standard options:
+	echo --------------------------------------
 )
 echo Enter 1 to reopen the video list
 echo Enter 2 to open the settings
@@ -914,21 +914,26 @@ echo Enter 7 to open the backup/restore tool
 echo Enter ? to open the FAQ
 echo Enter clr to clean up the screen
 echo Enter 0 to close Wrapper: Offline
+set /a _rand=(!RANDOM!*67/32768)+1
+if !_rand!==25 echo Enter things you think'll show a secret if you're feeling adventurous
 if !DEVMODE!==y (
 	echo:
-	echo DEVELOPER OPTIONS:
-	echo:
+	echo Developer options:
+	echo --------------------------------------
 	echo Type "amnesia" to wipe your save.
 	echo Type "restart" to restart Wrapper: Offline.
 	echo Type "reload" to restart Wrapper: Offline.
 	echo Type "folder" to open the files.
 )
 echo:
-set /a _rand=(!RANDOM!*67/32768)+1
-if !_rand!==25 echo Enter things you think'll show a secret if you're feeling adventurous
 :wrapperidle
 popd
 echo:
+
+:::::::::::::
+:: Choices ::
+:::::::::::::
+
 set /p CHOICE=Choice:
 if "!choice!"=="0" goto exitwrapperconfirm
 set FUCKOFF=n

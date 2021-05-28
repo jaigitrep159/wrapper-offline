@@ -1475,6 +1475,6 @@ echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> util
 echo endlocal>> utilities\config.bat
 echo:>> utilities\config.bat
 echo :: Version number and build number>> utilities\config.bat
-echo set WRAPPER_VER=1.3.0>> utilities\config.bat
-echo set WRAPPER_BLD=21>> utilities\config.bat
+echo set WRAPPER_VER=1.3.1>> utilities\config.bat
+echo set WRAPPER_BLD=5>> utilities\config.bat
 goto returnfrommetacopy

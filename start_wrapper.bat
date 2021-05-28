@@ -1012,7 +1012,7 @@ if !DEVMODE!==y (
 if !DEVMODE!==n (
 	if /i "!choice!"=="amnesia" goto devmodeerror
 	if /i "!choice!"=="restart" goto devmodeerror
-	if /i "!choice!"=="reload" goto devmoveerror
+	if /i "!choice!"=="reload" goto devmodeerror
 	if /i "!choice!"=="folder" goto devmodeerror
 )
 echo Time to choose. && goto wrapperidle

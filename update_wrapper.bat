@@ -122,4 +122,8 @@ PING -n 4 127.0.0.1>nul
 :: normal end
 :end
 echo Closing...
-pause & exit
+if "!SUBSCRIPT!"=="" (
+	pause & exit
+) else (
+	pause & exit /b
+)

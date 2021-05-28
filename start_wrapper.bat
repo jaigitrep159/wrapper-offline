@@ -920,6 +920,7 @@ if !DEVMODE!==y (
 	echo:
 	echo Type "amnesia" to wipe your save.
 	echo Type "restart" to restart Wrapper: Offline.
+	echo Type "reload" to restart Wrapper: Offline.
 	echo Type "folder" to open the files.
 )
 echo:
@@ -972,8 +973,6 @@ if "!choice!"=="doggis" (
 	pause
 	goto wrapperidle
 )	
-if /i "!choice!"=="vinkiko" echo STOP CALLING ME VINKIKO YOU ARE A BAD USER & goto wrapperidle
-if /i "!choice!"=="mikiko" echo HEY I'M NOT MIKIKO I'M MICHAEL THE VYOND GUY SO STOP IT YOU BAD USER & goto wrapperidle
 if /i "!choice!"=="benson" echo watch benson on youtube & goto wrapperidle
 if /i "!choice!"=="ford" echo what up son & goto wrapperidle
 if /i "!choice!"=="no" echo stahp & goto wrapperidle
@@ -987,21 +986,15 @@ if /i "!choice!"=="patch" goto patchtime
 if /i "!choice!"=="random" goto sayarandom
 if /i "!choice!"=="grounded" echo OH OH OH OH OH OH OH OH OH OH OH OH OH OH OH OH^^!^^!^^!^^!^^!^^!^^! %USERNAME%, HOW DARE YOU TYPE "GROUNDED" INTO START_WRAPPER.BAT^^!^^!^^! THAT'S IT^^! YOU'RE GROUNDED GROUNDED GROUNDED GROUNDED FOR %RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM% YEARS^^!^^!^^!^^!^^!^^!^^!^^!^^!^^!^^! GO TO YOUR ROOM RIGHT FREAKING NOW^^!^^!^^! & goto wrapperidle
 if /i "!choice!"=="die please" echo die please & goto wrapperidle
-if /i "!choice!"=="goanimate city" start https://discord.gg/goanimate & goto wrapperidle
 if /i "!choice!"=="spark" echo you suck at development & goto wrapperidle
-if /i "!choice!"=="wrapper 2" echo what is wrapper 2 doing in wrapper offline? get them out of here^^! & goto wrapperidle
 if /i "!choice!"=="fire" echo kindle fire on the iphone
 if /i "!choice!"=="32k" echo i'm gonna kill you with the 32k pasho watch the fuck out & goto wrapperidle
-if /i "!choice!"=="6" echo 6 DIAMOND CHESTPLATES WHAT & goto wrapperidle
 if /i "!choice!"=="gotest334" echo Enough & goto wrapperidle
 if /i "!choice!"=="indian" echo 'that's all those indians can do they just think about colors all day' - Blukas's Dad & goto wrapperidle
-if /i "!choice!"=="the sex show" echo time to cumz^^! & goto wrapperidle
 if /i "!choice!"=="kenos" echo HOLY SHIT IT'S KENOS HOLY ShIT OH MY GOD & goto wrapperidle
 if /i "!choice!"=="muslim" echo Muslim Banker supports your decision to type 'muslim' & goto wrapperidle
-if /i "!choice!"=="build 18" echo fuck you & goto wrapperidle
 if /i "!choice!"=="christmas jones" echo ragein gagein thinks he's so smart, i'll- i'll copyright your livestreams and you'- you'll get taken down^^! & goto wrapperidle
 if /i "!choice!"=="icy" echo you're being hacked by me and the esa gang right now & goto wrapperidle
-if /i "!choice!"=="horny" echo horny wrapper devs & goto wrapperidle
 :: dev options
 if !DEVMODE!==y (
 	if /i "!choice!"=="amnesia" goto wipe_save

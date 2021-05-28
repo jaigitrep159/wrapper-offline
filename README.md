@@ -65,7 +65,7 @@ Wrapper: Offline credits:
 | The Invincible Sphynx Cat (B)    | Beta testing, suggestions, remastered GoAnimate tracks (provided separately, not included)                                                           |	
 | MJ, the Spirit (D) (B)	   | Facial expression fix, video/imported asset backup tool, action pack tool creator, bug fixes                                                         |
 | MegaT (C)                        | CC browser code                                                                                                                                      |
-| narutofan420                     | New CSS theme on video and theme lists, dark mode character creator                                                                                  |
+| narutofan420                     | Main developer of 1.3.1's base build, New CSS theme on video and theme lists, dark mode character creator                                                                                  |
 | Spark (D) (B)                    | Video list grid view, rewriting faq.html, other small tweaks.                                                                                        |
 
 These are unaffiliated people that they haven't directly done anything for the project (and probably don't even know it exists) but still deserve credit for their things. Kinda like a shoutout but in a project's readme. ***Please do not contact them about Wrapper: Offline.***

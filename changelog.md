@@ -16,6 +16,7 @@ This changelog is based off [Keep a Changelog](https://keepachangelog.com) and ~
   - Removed help.html
   - Removed Vyond assets
 ### Changed
+  - Renamed VERSIÖN variable in the video list to WRAPPER_VER
 ### Fixed
   - Updater now checks for .git existence
   - Lil' Peepz actions (thanks JoshToons!)

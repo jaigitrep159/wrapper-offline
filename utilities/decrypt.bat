@@ -2,6 +2,7 @@
 :: Original Author: xomdjl_#1337 (ytpmaker1000@gmail.com)
 :: License: MIT
 @echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
 title Wrapper: Offline Asset Decryption Tool
 
 if not exist "rc4ed\rc4ed.exe" ( goto error )
@@ -28,24 +29,21 @@ echo Drag your file in here.
 echo:
 :assetpathretry
 set /p ASSETPATH= Path: 
-for %%b in "%ASSETPATH%" do ( set AID=%%~nb & set AEXT=%%~xb )
-if not "%AEXT%"==.swf ( echo Invalid file. Must be *.swf. Either try again or put in another file. & goto assetpathretry )
 if "%ASSETPATH%"=="" ( echo Invalid option. Please try again. & goto assetpathretry )
 if /i "%ASSETPATH%"=="go back" ( cls & set GOBACK=1 & goto main )
 if "%ASSETPATH%"=="0" goto end
 echo Decrypting file...
 if not exist "decrypted_assets" ( mkdir decrypted_assets )
+for %%b in (%ASSETPATH%) do set AID=%%~nb
 if exist "%AID%.swf" (
 	for /R %%i in ("%AID%(*).swf") do (
 		for /F "tokens=2 delims=(^)" %%a in ("%%i") do if %%a GTR !last! set "last=%%a"
 	)
 	set/a last+=1
 	set "filename=%AID%(!last!).swf"   
-) else (
-set FILENAME=%AID%.swf
-)
+) else set FILENAME=%AID%.swf
 echo %RC4%>%tmp%\rc4key.txt
-call rc4ed\rc4ed.exe "%ASSETPATH%" "%tmp%\rc4key.txt" "decrypted_assets\%FILENAME%">nul
+call rc4ed\rc4ed.exe %ASSETPATH% %tmp%\rc4key.txt decrypted_assets\%FILENAME%>nul
 del %tmp%\rc4key.txt
 echo File successfully decrypted^!
 echo:

@@ -4,8 +4,19 @@
 @echo off
 title Wrapper: Offline Asset Decryption Tool
 
+if not exist "rc4ed\rc4ed.exe" ( goto error )
+
+:error
+echo Seems like this isn't anywhere in the Wrapper: Offline folder.
+pause & exit /B
+
+:main
 echo Welcome to the Wrapper: Offline Asset Decryption tool.
 echo:
+if "%GOBACK%"=="" (
+echo Remember, if you need to go back a step, just type "go back" beyond this point.
+echo:
+)
 echo Press 1 if the asset is from Vyond, GoAnimate, GoAnimate4Schools or is a custom asset.
 echo Press 2 if the asset is from DomoAnimate or CN Toon Creator.
 echo:
@@ -13,6 +24,7 @@ echo:
 set /p ASSETTYPE= Response: 
 if "%ASSETTYPE%"=="1" ( set RC4=sorrypleasetryagainlater & goto asset )
 if "%ASSETTYPE%"=="2" ( set RC4=g0o1a2n3i4m5a6t7e & goto asset )
+if "%ASSETTYPE%"=="0" goto end
 if "%ASSETTYPE%"=="" ( echo Invalid option. Please try again. & goto assetaskretry )
 
 :asset
@@ -20,7 +32,9 @@ echo Drag your file in here.
 echo:
 :assetpathretry
 set /p ASSETPATH= Path: 
-if "%ASSETPATH%"=="" ( echo Invalid option. Please try again. & goto assetpathretry)
+if "%ASSETPATH%"=="" ( echo Invalid option. Please try again. & goto assetpathretry )
+if /i "%ASSETPATH%"=="go back" ( cls & set GOBACK=1 & goto main )
+if "%ASSETPATH%"=="0" goto end
 for %%b in "%ASSETPATH%" do ( set AID=%%~nb )
 echo Decrypting file...
 if not exist "decrypted_assets" ( mkdir decrypted_assets )
@@ -34,15 +48,16 @@ if exist "%AID%.swf" (
 set FILENAME=%AID%.swf
 )
 echo %RC4%>%tmp%\rc4key.txt
-call utilities\rc4ed\rc4ed.exe "%ASSETPATH%" "%tmp%\rc4key.txt" "decrypted_assets\%FILENAME%">nul
+call rc4ed\rc4ed.exe "%ASSETPATH%" "%tmp%\rc4key.txt" "decrypted_assets\%FILENAME%">nul
 del %tmp%\rc4key.txt
 echo File successfully decrypted^!
 echo:
 echo Press 1 to open it in the included standalone Flash Player
 echo Press 2 to open it in the included JPEXS FFDec
+echo Press 2 to open it in the included JPEXS FFDec
 echo Press 3 to open it in your default software for opening *.swf files
 echo Press 4 to open it in the path where the decrypted asset is
-echo Press 5 to exit
+echo Press 5 to close down
 echo:
 :donextretry
 set /p SWFOPTION= Response: 
@@ -50,5 +65,9 @@ if "%SWFOPTION%"=="1" start "flashplayer_sa.exe" "decrypted_assets\%FILENAME%"
 if "%SWFOPTION%"=="2" start "ffdec\ffdec.exe" "decrypted_assets\%FILENAME%"
 if "%SWFOPTION%"=="3" start "" "decrypted_assets\%FILENAME%" )
 if "%SWFOPTION%"=="4" start explorer.exe /select,"decrypted_assets\%FILENAME%"
-if "%SWFOPTION%"=="5" exit
+if "%SWFOPTION%"=="5" goto end
 if "%SWFOPTION%"=="" ( echo Invalid option. Please try again. & goto donextretry )
+
+:end
+echo Closing...
+pause & exit /B

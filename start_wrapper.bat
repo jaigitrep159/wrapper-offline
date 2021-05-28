@@ -1006,11 +1006,13 @@ if /i "!choice!"=="horny" echo horny wrapper devs & goto wrapperidle
 if !DEVMODE!==y (
 	if /i "!choice!"=="amnesia" goto wipe_save
 	if /i "!choice!"=="restart" goto restart
+	if /i "!choice!"=="reload" goto reload_settings
 	if /i "!choice!"=="folder" goto open_files
 )
 if !DEVMODE!==n (
 	if /i "!choice!"=="amnesia" goto devmodeerror
 	if /i "!choice!"=="restart" goto devmodeerror
+	if /i "!choice!"=="reload" goto devmoveerror
 	if /i "!choice!"=="folder" goto devmodeerror
 )
 echo Time to choose. && goto wrapperidle
@@ -1146,6 +1148,11 @@ goto wrapperidle
 echo Opening the FAQ...
 start notepad.exe FAQ.md
 goto wrapperidle
+
+:reload_settings
+call utilities\config.bat
+call utilities\metadata.bat
+goto wrapperstartedcls
 
 :wipe_save
 call utilities\reset_install.bat

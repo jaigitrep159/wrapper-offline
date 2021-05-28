@@ -922,7 +922,7 @@ if !DEVMODE!==y (
 	echo --------------------------------------
 	echo Type "amnesia" to wipe your save.
 	echo Type "restart" to restart Wrapper: Offline.
-	echo Type "reload" to restart Wrapper: Offline.
+	echo Type "reload" to reload your settings.
 	echo Type "folder" to open the files.
 )
 echo:

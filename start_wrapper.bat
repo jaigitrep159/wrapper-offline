@@ -103,8 +103,7 @@ if not exist "utilities\checks\disclaimer.txt" (
 
 :: Welcome, Director Ford!
 echo Wrapper: Offline
-echo A project from VisualPlugin originally adapted by Benson
-echo Adapted by xomdjl_ and the Wrapper: Offline Team
+echo A project from VisualPlugin adapted by the W:O team
 echo Version !WRAPPER_VER!, build !WRAPPER_BLD!
 echo:
 
@@ -157,10 +156,10 @@ if !INCLUDEDCHROMIUM!==y set BROWSER_TYPE=chrome
 
 :: Flash Player
 if !VERBOSEWRAPPER!==y ( echo Checking for Flash installation... )
-if exist "!windir!\SysWOW64\Macromed\Flash\*pepper.exe" set FLASH_CHROMIUM_DETECTED=y
-if exist "!windir!\System32\Macromed\Flash\*pepper.exe" set FLASH_CHROMIUM_DETECTED=y
-if exist "!windir!\SysWOW64\Macromed\Flash\*plugin.exe" set FLASH_FIREFOX_DETECTED=y
-if exist "!windir!\System32\Macromed\Flash\*plugin.exe" set FLASH_FIREFOX_DETECTED=y
+if exist "!windir!\SysWOW64\Macromed\Flash\*pepflashplayer64_34_0_0_155.dll" set FLASH_CHROMIUM_DETECTED=y
+if exist "!windir!\System32\Macromed\Flash\*pepflashplayer64_34_0_0_155.dll" set FLASH_CHROMIUM_DETECTED=y
+if exist "!windir!\SysWOW64\Macromed\Flash\*NPSWF64_34_0_0_155.dll" set FLASH_FIREFOX_DETECTED=y
+if exist "!windir!\System32\Macromed\Flash\*NPSWF64_34_0_0_155.dll" set FLASH_FIREFOX_DETECTED=y
 if !BROWSER_TYPE!==chrome (
 	if !FLASH_CHROMIUM_DETECTED!==n (
 		echo Flash for Chrome could not be found.
@@ -902,9 +901,8 @@ cls
 :wrapperstarted
 
 echo:
-popd
 echo Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! running
-echo A project from VisualPlugin adapted by the W:O Team
+echo A project from VisualPlugin adapted by the W:O team
 echo:
 if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
 if !VERBOSEWRAPPER!==y ( echo Verbose mode is on, see the extra CMD windows for extra output. )
@@ -916,6 +914,8 @@ if !DEVMODE!==y (
 	echo Standard options:
 	echo --------------------------------------
 )
+:: Spacing when dev mode is off
+if !DEVMODE!==n ( echo: )
 echo Enter 1 to reopen the video list
 echo Enter 2 to open the settings
 echo Enter 3 to import a file

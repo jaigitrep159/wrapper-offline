@@ -465,7 +465,11 @@ if !FLASH_DETECTED!==n (
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" !INSTALL_FLAGS! /quiet )
+		if !DRYRUN!==n (
+				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
+				start "" "install_flash_player.bat"
+				popd
+			)
 	)
 	if !BROWSER_TYPE!==firefox (
 		echo Starting the Clean Flash Player installer...
@@ -478,7 +482,11 @@ if !FLASH_DETECTED!==n (
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" !INSTALL_FLAGS! /quiet )
+		if !DRYRUN!==n (
+				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
+				start "" "install_flash_player.bat"
+				popd
+			)
 	)
 	if !BROWSER_TYPE!==trident (
 		echo Starting the Clean Flash Player installer...
@@ -491,7 +499,11 @@ if !FLASH_DETECTED!==n (
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n ( msiexec /i "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" !INSTALL_FLAGS! /quiet )
+		if !DRYRUN!==n (
+				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
+				start "" "install_flash_player.bat"
+				popd
+			)
 	)
 
 	echo Flash has been installed.

@@ -12,7 +12,7 @@ Wrapper: Offline (simply called "Offline" for the rest of this page) is a contin
 You can join the Discord server here to get updates as they come out: <https://discord.gg/b7YSRkg>
 If you don't want to use Discord, you could ask a friend who does to let you know when an update comes out, and they can send you the download link. Please do not email me asking for the latest version.
 #### GitHub
-Wrapper: Offline also has a GitHub repository! Get updates faster through here: <https://github.com/Wrapper-Offline/Wrapper-Offline-Public>
+Wrapper: Offline also has a GitHub repository! Get updates faster through here: <https://github.com/Wrapper-Offline/wrapper-offline>
 
 ### Will it work forever? Even after Flash is retired?
 It should, that's the goal. Perhaps in the future when we all run 6000-bit machines implanted into our brains it won't be compatible with that anymore, but I'm sure there'll always be a way to run it. There is also futureproofing for Flash's discontinuation, since Offline includes a Flash install and a version of ungoogled-chromium that supports Flash. By default, it starts from this, but you can change that in settings.bat. The included Chrome should not be used for browsing beyond using Flash content. You can also look into projects like [Lightspark](http://lightspark.github.io/) and [ruffle](https://ruffle.rs/) that are attempting to recreate Flash.
@@ -54,7 +54,7 @@ On your first run:
    - If you can't figure out how to install HTTPS certs, you can go to localhost:4664 and add a security exception, but this'll need to be done on each browser you use Wrapper: Offline with.
 
 Every time you want to start:
-1. In a terminal, go to the folder named "server"  and enter http-server -p 4343 -S -C the.crt -K the.key
+1. In a terminal, go to the folder named "server"  and enter http-server -p 4664 -S -C the.crt -K the.key
 2. Now in a new terminal window, go to the folder named "wrapper" and enter npm start
 3. Open your preferred browser and enter localhost:4343 in the address bar.
 
@@ -100,10 +100,6 @@ Some of them will never generate if your message is too long, as the current lim
 
 ### Starters aren't working!
 I currently have no fix for this, you'll just have to either copy them directly from projects or recreate them.
-
-### Resizing set in the Character Creator breaks when playing!
-I currently have no fix for this, you'll just have to size them manually in the editor. Head resizing should be working fine, it's the size of the entire character that's broken.
-
 
 
 ## Can I use Offline on...

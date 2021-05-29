@@ -4,7 +4,7 @@
 
 :: Opens this file in Notepad when run
 setlocal
-if "%SUBSCRIPT%"=="" ( start notepad.exe config.bat & exit )
+if "%SUBSCRIPT%"=="" ( start notepad.exe "%CD%\%~nx0" & exit )
 endlocal
 
 :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n
@@ -26,14 +26,20 @@ set APPCHROMIUM=y
 set CUSTOMBROWSER=n
 
 :: Lets the launcher know what browser framework is being used. Mostly used by the Flash installer. Accepts "chrome", "firefox", and "n". Default: n
-set BROWSER_TYPE=chrome
+set BROWSER_TYPE=n
 
 :: Runs through all of the scripts code, while never launching or installing anything. Useful for development. Default: n
 set DRYRUN=n
 
-:: Truncates the amount of themes that clog up the themelist, leaving this off is reccomended.
-set ALLTHEMES=n
+:: Makes it so it uses the Cepstral website instead of VFProxy. Default: n
+set CEPSTRAL=n
 
-:: Enables Discord RPC for Wrapper: Offline
-:: SO WE CAN KNOW IF GOTEST IS ACTUALLY MAKING A VIDEO OR NOT
-set discordrpc=n
+:: Opens Offline in an included copy of Basilisk, sourced from BlueMaxima's Flashpoint.
+:: Allows continued use of Flash as modern browsers disable it. Default: n
+set INCLUDEDBASILISK=n
+
+:: Makes it so both the settings and the Wrapper launcher shows developer options. Default: n
+set DEVMODE=n
+
+:: Tells settings.bat which port the frontend is hosted on. (If changed manually, you MUST also change the value of "SERVER_PORT" to the same value in wrapper\env.json) Default: 4343
+set PORT=4343

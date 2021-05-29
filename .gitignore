@@ -1,4 +1,5 @@
 # General Wrapper Offline Stuff
+Wrapper Offline.lnk
 wrapper/_CACHÉ/*
 wrapper/_SAVED/*
 wrapper/_THEMES/import.xml
@@ -11,12 +12,9 @@ utilities/import_these/*
 utilities/renders/*
 utilities/misc/temp/*
 utilities/grounded_messages/*
+utilities/decrypted_assets/*
 utilities/config.bat
 utilities/checks/disclaimer.txt
-utilities/grounded_md5.txt
-utilities/md5.txt
-utilities/convmd5.txt
-utilities/originalcfname.txt
 server/characters/*
 server/characters/characters.zip
 server/store/3a981f5cb2739137/import/*
@@ -27,6 +25,7 @@ server/store/3a981f5cb2739137/business/*
 server/store/3a981f5cb2739137/whiteboard/*
 server/store/3a981f5cb2739137/infographics/*
 server/store/3a981f5cb2739137/commoncraft/*
+server/vo/*
 .DS_Store
 .DS_Store
 vfproxy/*

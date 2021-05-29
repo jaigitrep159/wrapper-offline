@@ -5,10 +5,8 @@
 pushd "%~dp0"
 title VFProxy PHP Launcher for Wrapper: Offline
 pushd ..\wrapper\vfproxy
-..\..\utilities\php\php.exe -S 127.0.0.1:1337
+echo Starting PHP server for VFProxy...
 echo:
-echo If you see any errors, I have no idea how
-echo that's possible. VFProxy is supposed to work
-echo without any problems.
+call ..\..\utilities\php\php.exe -S 127.0.0.1:8181
 echo:
 pause & exit

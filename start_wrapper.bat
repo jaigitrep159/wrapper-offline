@@ -34,11 +34,13 @@ if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may 
 if %NOMETA%==n ( set SUBSCRIPT=y & call utilities\metadata.bat )
 
 :rebootasadmin
-echo Set UAC = CreateObject^("Shell.Application"^) > %tmp%\requestAdmin.vbs
-set params= %*
-echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %params:"=""%", "", "runas", 1 >> %tmp%\requestAdmin.vbs
-start "" %tmp%\requestAdmin.vbs
-exit /B
+if %ADMIN%==n (
+	echo Set UAC = CreateObject^("Shell.Application"^) > %tmp%\requestAdmin.vbs
+	set params= %*
+	echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %params:"=""%", "", "runas", 1 >> %tmp%\requestAdmin.vbs
+	start "" %tmp%\requestAdmin.vbs
+	exit /B
+)
 :metaavailable
 
 :: Set title
@@ -375,6 +377,7 @@ if !ADMINREQUIRED!==y (
 				goto postadmincheck
 			)
 			pause
+			set ADMIN=n
 			goto rebootasadmin
 		)
 	)
@@ -701,7 +704,7 @@ if !HTTPSCERT_DETECTED!==n (
 			set /p CERTCHOICE= Response:
 			echo:
 			if not '!certchoice!'=='' set certchoice=%certchoice:~0,1%
-			if /i "!certchoice!"=="y" echo This window will now close so you can restart it with admin. & goto rebootasadmin
+			if /i "!certchoice!"=="y" echo This window will now close so you can restart it with admin. & set ADMIN=n & goto rebootasadmin
 			if /i "!certchoice!"=="n" goto certnonadmin
 			echo You must answer Yes or No. && goto certaskretry
 

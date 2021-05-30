@@ -1,11 +1,6 @@
 :: Wrapper: Offline Launcher
 :: Author: benson#0411
 :: License: MIT
-set SUBSCRIPT=y
-if not exist utilities\metadata.bat ( goto metamissing )
-call utilities\metadata.bat
-if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
-cls
 title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Initializing...]
 
 ::::::::::::::::::::
@@ -18,6 +13,9 @@ title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Initializing...]
 :: Lets variables work or something idk im not a nerd
 SETLOCAL ENABLEDELAYEDEXPANSION
 
+:: Idk what this is
+if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
+
 :: Make sure we're starting in the correct folder, and that it worked (otherwise things would go horribly wrong)
 pushd "%~dp0"
 if !errorlevel! NEQ 0 goto error_location
@@ -28,14 +26,6 @@ goto noerror_location
 :error_location
 echo Doesn't seem like this script is in a Wrapper: Offline folder.
 pause & exit
-:metamissing
-title Wrapper: Offline [Metadata Missing]
-echo The metadata's missing for some reason?
-echo Restoring...
-goto metacopy
-:returnfrommetacopy
-if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may be in a read-only system/admin folder. & pause & exit )
-call utilities\metadata.bat
 :devmodeerror
 echo Ooh, sorry. You have to have developer mode on
 echo in order to access these features.
@@ -43,6 +33,20 @@ echo:
 echo Please turn developer mode on in the settings, then try again.
 goto wrapperidle
 :noerror_location
+
+:: Load metadata
+if not exist utilities\metadata.bat ( goto metamissing )
+goto metaavailable
+:metamissing
+title Wrapper: Offline [Metadata Missing]
+echo The metadata's missing for some reason?
+echo Restoring...
+goto metacopy
+:returnfrommetacopy
+if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may be in a read-only system/admin folder. & pause & exit )
+set SUBSCRIPT=y
+call utilities\metadata.bat
+:metaavailable
 
 :: patch detection
 if exist "patch.jpg" goto patched
@@ -1477,16 +1481,17 @@ goto returnfromconfigcopy
 
 :metacopy
 if not exist utilities ( md utilities )
-echo :: Wrapper: Offline Metadata>> utilities\config.bat
-echo :: Important useful variables that are displayed by start_wrapper.bat>> utilities\config.bat
-echo :: You probably shouldn't touch this. This only exists to make things easier for the devs everytime we go up a build number or something like that.>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Opens this file in Notepad when run>> utilities\config.bat
-echo setlocal>> utilities\config.bat
-echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> utilities\config.bat
-echo endlocal>> utilities\config.bat
-echo:>> utilities\config.bat
-echo :: Version number and build number>> utilities\config.bat
-echo set WRAPPER_VER=1.3.1>> utilities\config.bat
-echo set WRAPPER_BLD=5>> utilities\config.bat
+echo :: Wrapper: Offline Metadata>> utilities\metadata.bat
+echo :: Important useful variables that are displayed by start_wrapper.bat>> utilities\metadata.bat
+echo :: You probably shouldn't touch this. This only exists to make things easier for the devs everytime we go up a build number or something like that.>> utilities\metadata.bat
+echo:>> utilities\metadata.bat
+echo :: Opens this file in Notepad when run>> utilities\metadata.bat
+echo setlocal>> utilities\metadata.bat
+echo if "%%SUBSCRIPT%%"=="" ( start notepad.exe "%%CD%%\%%~nx0" ^& exit )>> utilities\metadata.bat
+echo endlocal>> utilities\metadata.bat
+echo:>> utilities\metadata.bat
+echo :: Version number and build number>> utilities\metadata.bat
+echo set WRAPPER_VER=1.3.1>> utilities\metadata.bat
+echo set WRAPPER_BLD=05>> utilities\metadata.bat
+echo:>> utilities\metadata.bat
 goto returnfrommetacopy

@@ -11,7 +11,7 @@ if '%errorlevel%' NEQ '0' (
 :uacPrompt
 echo Set UAC = CreateObject^("Shell.Application"^)>> "%temp%\requestAdmin.vbs"  
 echo UAC.ShellExecute "%~s0", "", "", "runas", 1>> "%temp%\requestAdmin.vbs"
-start "%temp%\requestAdmin.vbs"  
+start "" "%temp%\requestAdmin.vbs"  
 exit /B
 
 :main
@@ -26,5 +26,5 @@ echo:
 echo Press any key to launch FlashPatch.exe.
 echo ^(Required to patch any adware hiding in the Chinese Flash Player.^)
 pause
-start FlashPatch.exe
+start "" "FlashPatch.exe"
 exit

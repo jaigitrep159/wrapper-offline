@@ -12,9 +12,9 @@
 <body>
 
 <header>
-	<div id="logo_container">
-		<img id="logo" src="../img/list_logo.svg" alt="Wrapper: Offline"/>
-	</div>
+	<a href="/">
+		<h1 style="margin:0"><img id="logo" src="../img/list_logo.svg" alt="Wrapper: Offline"/></h1>
+	</a>
 	<nav id="headbuttons">
 		<div class="dropdown_contain button_small">
 			<div class="dropdown_button upload_button">UPLOAD</div>
@@ -26,22 +26,25 @@
 		<a href="create.html" class="button_big">CREATE</a>
 	</nav>
 </header>
-<!--<div class="warning">text goes here</div>-->
 
-	<main>
-	<div id="gridcontainer">
-		<center><div id="grid">
-		</div></center>
-		<a id="load_more" href="javascript:;">
-			LOAD MORE...
-		</a>
-	</div>
-	<form enctype='multipart/form-data' action='/upload_movie' method='post'>
-		<input id='file' type="file" onchange="this.form.submit()" name='import' accept=".xml" />
-	</form>
-	</main>
-	<script src="..\js\GetMovieListGrid.js"></script>
-</body>
+<main>
+	<table>
+		<thead>
+			<tr>
+				<td></td>
+				<td>Video Title</td>
+				<td>Last Modified</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody></tbody>
+		<tfoot>
+			<tr>
+				<td colspan="127"><a id="load_more" href="javascript:;">LOAD MORE...</a></td>
+			</tr>
+		</tfoot>
+	</table>
+</main>
 
 <footer>
 	<nav id="foot-left">
@@ -55,6 +58,10 @@
 		<a href="https://localhost:4664/caillou.html">Caillou</a>
 	</nav>
 </footer>
+
+
+
+</body>
 
 <!-- Upload forms -->
 <form enctype='multipart/form-data' action='/upload_movie' method='post'>

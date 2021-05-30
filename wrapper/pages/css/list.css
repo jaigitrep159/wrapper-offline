@@ -84,7 +84,7 @@ tr>:nth-child(3)>* {
 	font-size: 12px;
 	/* layout */
 	display: inline;
-	width: 8.5px;
+	letter-spacing: 1.5px;
 }
 
 /**

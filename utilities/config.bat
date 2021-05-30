@@ -8,7 +8,7 @@ if "%SUBSCRIPT%"=="" ( start notepad.exe "%CD%\%~nx0" & exit )
 endlocal
 
 :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n
-set VERBOSEWRAPPER=n
+set VERBOSEWRAPPER=y
 
 :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n
 set SKIPCHECKDEPENDS=n
@@ -20,7 +20,7 @@ set SKIPDEPENDINSTALL=n
 set INCLUDEDCHROMIUM=y
 
 :: Opens INCLUDEDCHROMIUM in headless mode. Looks pretty nice. Overrides CUSTOMBROWSER and BROWSER_TYPE. Default: y
-set APPCHROMIUM=y
+set APPCHROMIUM=n
 
 :: Opens Offline in a browser of the user's choice. Needs to be a path to a browser executable in quotes. Default: n
 set CUSTOMBROWSER=n

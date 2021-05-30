@@ -1,7 +1,6 @@
 :: Wrapper: Offline Launcher
 :: Author: benson#0411
 :: License: MIT
-title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Initializing...]
 
 ::::::::::::::::::::
 :: Initialization ::
@@ -15,24 +14,6 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 :: Idk what this is
 if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
-
-:: Make sure we're starting in the correct folder, and that it worked (otherwise things would go horribly wrong)
-pushd "%~dp0"
-if !errorlevel! NEQ 0 goto error_location
-if not exist utilities ( goto error_location )
-if not exist wrapper ( goto error_location )
-if not exist server ( goto error_location )
-goto noerror_location
-:error_location
-echo Doesn't seem like this script is in a Wrapper: Offline folder.
-pause & exit
-:devmodeerror
-echo You have to have developer mode on
-echo in order to access these features.
-echo:
-echo Please turn developer mode on in the settings, then try again.
-goto wrapperidle
-:noerror_location
 
 :: Load metadata
 if not exist utilities\metadata.bat ( goto metamissing )
@@ -49,6 +30,21 @@ if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may 
 set SUBSCRIPT=y
 call utilities\metadata.bat
 :metaavailable
+
+:: Set title
+title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Initializing...]
+
+:: Make sure we're starting in the correct folder, and that it worked (otherwise things would go horribly wrong)
+pushd "%~dp0"
+if !errorlevel! NEQ 0 goto error_location
+if not exist utilities ( goto error_location )
+if not exist wrapper ( goto error_location )
+if not exist server ( goto error_location )
+goto noerror_location
+:error_location
+echo Doesn't seem like this script is in a Wrapper: Offline folder.
+pause && exit
+:noerror_location
 
 :: patch detection
 if exist "patch.jpg" goto patched
@@ -73,7 +69,7 @@ if not exist "utilities\checks" md utilities\checks
 :: Operator, attention!
 if not exist "utilities\checks\disclaimer.txt" (
 	echo DISCLAIMER
-  echo:
+	echo:
 	echo Wrapper: Offline is a project to preserve the original GoAnimate flash-based themes.
 	echo We believe they should be archived for others to use and learn about in the future.
 	echo All business themes have been removed, please use Vyond Studio if you wish to get those.
@@ -164,8 +160,12 @@ if !INCLUDEDCHROMIUM!==y set BROWSER_TYPE=chrome
 if !VERBOSEWRAPPER!==y ( echo Checking for Flash installation... )
 if exist "!windir!\SysWOW64\Macromed\Flash\*pepflashplayer64_34_0_0_155.dll" set FLASH_CHROMIUM_DETECTED=y
 if exist "!windir!\System32\Macromed\Flash\*pepflashplayer64_34_0_0_155.dll" set FLASH_CHROMIUM_DETECTED=y
+if exist "!windir!\SysWOW64\Macromed\Flash\*pepper.exe" set FLASH_CHROMIUM_DETECTED=y
+if exist "!windir!\System32\Macromed\Flash\*pepper.exe" set FLASH_CHROMIUM_DETECTED=y
 if exist "!windir!\SysWOW64\Macromed\Flash\*NPSWF64_34_0_0_155.dll" set FLASH_FIREFOX_DETECTED=y
 if exist "!windir!\System32\Macromed\Flash\*NPSWF64_34_0_0_155.dll" set FLASH_FIREFOX_DETECTED=y
+if exist "!windir!\SysWOW64\Macromed\Flash\*plugin.exe" set FLASH_FIREFOX_DETECTED=y
+if exist "!windir!\System32\Macromed\Flash\*plugin.exe" set FLASH_FIREFOX_DETECTED=y
 if !BROWSER_TYPE!==chrome (
 	if !FLASH_CHROMIUM_DETECTED!==n (
 		echo Flash for Chrome could not be found.
@@ -1294,6 +1294,13 @@ color 07
 pause
 cls
 goto wrapperstarted
+
+:devmodeerror
+echo You have to have developer mode on
+echo in order to access these features.
+echo:
+echo Please turn developer mode on in the settings, then try again.
+goto wrapperidle
 
 ::::::::::::::
 :: Shutdown ::

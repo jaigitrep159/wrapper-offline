@@ -11,7 +11,7 @@ endlocal
 set VERBOSEWRAPPER=y
 
 :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n
-set SKIPCHECKDEPENDS=n
+set SKIPCHECKDEPENDS=y
 
 :: Won't install dependencies, regardless of check results. Overridden by SKIPCHECKDEPENDS. Mostly useless, why did I add this again? Default: n
 set SKIPDEPENDINSTALL=n
@@ -29,7 +29,7 @@ set CUSTOMBROWSER=n
 set BROWSER_TYPE=n
 
 :: Runs through all of the scripts code, while never launching or installing anything. Useful for development. Default: n
-set DRYRUN=y
+set DRYRUN=n
 
 :: Makes it so it uses the Cepstral website instead of VFProxy. Default: n
 set CEPSTRAL=n

@@ -16,7 +16,7 @@ function toParamString(table) {
 		.join(" ");
 }
 function toObjectString(attrs, params) {
-	return `<object ${Object.keys(attrs)
+	return `<object id="obj" ${Object.keys(attrs)
 		.map((key) => `${key}="${attrs[key].replace(/"/g, '\\"')}"`)
 		.join(" ")}>${toParamString(params)}</object>`;
 }
@@ -38,7 +38,10 @@ module.exports = function (req, res, url) {
 			attrs = {
 				data: process.env.SWF_URL + '/cc.swf', // data: 'cc.swf',
 				type: 'application/x-shockwave-flash', 
-				id: 'char_creator',
+				id: 'char_creator', 
+				width: '966', 
+				height: '600', 
+				style:'display:block;margin-left:auto;margin-right:auto;',
 			};
 			params = {
 				flashvars: {
@@ -46,9 +49,9 @@ module.exports = function (req, res, url) {
 					storePath: process.env.STORE_URL + "/<store>",
 					clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
 					original_asset_id: query["id"] || null,
-					themeId: "family",
-					ut: 60,
-					bs: "adam",
+					themeId: "business",
+					ut: 30,
+					bs: "default",
 					appCode: "go",
 					page: "",
 					siteId: "go",
@@ -57,7 +60,7 @@ module.exports = function (req, res, url) {
 					isEmbed: 1,
 					ctc: "go",
 					tlang: "en_US",
-                    nextUrl: "/cc_browser",
+                                        nextUrl: "../cc_browser",
 				},
 				allowScriptAccess: "always",
 				movie: process.env.SWF_URL + "/cc.swf", // 'http://localhost/cc.swf'
@@ -66,11 +69,14 @@ module.exports = function (req, res, url) {
 		}
 
 		case "/cc_browser": {
-			title = "Character Browser";
+			title = "CC Browser";
 			attrs = {
 				data: process.env.SWF_URL + "/cc_browser.swf", // data: 'cc_browser.swf',
 				type: "application/x-shockwave-flash",
-				id: "char_browser",
+				id: "char_creator",
+				width: "100%",
+				height: "100%",
+				style:'display:block;margin-left:auto;margin-right:auto;',
 			};
 			params = {
 				flashvars: {
@@ -85,8 +91,8 @@ module.exports = function (req, res, url) {
 					siteId: "go",
 					m_mode: "school",
 					isLogin: "Y",
-					retut: 1,
-					goteam_draft_only: 1,
+                                        retut: 1,
+                                        goteam_draft_only: 1,
 					isEmbed: 1,
 					ctc: "go",
 					tlang: "en_US",
@@ -107,7 +113,8 @@ module.exports = function (req, res, url) {
 			attrs = {
 				data: process.env.SWF_URL + "/go_full.swf",
 				type: "application/x-shockwave-flash",
-				id: "video_maker",
+				width: "100%",
+				height: "100%",
 			};
 			params = {
 				flashvars: {
@@ -115,7 +122,7 @@ module.exports = function (req, res, url) {
 					storePath: process.env.STORE_URL + "/<store>",
 					isEmbed: 1,
 					ctc: "go",
-					ut: 30,
+					ut: 50,
 					bs: "default",
 					appCode: "go",
 					page: "",
@@ -139,11 +146,12 @@ module.exports = function (req, res, url) {
 		}
 
 		case "/player": {
-			title = "Video Player";
+			title = "Player";
 			attrs = {
 				data: process.env.SWF_URL + "/player.swf",
 				type: "application/x-shockwave-flash",
-				id: "video_player",
+				width: "100%",
+				height: "100%",
 			};
 			params = {
 				flashvars: {
@@ -165,7 +173,8 @@ module.exports = function (req, res, url) {
 			attrs = {
 				data: process.env.SWF_URL + "/player.swf",
 				type: "application/x-shockwave-flash",
-				id: "video_player",
+				width: "100%",
+				height: "100%",
 				quality: "medium",
 			};
 			params = {
@@ -194,45 +203,38 @@ module.exports = function (req, res, url) {
 			document.title='${title}',flashvars=${JSON.stringify(params.flashvars)}
 		</script>
 		<script>
-			if(window.location.pathname == '/player' || window.location.pathname == '/go_full' || window.location.pathname == '/recordWindow') {
+			if(window.location.pathname == '/player') {
 				function hideHeader() {
-					document.getElementById("header").remove();
+					document.getElementById("header").style.display = "none";
+				}
+			} else if(window.location.pathname == '/recordWindow') {
+				function hideHeader() {
+					document.getElementById("header").style.display = "none";
+				}
+			} else if(window.location.pathname == '/go_full') {
+				function hideHeader() {
+					document.getElementById("header").style.display = "none";
 				}
 			}
 		</script>
 		<link rel="stylesheet" type="text/css" href="/pages/css/modern-normalize.css">
 		<link rel="stylesheet" type="text/css" href="/pages/css/global.css">
-		<link rel="stylesheet" type="text/css" href="/pages/css/swf.css">
+		<style>
+			body {
+				background: #eee;
+			}
+		</style>
 	</head>
 	
 	<header id="header">
-		<a href="/">
-			<h1 style="margin:0"><img id="logo" src="/pages/img/list_logo.svg" alt="Wrapper: Offline"/></h1>
-		</a>
+		<a href="/"><h1 style="margin:0"><img id="logo" src="/pages/assets/logo.png" alt="Wrapper: Offline"/></h1>
 		<nav id="headbuttons">
-			<div class="dropdown_contain button_small">
-				<div class="dropdown_button upload_button">UPLOAD</div>
-				<nav class="dropdown_menu">
-					<a onclick="document.getElementById('file').click()">Movie</a>
-					<a onclick="document.getElementById('file2').click()">Character</a>
-				</nav>
-			</div>
+			<a class="button_small" onclick="document.getElementById('file').click()">UPLOAD A MOVIE</a>
 			<a href="/pages/html/create.html" class="button_big">CREATE</a>
 		</nav>
 	</header>
 	
-	<body onload="hideHeader()">
-		<main>
-			${toObjectString(attrs, params)}
-		</main>
-
-		<form enctype='multipart/form-data' action='/upload_movie' method='post'>
-			<input id='file' type="file" onchange="this.form.submit()" name='import' />
-		</form>
-
-		<form enctype='multipart/form-data' action='/upload_character' method='post'>
-			<input id='file2' type="file" onchange="this.form.submit()" name='import' />
-		</form>
-	</body>${stuff.pages[url.pathname] || ''}`)
+	<body style="margin:0px" onload="hideHeader()">${toObjectString(attrs, params)
+		}</body>${stuff.pages[url.pathname] || ''}`)
 	return true;
 };

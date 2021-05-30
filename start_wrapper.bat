@@ -46,6 +46,7 @@ echo Restoring...
 goto metacopy
 :returnfrommetacopy
 if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may be in a read-only system/admin folder. & pause & exit )
+set SUBSCRIPT=y
 call utilities\metadata.bat
 :metaavailable
 

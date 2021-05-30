@@ -27,7 +27,7 @@ goto noerror_location
 echo Doesn't seem like this script is in a Wrapper: Offline folder.
 pause & exit
 :devmodeerror
-echo Ooh, sorry. You have to have developer mode on
+echo You have to have developer mode on
 echo in order to access these features.
 echo:
 echo Please turn developer mode on in the settings, then try again.
@@ -36,6 +36,8 @@ goto wrapperidle
 
 :: Load metadata
 if not exist utilities\metadata.bat ( goto metamissing )
+set SUBSCRIPT=y
+call utilities\metadata.bat
 goto metaavailable
 :metamissing
 title Wrapper: Offline [Metadata Missing]
@@ -44,7 +46,6 @@ echo Restoring...
 goto metacopy
 :returnfrommetacopy
 if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may be in a read-only system/admin folder. & pause & exit )
-set SUBSCRIPT=y
 call utilities\metadata.bat
 :metaavailable
 

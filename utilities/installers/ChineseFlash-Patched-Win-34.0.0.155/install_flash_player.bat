@@ -1,6 +1,7 @@
 :: Chinese Flash Player installer
 :: Original Author: darktohka
 :: Modified by: xomdjl_#1337 (ytpmaker1000@gmail.com)
+:: License: MIT
 
 @echo off
 title Installing Flash Player version 34.0.0.155...

@@ -16,19 +16,29 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
 
 :: Load metadata
-if not exist utilities\metadata.bat ( goto metamissing )
+if not exist utilities\metadata.bat ( set NOMETA=y & goto metamissing )
 set SUBSCRIPT=y
 call utilities\metadata.bat
 goto metaavailable
+
 :metamissing
-title Wrapper: Offline [Metadata Missing]
-echo The metadata's missing for some reason?
-echo Restoring...
-goto metacopy
+if %NOMETA%==y (
+	title Wrapper: Offline [Metadata Missing]
+	echo The metadata's missing for some reason?
+	echo Restoring...
+	goto metacopy
+)
+
 :returnfrommetacopy
 if not exist utilities\metadata.bat ( echo Something is horribly wrong. You may be in a read-only system/admin folder. & pause & exit )
-set SUBSCRIPT=y
-call utilities\metadata.bat
+if %NOMETA%==n ( set SUBSCRIPT=y & call utilities\metadata.bat )
+
+:rebootasadmin
+echo Set UAC = CreateObject^("Shell.Application"^) > %tmp%\requestAdmin.vbs
+set params= %*
+echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %params:"=""%", "", "runas", 1 >> %tmp%\requestAdmin.vbs
+start "" %tmp%\requestAdmin.vbs
+exit /B
 :metaavailable
 
 :: Set title
@@ -365,16 +375,13 @@ if !ADMINREQUIRED!==y (
 				goto postadmincheck
 			)
 			pause
-			echo Set UAC = CreateObject^("Shell.Application"^)>> %temp%\requestAdmin.vbs
-			echo UAC.ShellExecute "%~s0", "", "", "runas", 1>> %temp%\requestAdmin.vbs
-			start %temp%\requestAdmin.vbs
-			exit /B
+			goto rebootasadmin
 		)
 	)
 	if !VERBOSEWRAPPER!==y ( echo Admin rights detected. && echo:)
 )
 :postadmincheck
-if exist "%temp%\requestAdmin.vbs" ( del "%temp%\requestAdmin.vbs" )
+if exist "%tmp%\requestAdmin.vbs" ( del "%tmp%\requestAdmin.vbs">nul )
 
 :: Flash Player
 if !FLASH_DETECTED!==n (
@@ -508,7 +515,7 @@ if !FLASH_DETECTED!==n (
 				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
 				start "" "install_flash_player.bat"
 				popd
-			)
+		)
 	)
 
 	echo Flash has been installed.
@@ -614,7 +621,7 @@ if !HTTPSERVER_DETECTED!==n (
 
 		:: Double check for installation
 		echo Checking for http-server installation again...
-		npm list -g | find "http-server" > nul
+		call npm list -g | find "http-server" > nul
 		if !errorlevel! == 0 (
 			goto httpserverinstalled
 		) else (
@@ -644,7 +651,7 @@ if !HTTPSERVER_DETECTED!==n (
 			echo:
 			echo Local file installation failed. Something's not right.
 			echo Unless this was intentional, ask for support or install http-server manually.
-			echo Enter "npm install http-server -g" into a command prompt.
+			echo Enter "npm install http-server -g" into a separate Command Prompt window.
 			echo:
 			pause
 			exit
@@ -685,7 +692,7 @@ if !HTTPSCERT_DETECTED!==n (
 			if !VERBOSEWRAPPER!==n ( cls )
 			echo For Wrapper: Offline to work, it needs an HTTPS certificate to be installed.
 			echo If you have administrator privileges, you should reopen start_wrapper.bat as Admin.
-			echo ^(do this by right-clicking start_wrapper.bat and click "Run as Administrator"^)
+			echo ^(it will do this automatically if you say you have admin rights^)
 			echo:
 			echo If you can't do that, there's another method, but it's less reliable and is done per-browser.
 			echo: 
@@ -694,7 +701,7 @@ if !HTTPSCERT_DETECTED!==n (
 			set /p CERTCHOICE= Response:
 			echo:
 			if not '!certchoice!'=='' set certchoice=%certchoice:~0,1%
-			if /i "!certchoice!"=="y" echo This window will now close so you can restart it with admin. & pause & exit
+			if /i "!certchoice!"=="y" echo This window will now close so you can restart it with admin. & goto rebootasadmin
 			if /i "!certchoice!"=="n" goto certnonadmin
 			echo You must answer Yes or No. && goto certaskretry
 
@@ -805,7 +812,7 @@ title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD! [Loading...]
 if !VERBOSEWRAPPER!==y (
 	if !CEPSTRAL!==n (
 		echo Closing any existing node and/or PHP apps and batch processes...
-		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline,Server for imported voice clips TTS voice) do (
+		for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline) do (
 			if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 		)
 		if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
@@ -1503,4 +1510,5 @@ echo :: Version number and build number>> utilities\metadata.bat
 echo set WRAPPER_VER=1.3.1>> utilities\metadata.bat
 echo set WRAPPER_BLD=05>> utilities\metadata.bat
 echo:>> utilities\metadata.bat
+set NOMETA=n
 goto returnfrommetacopy

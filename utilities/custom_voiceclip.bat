@@ -4,9 +4,16 @@
 @echo off
 title Wrapper: Offline custom voice clip importer
 
+:: Make sure we are in the correct folder (otherwise make things gone wrong)
+pushd "%~dp0"
+
+:: Check again because it doesn't seem to go "dp0" for the 1st time?
+pushd "%~dp0"
+
 :main
 echo Welcome to the Wrapper: Offline voice clip importer.
 echo:
+if not exist "..\server\vo" ( pushd "..\server" && md "vo" && popd )
 if exist "..\server\vo\rewriteable.mp3" ( echo Do keep in mind that if you import a new voice clip, it will overwrite & echo the one you previously imported. & echo: )
 echo Press 1 to record your voice using the Windows Sound Recorder.
 echo Press 2 to record your voice with an external program ^(e.g. Audacity^)

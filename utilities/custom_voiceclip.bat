@@ -13,7 +13,6 @@ pushd "%~dp0"
 :main
 echo Welcome to the Wrapper: Offline voice clip importer.
 echo:
-if not exist "..\server\vo" ( pushd "..\server" && md "vo" && popd )
 if exist "..\server\vo\rewriteable.mp3" ( echo Do keep in mind that if you import a new voice clip, it will overwrite & echo the one you previously imported. & echo: )
 echo Press 1 to record your voice using the Windows Sound Recorder.
 echo Press 2 to record your voice with an external program ^(e.g. Audacity^)
@@ -41,12 +40,28 @@ if "%VOCHOICE%"=="2" (
 		if exist "%%a\%PROGRAMSNAME%.exe" ( 
 			echo Detected %PROGRAMSNAME%.exe in at least one of the common program directories.
 			echo:
-			echo Launching %PROGRAMSNAME%.exe...
-			PING -n 2 127.0.0.1>nul
-			start "%%a\%PROGRAMSNAME%.exe"
-			echo When finished recording, you may press any key to go to the next step.
-			echo:
-			pause & goto import
+			echo Should we go ahead and launch it? [Y/n]
+			:launchprogramretry
+			set /p LAUNCHCHOICE= Response: 
+			if not "%launchchoice%"=="" set launchchoice=%launchchoice:~0,1%
+			if /i "%launchchoice"=="y" (
+				echo Launching %PROGRAMSNAME%.exe...
+				PING -n 2 127.0.0.1>nul
+				start "%%a\%PROGRAMSNAME%.exe"
+				echo When finished recording, you may press any key to go to the next step.
+				echo:
+				pause & goto import
+			)
+			if /i "%launchchoice%"=="n" (
+				echo Okay then.
+				echo:
+				echo If another instance is already launched, press Enter.
+				echo Otherwise, press 1 to start all over again.
+				echo:
+				set /p STARTAGAIN= Response: 
+				if "%STARTAGAIN%"=="1" ( cls & goto main )
+			)
+			echo You must answer Yes or No. && goto launchprogramretry
 		) else (
 			echo Could not find %PROGRAMSNAME%.exe in any of the common program directories.
 			echo Please try re-entering your program name. Or, enter "nevermind" to try
@@ -83,12 +98,14 @@ if not exist "%VOPATH%" ( echo Uhh, that file doesn't seem to exist. Please try 
 for %%b in "%VOPATH%" do ( set VOEXT=%%~xb )
 if not "%VOEXT%"==.mp3 (
 	echo Converting audio file to .mp3 and importing resulting file...
+	if not exist "..\server\vo" ( pushd "..\server" && md "vo" && popd )
 	call ffmpeg\ffmpeg.exe -i "%VOPATH% "..\server\vo\rewriteable.mp3" -y>nul
 	echo Successfully converted and imported^!
 	echo:
 	goto future
 ) else (
 	echo Importing audio file...
+	if not exist "..\server\vo" ( pushd "..\server" && md "vo" && popd )
 	copy "%VOPATH%" "..\server\vo\rewriteable.mp3" /y>nul
 	echo Voice clip imported successfully^!
 	echo:

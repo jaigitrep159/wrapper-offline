@@ -479,9 +479,10 @@ if "!choice!"=="15" (
 
 if "!choice!"=="?15" (
 	echo By default, when the NPM crashes, an error message appears in the 
-	echo NPM window, requiring a key input to restart it.
+	echo NPM window requiring a key input to restart it.
         echo:
-	echo Enabling this feature makes the NPM restart immediately after a crash. 
+	echo Enabling this feature skips the error message and pause completely,
+	echo restarting the NPM as soon as it crashes.
 	goto reaskoptionscreen
 )
 :: Character solid archive

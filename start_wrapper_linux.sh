@@ -1,6 +1,7 @@
 #!/bin/bash 
 # Wrapper: Offline launcher (Linux)
 # Original Author: xomdjl_#1337 (ytpmaker1000@gmail.com)
+# Edited by 2epik4u :)
 # Additional comments: This is untested. Don't expect it to work perfectly just yet.
 
 # Load any necessary variables and stuff
@@ -14,7 +15,7 @@ else
     echo "Could not detect Flash Player."
     echo " "
     echo "Checking if the file is being run as root..."
-    if [ "$EUID" -ne 0 ] then
+    if [ "$EUID" -ne 0 ]; then
         echo "ERROR: Wrapper: Offline is not running as root."
         echo "It's necessary in order to install any missing things."
         echo "Please run this bash file as root, and then try again."
@@ -37,17 +38,19 @@ if ! command -v 'npm --version' &> /dev/null then
     echo "Could not detect Node.js."
     echo " "
     echo "Checking if the file is being run as root..."
-    if [ "$EUID" -ne 0 ] then
+    if [ "$EUID" -ne 0 ]; then
         echo "ERROR: Wrapper: Offline is not running as root."
         echo "It's necessary in order to install any missing things."
         echo "Please run this bash file as root, and then try again."
     else
         echo Installing Node.js...
         sudo apt install nodejs
+        sudo pacman -S nodejs # for arch linux users 
         if ! command -v 'npm --version' &> /dev/null then
             echo "Sorry bud, looks like you'll have to do it manually."
             echo " "
             echo 'Open another terminal window and type "sudo apt install nodejs".'
+            echo "If you are on arch based distro, do sudo pacman -S nodejs"
             exit
         else
             echo "Successfully installed Node.js!"
@@ -67,7 +70,7 @@ else
         echo "Could not detect http-server."
         echo " "
         echo "Checking if the file is being run as root..."
-        if [ "$EUID" -ne 0 ] then
+        if [ "$EUID" -ne 0 ]; then
             echo "ERROR: Wrapper: Offline is not running as root."
             echo "It's necessary in order to install any missing things."
             echo "Please run this bash file as root, and then try again."
@@ -94,9 +97,14 @@ else
     else
         echo "Installing Pale Moon..."
         echo 'deb http://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/home:stevenpusser.list
+        sudo apt get wget
+        sudo pacman -S wget
+        echo Installed wget (i think)
         wget -O - https://download.opensuse.org/repositories/home:stevenpusser/xUbuntu_20.04/Release.key | sudo apt-key add -
         sudo apt update
+        sudo pacman -U
         sudo apt install palemoon
+        sudo pacman -S palemoon
         if [ -d "/usr/lib/palemoon"]; then
             echo "Successfully installed Pale Moon!"
         else

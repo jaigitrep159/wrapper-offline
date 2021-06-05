@@ -589,10 +589,10 @@ echo ^(4^) Windows Media Video ^(WMV2/WMAV2^)
 echo:
 :formatretry
 set /p FORMATTYPE= Option: 
-if "%FORMATTYPE%"=="1" ( set FILESUFFIX=mp4 & vcodec=h264 & acodec="aac -crf 17" & goto output )
-if "%FORMATTYPE%"=="2" ( set FILESUFFIX=avi & vcodec=libx264 & acodec=libmp3lame & goto output )
-if "%FORMATTYPE%"=="3" ( set FILESUFFIX=webm & vcodec=libvpx & acodec=libvorbis & goto output )
-if "%FORMATTYPE%"=="4" ( set FILESUFFIX=wmv & vcodec=wmv2 & acodec=wmav2 & goto output )
+if "%FORMATTYPE%"=="1" ( set FILESUFFIX=mp4 & VCODEC=h264 & ACODEC="aac -crf 17" & goto output )
+if "%FORMATTYPE%"=="2" ( set FILESUFFIX=avi & VCODEC=libx264 & ACODEC=libmp3lame & goto output )
+if "%FORMATTYPE%"=="3" ( set FILESUFFIX=webm & VCODEC=libvpx & ACODEC=libvorbis & goto output )
+if "%FORMATTYPE%"=="4" ( set FILESUFFIX=wmv & VCODEC=wmv2 & ACODEC=wmav2 & goto output )
 echo Invalid option. Please try again. && goto formatretry
 
 :output

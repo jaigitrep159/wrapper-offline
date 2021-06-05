@@ -581,9 +581,9 @@ if "%VERBOSEWRAPPER%"=="y" (
 PING -n 2 127.0.0.1>nul
 del tmpconcat.txt>nul
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "%TEMPPATH3%" -vcodec h264 -acodec aac "%OUTPUT_PATH%\%OUTPUT_FILE%"
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec h264 -acodec aac "%OUTPUT_PATH%\%OUTPUT_FILE%"
 ) else (
-	call ffmpeg\ffmpeg.exe -i "%TEMPPATH3%" -vcodec h264 -acodec aac "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec h264 -acodec aac "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
 )
 goto render_completed
 

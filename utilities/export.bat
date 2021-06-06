@@ -612,10 +612,12 @@ echo ^(0 is lossless, 17 is the default, 51 is lowest quality^)
 echo:
 :crfretry
 set /p CRF= CRF: 
-for /l %%g in (0,1,51) do (
-	if not %CRF%==%%g ( echo Invalid option. Please try again. & goto crfretry )
-) else (
-	goto output
+for /l %%f in (0,1,51) do (
+	for %%g in (%%f) do (
+		if not %CRF%==%%g ( echo Invalid option. Please try again. & goto crfretry )
+	) else (
+		goto output
+	)
 )
 
 

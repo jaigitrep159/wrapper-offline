@@ -157,7 +157,7 @@ if exist "wrapper\pages\html\_OLDLISTVIEW.txt" (
 	echo ^(9^) View on the video list is set to[91m Classic List [0m
 )
 :: Watermark
-if exist "wrapper\static\info-nowatermark*.json" (
+if exist "wrapper\static\info-*nowatermark*.json" (
 	echo ^(10^) Wrapper: Offline watermark is[92m ON [0m
 ) else ( 
 	echo ^(10^) Wrapper: Offline watermark is[91m OFF [0m

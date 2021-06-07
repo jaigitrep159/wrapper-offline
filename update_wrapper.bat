@@ -96,7 +96,7 @@ if !VERBOSEWRAPPER!==y ( echo Saving custom settings in temporary file... )
 pushd utilities
 copy config.bat tmpcfg.bat>nul
 popd
-if exist "server\store\3a981f5cb2739137\import\*.*" (
+if exist "server\store\3a981f5cb2739137\import\*\*.*" (
 	set IMPORTEDASSETS=y
 	if !VERBOSEWRAPPER!==y ( echo Saving imported assets to temporary files... )
 	call utilities\7za.exe a "utilities\misc\temp\importarchive.zip" .\server\store\3a981f5cb2739137\import\*>nul
@@ -139,7 +139,7 @@ if !IMPORTEDASSETS!==y (
 	echo ^</theme^> >>theme.xml
 	popd
 	call utilities\7za.exe a "server\store\3a981f5cb2739137\import\import.zip" "server\store\3a981f5cb2739137\import\theme.xml" >nul
-	copy "server\store\3a981f5cb2739137\import\theme.xml" "wrapper\_THEMES\import.xml
+	copy "server\store\3a981f5cb2739137\import\theme.xml" "wrapper\_THEMES\import.xml">nul
 )
 
 :: congratulations new version

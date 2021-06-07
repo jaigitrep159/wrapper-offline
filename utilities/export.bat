@@ -652,16 +652,16 @@ if "%VERBOSEWRAPPER%"=="y" (
 )
 PING -n 2 127.0.0.1>nul
 if exist "tmpconcat.txt" ( del tmpconcat.txt )
-echo file '%TEMPPATH2%'>> tmpconcat.txt
+echo file '%TEMPPATH2%'>>tmpconcat.txt
 if %ISVIDEOWIDE%==0 (
-	echo file '%OUTRO149%'>> tmpconcat.txt
+	echo file '%OUTRO149%'>>tmpconcat.txt
 ) else (
-	echo file '%OUTRO169%'>> tmpconcat.txt
+	echo file '%OUTRO169%'>>tmpconcat.txt
 )
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -f concat -i tmpconcat.txt -codec copy -safe 0 -y "%TEMPPATH3%"
+	call ffmpeg\ffmpeg.exe -f concat -i "file:%CD%\tmpconcat.txt" -codec copy -safe 0 -y "%TEMPPATH3%"
 ) else (
-	call ffmpeg\ffmpeg.exe -f concat -i tmpconcat.txt -codec copy -safe 0 -y "%TEMPPATH3%">nul
+	call ffmpeg\ffmpeg.exe -f concat -i "file:%CD%\tmpconcat.txt" -codec copy -safe 0 -y "%TEMPPATH3%">nul
 )
 PING -n 2 127.0.0.1>nul
 del tmpconcat.txt>nul

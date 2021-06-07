@@ -471,56 +471,43 @@ if !FLASH_DETECTED!==n (
 	if !BROWSER_TYPE!==chrome (
 		echo Starting the Clean Flash Player installer...
 		echo:
-		if not exist "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" (
+		if not exist "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" (
 			echo ...erm. Bit of an issue there actually. The installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You may be able to get the installer here:
-			echo https://github.com/darktohka/clean-flash-builds/releases/tag/v1.6
+			echo https://github.com/CleanFlash/installer/releases/tag/v1.1
 			echo Although Flash is needed, Offline will continue launching.
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n (
-				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
-				start "" "install_flash_player.bat"
-				popd
-			)
+		if !DRYRUN!==n ( start "utilities\runasti\RunAsTI64.exe" "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" )
 	)
 	if !BROWSER_TYPE!==firefox (
 		echo Starting the Clean Flash Player installer...
-		if not exist "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" (
+		if not exist "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" (
 			echo ...erm. Bit of an issue there actually. The installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You may be able to get the installer here:
-			echo https://github.com/darktohka/clean-flash-builds/releases/tag/v1.6
+			echo https://github.com/CleanFlash/installer/releases/tag/v1.1
 			echo Although Flash is needed, Offline will continue launching.
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n (
-				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
-				start "" "install_flash_player.bat"
-				popd
-			)
+		if !DRYRUN!==n ( start "utilities\runasti\RunAsTI64.exe" "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" )
 	)
 	if !BROWSER_TYPE!==trident (
 		echo Starting the Clean Flash Player installer...
-		if not exist "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155\install_flash_player.bat" (
+		if not exist "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" (
 			echo ...erm. Bit of an issue there actually. The installer doesn't exist.
 			echo A normal copy of Wrapper: Offline should come with one.
 			echo You may be able to get the installer here:
-			echo https://github.com/darktohka/clean-flash-builds/releases/tag/v1.6
+			echo https://github.com/CleanFlash/installer/releases/tag/v1.1
 			echo Although Flash is needed, Offline will continue launching.
 			pause
 			goto after_flash_install
 		)
-		if !DRYRUN!==n (
-				pushd "utilities\installers\ChineseFlash-Patched-Win-34.0.0.155" 
-				start "" "install_flash_player.bat"
-				popd
-		)
+		if !DRYRUN!==n ( start "utilities\runasti\RunAsTI64.exe" "utilities\installers\CleanFlash_34.0.0.155_Installer.exe" )
 	)
-
 	echo Flash has been installed.
 	echo:
 )
@@ -1348,10 +1335,11 @@ popd
 if exist %tmp%\importserver.bat ( del %tmp%\importserver.bat )
 
 if !VERBOSEWRAPPER!==y (
+	if !DRYRUN!==n (
+	TASKKILL /IM node.exe /F >nul 2>&1
 	for %%i in (npm start,npm,http-server,HTTP-SERVER HASN'T STARTED,NODE.JS HASN'T STARTED YET,VFProxy PHP Launcher for Wrapper: Offline,Server for imported voice clips TTS voice) do (
-		if !DRYRUN!==n ( TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
+	TASKKILL /FI "WINDOWTITLE eq %%i" >nul 2>&1 )
 	)
-	if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 	if !DRYRUN!==n ( 
 		if !CEPSTRAL!==n ( 
 			TASKKILL /IM php.exe /F >nul 2>&1
@@ -1367,15 +1355,15 @@ if !VERBOSEWRAPPER!==y (
 	)
 	echo:
 ) else (
-	if !DRYRUN!==n ( TASKKILL /IM node.exe /F 2>nul )
+	if !DRYRUN!==n ( TASKKILL /IM node.exe /F >nul 2>&1 )
 	if !DRYRUN!==n ( 
 		if !CEPSTRAL!==n ( 
-			TASKKILL /IM php.exe /F 2>nul
+			TASKKILL /IM php.exe /F >nul 2>&1
 		)
 	)
 	if !DRYRUN!==n ( 
 		if !INCLUDEDCHROMIUM!==y ( 
-			TASKKILL /IM chromium.exe 2>nul
+			TASKKILL /IM chromium.exe /F 2>nul
 		)
 		if !INCLUDEDBASILISK!==y ( 
 			TASKKILL /IM utilities\basilisk\Basilisk-Portable\Basilisk-Portable.exe /F 2>nul

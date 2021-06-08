@@ -597,28 +597,24 @@ if "%FORMATTYPE%"=="1" (
 	set FILESUFFIX=mp4
 	set VCODEC=h264
 	set ACODEC=aac
-	set ADDITIONAL=" -crf %CRF%"
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="2" (
 	set FILESUFFIX=avi
 	set VCODEC=libx264
 	set ACODEC=libmp3lame
-	set ADDITIONAL=""
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="3" (
 	set FILESUFFIX=webm
 	set VCODEC=libvpx
 	set ACODEC=libvorbis
-	set ADDITIONAL=""
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="4" (
 	set FILESUFFIX=wmv
 	set VCODEC=wmv2
 	set ACODEC=wmav2
-	set ADDITIONAL=""
 	goto outputcheck
 )
 echo Invalid option. Please try again. && goto formatretry
@@ -629,6 +625,8 @@ if "%DEVMODE%"=="y" (
 ) else goto output
 
 :crfvalue
+if "%FILESUFFIX%"=="mp4" (
+set ADDITIONAL=17
 echo ^(Developer mode-exclusive option^)
 echo:
 echo What quality ^(CRF^) do you want your video to be in?
@@ -637,8 +635,11 @@ echo:
 echo ^(NOTE: ONLY enter a number between 0 and 51, otherwise it
 echo could screw up the entire exporting process for this session.^)
 echo:
-:crfretry
-set /p CRF= CRF: 
+set /p ADDITIONAL= CRF: 
+goto output
+) else (
+goto output
+)
 
 :output
 cls
@@ -691,17 +692,17 @@ if "%VERBOSEWRAPPER%"=="y" (
 PING -n 2 127.0.0.1>nul
 del tmpconcat.txt>nul
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%"
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC% -crf %ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%"
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC% -crf %ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
 )
 goto render_completed
 
 :render_nooutro
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%"
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC% -crf %ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%"
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC% -crf %ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
 )
 goto render_completed
 

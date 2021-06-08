@@ -597,24 +597,32 @@ if "%FORMATTYPE%"=="1" (
 	set FILESUFFIX=mp4
 	set VCODEC=h264
 	set ACODEC=aac
+	set CRF=17
+	set ADDITIONAL=" -crf %CRF%"
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="2" (
 	set FILESUFFIX=avi
 	set VCODEC=libx264
 	set ACODEC=libmp3lame
+	set CRF=""
+	set ADDITIONAL=""
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="3" (
 	set FILESUFFIX=webm
 	set VCODEC=libvpx
 	set ACODEC=libvorbis
+	set CRF=""
+	set ADDITIONAL=""
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="4" (
 	set FILESUFFIX=wmv
 	set VCODEC=wmv2
 	set ACODEC=wmav2
+	set CRF=""
+	set ADDITIONAL=""
 	goto outputcheck
 )
 echo Invalid option. Please try again. && goto formatretry
@@ -633,9 +641,12 @@ echo What quality ^(CRF^) do you want your video to be in?
 echo ^(0 is lossless, 17 is the default, 51 is lowest quality^)
 echo:
 echo ^(NOTE: ONLY enter a number between 0 and 51, otherwise it
-echo could screw up the entire exporting process for this session.^)
+echo could screw up the entire exporting process for this session.
+echo If you wanna keep it at the default value of 17, you can just
+echo press Enter.^)
 echo:
-set /p ADDITIONAL= CRF: 
+set /p CRF= CRF: 
+set ADDITIONAL=" -crf %CRF%"
 goto output
 ) else (
 goto output
@@ -731,7 +742,7 @@ echo:
 :final_choice
 set /p WHATTODONEXT= Option:
 	if "%WHATTODONEXT%"=="1" (
-	start "%OUTPUT_PATH%\%OUTPUT_FILE%"
+	start "" "%OUTPUT_PATH%\%OUTPUT_FILE%"
 	echo:
 	goto final_choice
 	) else if "%WHATTODONEXT%"=="2" (

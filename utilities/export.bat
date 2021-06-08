@@ -726,7 +726,7 @@ if %OUTRO%==1 (
 
 :render_completed
 echo Deleting any temporary files...
-for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%) do (
+for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%,%CD%\misc\temp\rewriteable.mp4,%CD%\misc\temp\rewriteable.avi) do (
 	if exist "%%i" ( del "%%i" )
 )
 

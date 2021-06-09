@@ -634,7 +634,8 @@ if "%DEVMODE%"=="y" (
 
 :crfvalue
 if "%FILESUFFIX%"=="mp4" (
-set ADDITIONAL=17
+set CRF=17
+set ADDITIONAL=" -crf %CRF%"
 echo ^(Developer mode-exclusive option^)
 echo:
 echo What quality ^(CRF^) do you want your video to be in?
@@ -646,7 +647,6 @@ echo If you wanna keep it at the default value of 17, you can just
 echo press Enter.^)
 echo:
 set /p CRF= CRF: 
-set ADDITIONAL=" -crf %CRF%"
 goto output
 ) else (
 goto output

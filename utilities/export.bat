@@ -29,7 +29,6 @@ set ACODEC=aac
 set CRF=17
 set RESOLUTIONOPTION=5
 set FORMATTYPE=1
-set ADDITIONAL=" -crf %CRF%"
 set OUTPUT_FILE=%OUTPUT_FILENAME%.%FILESUFFIX%
 SETLOCAL ENABLEDELAYEDEXPANSION
 set SUBSCRIPT=y
@@ -598,7 +597,6 @@ if "%FORMATTYPE%"=="1" (
 	set VCODEC=h264
 	set ACODEC=aac
 	set CRF=17
-	set ADDITIONAL=" -crf %CRF%"
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="2" (
@@ -606,7 +604,6 @@ if "%FORMATTYPE%"=="2" (
 	set VCODEC=libx264
 	set ACODEC=libmp3lame
 	set CRF=""
-	set ADDITIONAL=""
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="3" (
@@ -614,7 +611,6 @@ if "%FORMATTYPE%"=="3" (
 	set VCODEC=libvpx
 	set ACODEC=libvorbis
 	set CRF=""
-	set ADDITIONAL=""
 	goto outputcheck
 )
 if "%FORMATTYPE%"=="4" (
@@ -622,7 +618,6 @@ if "%FORMATTYPE%"=="4" (
 	set VCODEC=wmv2
 	set ACODEC=wmav2
 	set CRF=""
-	set ADDITIONAL=""
 	goto outputcheck
 )
 echo Invalid option. Please try again. && goto formatretry
@@ -635,7 +630,6 @@ if "%DEVMODE%"=="y" (
 :crfvalue
 if "%FILESUFFIX%"=="mp4" (
 set CRF=17
-set ADDITIONAL=" -crf %CRF%"
 echo ^(Developer mode-exclusive option^)
 echo:
 echo What quality ^(CRF^) do you want your video to be in?
@@ -707,9 +701,9 @@ PING -n 2 127.0.0.1>nul
 del tmpconcat.txt>nul
 echo Going through process 4 of 4...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC% -crf %CRF% "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC% -crf %CRF% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
 )
 goto render_completed
 
@@ -717,9 +711,9 @@ goto render_completed
 echo Starting ffmpeg...
 echo Going through process 1 of 1...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC% -crf %CRF% -y "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC% -crf %CRF% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
 )
 goto render_completed
 
@@ -730,12 +724,9 @@ if %OUTRO%==1 (
 	goto render_nooutro
 )
 
-:render_completed
-echo Deleting any temporary files...
-set MISCTEMP=%CD%\misc\temp\*
-for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%,%MISCTEMP%) do (
-	if exist "%%i" ( del "%%i" )
+
 )
+:render_completed
 echo:
 set WHATTODONEXT=0
 echo The entire rendering process has been complete^^!

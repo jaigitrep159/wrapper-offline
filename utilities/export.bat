@@ -676,18 +676,21 @@ goto render
 cls
 echo Starting ffmpeg...
 PING -n 3 127.0.0.1>nul
+echo Going through process 1 of 4...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec h264 -acodec aac -crf 17 -y "%TEMPPATH%"
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec h264 -acodec aac -crf 17 -y "%TEMPPATH%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec h264 -acodec aac -crf 17 -y "%TEMPPATH%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec h264 -acodec aac -crf 17 -y "%TEMPPATH%">nul && echo Process completed. || echo Process failed.
 )
 PING -n 2 127.0.0.1>nul
+echo Going through process 2 of 4...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH%" -c copy -y "%TEMPPATH2%"
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH%" -c copy -y "%TEMPPATH2%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH%" -c copy -y "%TEMPPATH2%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH%" -c copy -y "%TEMPPATH2%">nul && echo Process completed. || echo Process failed.
 )
 PING -n 2 127.0.0.1>nul
+echo Going through process 3 of 4...
 if exist "tmpconcat.txt" ( del tmpconcat.txt )
 echo file '%TEMPPATH2%'>>tmpconcat.txt
 if %ISVIDEOWIDE%==0 (
@@ -696,24 +699,27 @@ if %ISVIDEOWIDE%==0 (
 	echo file '%OUTRO169%'>>tmpconcat.txt
 )
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -f concat -safe 0 -i "file:%CD%\tmpconcat.txt" -codec copy -y "%TEMPPATH3%"
+	call ffmpeg\ffmpeg.exe -f concat -safe 0 -i "file:%CD%\tmpconcat.txt" -codec copy -y "%TEMPPATH3%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -f concat -safe 0 -i "file:%CD%\tmpconcat.txt" -codec copy -y "%TEMPPATH3%">nul
+	call ffmpeg\ffmpeg.exe -f concat -safe 0 -i "file:%CD%\tmpconcat.txt" -codec copy -y "%TEMPPATH3%">nul && echo Process completed. || echo Process failed.
 )
 PING -n 2 127.0.0.1>nul
 del tmpconcat.txt>nul
+echo Going through process 4 of 4...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%"
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
 )
 goto render_completed
 
 :render_nooutro
+echo Starting ffmpeg...
+echo Going through process 1 of 1...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%"
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
 )
 goto render_completed
 
@@ -726,10 +732,10 @@ if %OUTRO%==1 (
 
 :render_completed
 echo Deleting any temporary files...
-for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%,%CD%\misc\temp\*) do (
+set MISCTEMP=%CD%\misc\temp\*
+for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%,%MISCTEMP%) do (
 	if exist "%%i" ( del "%%i" )
 )
-
 echo:
 set WHATTODONEXT=0
 echo The entire rendering process has been complete^^!

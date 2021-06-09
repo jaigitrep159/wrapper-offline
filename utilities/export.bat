@@ -786,7 +786,7 @@ if "%ERROR%"=="n" (
 	echo:
 	:processfailchoice
 	set /p PROCESSFAILCH= Option: 
-	if "%PROCESSFAILCH%"=="1" set ERROR=n & goto render
+	if "%PROCESSFAILCH%"=="1" ( set ERROR=n && goto render )
 	if "%PROCESSFAILCH%"=="2" (
 		set ERROR=n
 		set RESTARTVALUE=1

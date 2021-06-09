@@ -12,6 +12,7 @@ if exist "..\patch.jpg" echo there's no videos to export if whoppers patched && 
 
 :restart
 :: Sets all variables to default, also makes it so that it can properly load config.bat
+set ERROR=n
 set OUTRO=1
 set TEMPPATH=%CD%\misc\temp\rewriteable.mp4
 set TEMPPATH2=%CD%\misc\temp\rewriteable.ts
@@ -707,9 +708,9 @@ PING -n 2 127.0.0.1>nul
 del tmpconcat.txt>nul
 echo Going through process 4 of 4...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed. & set ERROR=y
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%TEMPPATH3%" -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed. & set ERROR=y
 )
 goto render_completed
 
@@ -717,9 +718,9 @@ goto render_completed
 echo Starting ffmpeg...
 echo Going through process 1 of 1...
 if "%VERBOSEWRAPPER%"=="y" (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%" && echo Process completed. || echo Process failed. & set ERROR=y
 ) else (
-	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed.
+	call ffmpeg\ffmpeg.exe -i "file:%FFMPEGINPUT%" -vf scale="%WIDTH%:%HEIGHT%" %VF%-r 25 -filter:a loudnorm,volume=%VOLUME% -vcodec %VCODEC% -acodec %ACODEC%%ADDITIONAL% -y "%OUTPUT_PATH%\%OUTPUT_FILE%">nul && echo Process completed. || echo Process failed. & set ERROR=y
 )
 goto render_completed
 
@@ -731,12 +732,15 @@ if %OUTRO%==1 (
 )
 
 :render_completed
-echo Deleting any temporary files...
-set MISCTEMP=%CD%\misc\temp\*
-for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%,%MISCTEMP%) do (
-	if exist "%%i" ( del "%%i" )
+if %ERROR%==n (
+	echo Deleting any temporary files...
+	set MISCTEMP=%CD%\misc\temp\*
+	for %%i in (%TEMPPATH%,%TEMPPATH2%,%TEMPPATH3%,%MISCTEMP%) do (
+		if exist "%%i" ( del "%%i" )
+	)
+	echo:
 )
-echo:
+if %VERBOSEWRAPPER%==n ( cls )
 set WHATTODONEXT=0
 echo The entire rendering process has been complete^^!
 echo:

@@ -911,7 +911,6 @@ echo:
 if !VERBOSEWRAPPER!==n ( echo DON'T CLOSE THIS WINDOW^^! Use the quit option ^(0^) when you're done. )
 if !VERBOSEWRAPPER!==y ( echo Verbose mode is on, see the extra CMD windows for extra output. )
 if !DRYRUN!==y ( echo Don't forget, nothing actually happened, this was a dry run. )
-if !JUSTIMPORTED!==y ( echo Note: You'll need to reload the editor for your file to appear. )
 :: Hello, code wanderer. Enjoy seeing all the secret options easily instead of finding them yourself.
 if !DEVMODE!==y (
 	echo:
@@ -1118,11 +1117,8 @@ goto wrapperidle
 
 :start_importer
 echo Opening the importer...
-call utilities\import.bat
-cls
-title Wrapper: Offline v!WRAPPER_VER!b!WRAPPER_BLD!
-set JUSTIMPORTED=y
-goto wrapperstartedcls
+start "" "utilities\AssetImporter.exe"
+goto wrapperidle
 
 :start_exporter
 echo Opening the exporter ^(in another window^)...

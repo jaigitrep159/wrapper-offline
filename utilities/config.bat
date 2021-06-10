@@ -45,5 +45,5 @@ set DEVMODE=y
 set PORT=4343
 
 :: Automatically restarts the NPM whenever it crashes. Default: y
-set AUTONODE=y
+set AUTONODE=n
 

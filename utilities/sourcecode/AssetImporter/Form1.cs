@@ -348,7 +348,17 @@ namespace AssetImporter
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string destFile = System.IO.Path.Combine(Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\" + Globals.ASSETLOC, Globals.fileName);
+            string assetPath = Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\" + Globals.ASSETLOC;
+            string destFile = System.IO.Path.Combine(assetPath, Globals.fileName);
+            if (Directory.Exists(assetPath))
+            {
+                label9.Text = "Progress: ";
+            }
+            else
+            {
+                label9.Text = "Progress: Creating directory since it does not exist yet...";
+                System.IO.Directory.CreateDirectory(assetPath);
+            }
             if (File.Exists(destFile))
             {
                 MessageBox.Show("It looks like the file already exists. Are you sure you want to import this file?\r\n\r\n(NOTE: It will overwrite the file.)", "Imported File Already Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Information);

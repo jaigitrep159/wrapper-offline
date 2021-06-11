@@ -406,7 +406,7 @@ namespace AssetImporter
             p.Start();
 
             string text = p.StandardOutput.ReadToEnd();
-            richTextBox1.Text = text;
+            richTextBox2.Text = text;
             if (text.Contains("Open archive: "))
             {
                 progressBar1.Value += 25;

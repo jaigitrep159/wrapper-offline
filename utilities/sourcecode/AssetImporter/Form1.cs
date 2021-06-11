@@ -380,7 +380,7 @@ namespace AssetImporter
 
             label9.Text = "Progress: Adding generated string to XML...";
             var fileContent = File.ReadLines(Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\theme.xml").ToList();
-            fileContent[fileContent.Count - 1] = "  " + Globals.CFXML + "\r\n</theme>";
+            fileContent[fileContent.Count - 1] = "    " + Globals.CFXML + "\r\n</theme>";
             File.WriteAllLines(Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\theme.xml", fileContent);
             progressBar1.Value += 25;
             label10.Text = progressBar1.Value + "%";

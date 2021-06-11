@@ -376,6 +376,12 @@ namespace AssetImporter
                 progressBar1.Value += 25;
                 label10.Text = progressBar1.Value + "%";
             }
+
+            if (File.Exists(Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\" + Globals.fileName))
+            {
+                label9.Text = "Progress: Moving file to the right directory since it appears it imported in the wrong place...";
+                System.IO.File.Move(Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\" + Globals.fileName, destFile);
+            }
             
 
             label9.Text = "Progress: Adding generated string to XML...";

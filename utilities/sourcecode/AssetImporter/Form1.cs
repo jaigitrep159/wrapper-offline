@@ -373,7 +373,7 @@ namespace AssetImporter
                         {
                             label9.Text = "Progress: Encrypting .SWF with RC4 and then importing file...";
                             string key_phrase = "sorrypleasetryagainlater";
-                            byte[] data = Encoding.UTF8.GetBytes(Globals.filePath);
+                            byte[] data = File.ReadAllBytes(Globals.filePath);
                             byte[] key = Encoding.UTF8.GetBytes(key_phrase);
                             byte[] encrypted_data = RC4.Apply(data, key);
                             System.IO.File.WriteAllBytes(destFile, encrypted_data);

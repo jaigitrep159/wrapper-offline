@@ -382,6 +382,11 @@ module.exports = (voiceName, text) => {
 						port: "443",
 						headers: {
 							"Content-Type": "application/x-www-form-urlencoded",
+							"Cookie": "PHPSESSID=95a5b6935c7e7a94b4c668b9b4d6122e",
+							"Host": "readloud.net",
+							"Origin": "https://readloud.net",
+							"Referer": `https://readloud.net/{$voice.arg}`,
+							"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
 						},
 					},
 					(r) => {
@@ -389,10 +394,11 @@ module.exports = (voiceName, text) => {
 						r.on("data", (d) => buffers.push(d));
 						r.on("end", () => {
 							const html = Buffer.concat(buffers);
-							const beg = html.indexOf("/tmp/");
-							const end = html.indexOf(".mp3", beg) + 4;
+							const beg = html.indexOf("<source src='") + 13;
+							const end = html.indexOf("'>", beg);
 							const sub = html.subarray(beg, end).toString();
 							const loc = `https://readloud.net${sub}`;
+							console.log(loc);
 							get(loc).then(res).catch(rej);
 						});
 						r.on("error", rej);
@@ -401,7 +407,51 @@ module.exports = (voiceName, text) => {
 				req.end(
 					qs.encode({
 						but1: text,
+						butS: 0,
+						butP: 0,
+						butPauses: 0,
 						but: "Submit",
+					})
+				);
+				break;
+			}
+			case "ftts": {
+				const req = http.request(
+					{
+						host: "fromtexttospeech.com",
+						method: "POST",
+						port: "80",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded",
+							"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+							"Host": "www.fromtexttospeech.com",
+							"Origin": "http://www.fromtexttospeech.com",
+							"Referer": "http://www.fromtexttospeech.com/",
+							"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
+						},
+					},
+					(r) => {
+						var buffers = [];
+						r.on("data", (d) => buffers.push(d));
+						r.on("end", () => {
+							const html = Buffer.concat(buffers);
+							const beg = html.indexOf("<param name='flashvars' value='file=") + 36;
+							const end = html.indexOf("'>", beg);
+							const sub = html.subarray(beg, end).toString();
+							const loc = `http://fromtexttospeech.com${sub}`;
+							console.log(loc);
+							get(loc).then(res).catch(rej);
+						});
+						r.on("error", rej);
+					}
+				);
+				req.end(
+					qs.encode({
+						input_text: text,
+						language: "US English",
+						voice: voice.arg,
+						speed: 0,
+						action: "process_text",
 					})
 				);
 				break;

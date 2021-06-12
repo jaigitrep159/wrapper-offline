@@ -35,9 +35,9 @@ if %NOMETA%==n ( set SUBSCRIPT=y & call utilities\metadata.bat )
 
 :rebootasadmin
 if %ADMIN%==n (
-	echo Set UAC = CreateObject^("Shell.Application"^) > %tmp%\requestAdmin.vbs
+	echo Set UAC = CreateObject^("Shell.Application"^)>> %tmp%\requestAdmin.vbs
 	set params= %*
-	echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %params:"=""%", "", "runas", 1 >> %tmp%\requestAdmin.vbs
+	echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %params:"=""%", "", "runas", 1>> %tmp%\requestAdmin.vbs
 	start "" %tmp%\requestAdmin.vbs
 	exit /B
 )

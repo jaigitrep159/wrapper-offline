@@ -2238,16 +2238,16 @@
 			"country": "US",
 			"language": "en",
 			"gender": "M",
-			"source": "ftts",
-			"arg": "IVONA Eric22",
+			"source": "readloud",
+			"arg": "/english/american/3-male-voice-eric.html",
 			"desc": "Eric"
 		},
 		"jennifer": {
 			"country": "US",
 			"language": "en",
 			"gender": "F",
-			"source": "ftts",
-			"arg": "IVONA Jennifer22",
+			"source": "readloud",
+			"arg": "/english/american/28-female-voice-jennifer.html",
 			"desc": "Jennifer"
 		},
 		"skippy": {

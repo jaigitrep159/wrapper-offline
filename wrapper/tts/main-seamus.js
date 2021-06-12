@@ -415,47 +415,6 @@ module.exports = (voiceName, text) => {
 				);
 				break;
 			}
-			case "ftts": {
-				const req = http.request(
-					{
-						host: "fromtexttospeech.com",
-						method: "POST",
-						port: "80",
-						headers: {
-							"Content-Type": "application/x-www-form-urlencoded",
-							"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-							"Host": "www.fromtexttospeech.com",
-							"Origin": "http://www.fromtexttospeech.com",
-							"Referer": "http://www.fromtexttospeech.com/",
-							"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
-						},
-					},
-					(r) => {
-						var buffers = [];
-						r.on("data", (d) => buffers.push(d));
-						r.on("end", () => {
-							const html = Buffer.concat(buffers);
-							const beg = html.indexOf("<param name='flashvars' value='file=") + 36;
-							const end = html.indexOf("'>", beg);
-							const sub = html.subarray(beg, end).toString();
-							const loc = `http://fromtexttospeech.com${sub}`;
-							console.log(loc);
-							get(loc).then(res).catch(rej);
-						});
-						r.on("error", rej);
-					}
-				);
-				req.end(
-					qs.encode({
-						input_text: text,
-						language: "US English",
-						voice: voice.arg,
-						speed: 0,
-						action: "process_text",
-					})
-				);
-				break;
-			}
 			case "cereproc": {
 				const req = https.request(
 					{

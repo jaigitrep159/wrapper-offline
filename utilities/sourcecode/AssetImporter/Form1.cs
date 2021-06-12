@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using RC4Cryptography;
 
 namespace AssetImporter
 {
@@ -22,6 +23,7 @@ namespace AssetImporter
 
         private void reset()
         {
+            checkBox3.Visible = false;
             progressBar1.Value -= 100;
             label10.Text = "0%";
             textBox1.Text = "";
@@ -206,6 +208,7 @@ namespace AssetImporter
                     }
                     if (Globals.fileExt == ".swf")
                     {
+                        checkBox3.Visible = true;
                         comboBox1.Items.Add("Prop");
                         comboBox1.Items.Add("Backdrop");
                         comboBox1.Text = "Prop";
@@ -346,7 +349,6 @@ namespace AssetImporter
                 richTextBox1.Text = Globals.CFXML;
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             string assetPath = Globals.absolutePath + "\\server\\store\\3a981f5cb2739137\\import\\" + Globals.ASSETLOC;
@@ -365,15 +367,46 @@ namespace AssetImporter
                 MessageBox.Show("It looks like the file already exists. Are you sure you want to import this file?\r\n\r\n(NOTE: It will overwrite the file.)", "Imported File Already Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (MessageBox.Show("It looks like the file already exists. Are you sure you want to import this file?\r\n\r\n(NOTE: It will overwrite the file.)", "Imported File Already Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) 
                 {
-                    label9.Text = "Progress: Importing file to necessary directory...";
-                    System.IO.File.Copy(textBox1.Text, destFile, true);
+                    if (Globals.fileExt == ".swf")
+                    {
+                        if (checkBox3.Checked == true)
+                        {
+                            label9.Text = "Progress: Encrypting .SWF with RC4 and then importing file...";
+                            string key_phrase = "sorrypleasetryagainlater";
+                            byte[] data = Encoding.UTF8.GetBytes(Globals.filePath);
+                            byte[] key = Encoding.UTF8.GetBytes(key_phrase);
+                            byte[] encrypted_data = RC4.Apply(data, key);
+                            System.IO.File.WriteAllBytes(destFile, encrypted_data);
+                        }
+                    }
+                    else
+                    {
+                        label9.Text = "Progress: Importing file to necessary directory...";
+                        System.IO.File.Copy(Globals.filePath, destFile, true);
+                    }
                     progressBar1.Value += 25;
                     label10.Text = progressBar1.Value + "%";
                 }
-            } else
+            }
+            else
             {
-                label9.Text = "Progress: Importing file to necessary directory...";
-                System.IO.File.Copy(textBox1.Text, destFile, true);
+                if (Globals.fileExt == ".swf")
+                {
+                    if (checkBox3.Checked == true)
+                    {
+                        label9.Text = "Progress: Encrypting .SWF with RC4 and then importing file...";
+                        string key_phrase = "sorrypleasetryagainlater";
+                        byte[] data = Encoding.UTF8.GetBytes(Globals.filePath);
+                        byte[] key = Encoding.UTF8.GetBytes(key_phrase);
+                        byte[] encrypted_data = RC4.Apply(data, key);
+                        System.IO.File.WriteAllBytes(destFile, encrypted_data);
+                    }
+                }
+                else
+                {
+                    label9.Text = "Progress: Importing file to necessary directory...";
+                    System.IO.File.Copy(Globals.filePath, destFile, true);
+                }
                 progressBar1.Value += 25;
                 label10.Text = progressBar1.Value + "%";
             }

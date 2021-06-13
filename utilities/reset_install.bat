@@ -53,15 +53,17 @@ echo Type y to reset Offline, and n to close this script.
 :resetconfirmretry
 set /p RESETCHOICE= Response:
 echo:
-if not '%resetchoice%'=='' set resetchoice=%resetchoice:~0,1%
-if /i '%resetchoice%'=='y' goto resetconfirm2
-if /i '%resetchoice%'=='n' exit
+if /i "!resetchoice!"=="y" goto resetconfirm2
+if /i "!resetchoice!"=="n" exit
+if /i "!resetchoice!"=="yes" goto resetconfirm2
+if /i "!resetchoice!"=="no" exit
 goto resetconfirmretry
 echo: && echo: && echo:
 
 :: Confirmation again because this is very volatile
 :resetconfirm2
 color cf
+set RESETCHOICE= ""
 echo Are you ABSOLUTELY sure you wish to do this?
 echo You are entirely responsible for losing your videos.
 echo:
@@ -70,26 +72,26 @@ echo Type y to reset Offline, and n to close this script.
 :resetconfirmretry2
 set /p RESETCHOICE= Response:
 echo:
-if not '%resetchoice%'=='' set resetchoice=%resetchoice:~0,1%
-if /i '%resetchoice%'=='y' goto backuptoolconfirm
-if /i '%resetchoice%'=='n' exit
-if /i '%resetchoice%'=='yes' goto backuptoolconfirm
-if /i '%resetchoice%'=='no' exit
+if /i "!resetchoice!"=="y" goto backuptoolconfirm
+if /i "!resetchoice!"=="n" exit
+if /i "!resetchoice!"=="yes" goto backuptoolconfirm
+if /i "!resetchoice!"=="no" exit
 goto resetconfirmretry2
+echo: && echo: && echo:
 
 :backuptoolconfirm
-color 0f
+color 07
 echo Before we proceed, would you like to run the
-echo backup tool to backup all your personal
+echo backup tool to back up all your personal
 echo files, like the stuff in your _SAVED folder
-echo or the stuff you've imported? [Y/n]
+echo or the stuff you've imported? [Y/N]
 echo:
 :backuptoolconfirmretry
 set /p BACKUPCHOICE= Response:
 echo:
-if not '%backupchoice%'=='' set backupchoice=%backupchoice:~0,1%
-if /i '%backupchoice%'=='y' (
+if /i "!backupchoice!"=="y" (
 	:launchbackuptool
+	popd
 	start backup_and_restore.bat
 	echo After doing the backup, please move the folder
 	echo somewhere else outside of the Wrapper: Offline
@@ -99,29 +101,30 @@ if /i '%backupchoice%'=='y' (
 	pause
 	goto dothereset
 )
-if /i '%backupchoice%'=='n' ( goto dothereset )
-if /i '%backupchoice%'=='yes' ( goto launchbackuptool )
-if /i '%backupchoice%'=='no' ( goto dothereset )
+if /i "!backupchoice!"=="n" ( goto dothereset )
+if /i "!backupchoice!"=="yes" ( goto launchbackuptool )
+if /i "!backupchoice!"=="no" ( goto dothereset )
 goto backuptoolconfirmretry
 
 :dothereset
+
 
 set WRAPRESET=y
 echo The reset will start in exactly 10 seconds...
 PING -n 11 127.0.0.1>nul
 
 :: Reset _SAVED folder
-set count=0
-pushd wrapper\_SAVED
+rd /q /s wrapper\_SAVED
+md wrapper\_SAVED
 FOR /f "delims=" %%i IN ('attrib.exe ./*.* ^| find /v "File not found - " ^| find /c /v ""') DO SET FILE_COUNT=%%i
-popd
 start powershell -ExecutionPolicy RemoteSigned -File "wrapper\delete.ps1" -min "%FILE_COUNT%" || set ERROR_DELSAVE=y
-if not exist "wrapper\_SAVED\_NO_REMÖVE" ( copy NUL "wrapper\_SAVED\_NO_REMÖVE">nul )
+copy NUL "wrapper\_SAVED\_NO_REMÖVE">nul
 
 :: Reset _CACHE folder
 rd /q /s wrapper\_CACHÉ || set ERROR_DELCACHE=y
 md wrapper\_CACHÉ
 copy NUL "wrapper\_CACHÉ\_NO_REMÖVE">nul
+move "wrapper\_CACHÉ\_NO_REMÖVE" "..\wrapper\_SAVED\_NO_REMÖVE"
 
 :: Reset checks folder
 rd /q /s utilities\checks || set ERROR_DELCHECKS=y
@@ -191,21 +194,24 @@ md utilities\basilisk\Basilisk-Portable\User\Basilisk\Profiles\Default
 del /q /s utilities\SilentCMD.exe.config || set ERROR_DELSILENTCMD=y
 
 :: Reset imported assets
-pushd server\store\3a981f5cb2739137\ || set ERROR_DELIMPORT=y & goto skipimportreset
-rd /q /s import || set ERROR_DELIMPORT=y & goto skipimportreset
-md import || set ERROR_DELIMPORT=y & goto skipimportreset
+pushd server\store\3a981f5cb2739137 || set ERROR_DELIMPORT=y && goto skipimportreset
+rd /q /s import || set ERROR_DELIMPORT=y && goto skipimportreset
+md import || set ERROR_DELIMPORT=y && goto skipimportreset
 pushd import
 echo ^<?xml version="1.0" encoding="utf-8"?^> >>theme.xml
 echo ^<theme id="import" name="Imported Assets" cc_theme_id="import"^> >>theme.xml
 echo 	^<char id="327068788" name="the benson apparition" cc_theme_id="family" thumbnail_url="char-default.png" copyable="Y"^> >>theme.xml
 echo 	^<tags^>family,every,copy,of,wrapper,offline,is,_free,software,but,is,also,_cat:personalized^</tags^> >>theme.xml
 echo 	^</char^> >>theme.xml
-echo:>>theme.xml
+echo: >>theme.xml
 echo ^</theme^> >>theme.xml
 popd
-call utilities\7za.exe a "server\store\3a981f5cb2739137\import\import.zip" "server\store\3a981f5cb2739137\import\theme.xml" >nul || set ERROR_DELIMPORT=y & goto skipimportreset
-del /q /s utilities\import_these || set ERROR_DELIMPORT=y & goto skipimportreset
-md utilities\import_these || set ERROR_DELIMPORT=y & goto skipimportreset
+popd
+pushd utilities
+call 7za.exe a "..\server\store\3a981f5cb2739137\import\import.zip" "..\server\store\3a981f5cb2739137\import\theme.xml" >nul || set ERROR_DELIMPORT=y && goto skipimportreset
+popd
+rd /q /s utilities\import_these || set ERROR_DELIMPORT=y && goto skipimportreset
+md utilities\import_these || set ERROR_DELIMPORT=y && goto skipimportreset
 :skipimportreset
 
 
@@ -262,3 +268,7 @@ if "%SUBSCRIPT%"=="" (
 	if !WRAPRESET!==y ( endlocal & exit /b 0 )
 	if !WRAPRESET!==n ( endlocal & exit /b 1 )
 )
+
+
+
+:: holy crap that took forever to fix for 1.3.1+ ~MJ

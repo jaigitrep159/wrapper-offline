@@ -105,7 +105,6 @@ if not exist "utilities\checks\disclaimer.txt" (
 	:disclaimacceptretry
 	set /p ACCEPTCHOICE= Response:
 	echo:
-	if not '!acceptchoice!'=='' set acceptchoice=%acceptchoice:~0,1%
 	if /i "!acceptchoice!"=="y" goto disclaimaccepted
 	if /i "!acceptchoice!"=="n" exit
 	goto disclaimacceptretry

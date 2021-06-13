@@ -744,6 +744,7 @@ if "%ERROR%"=="n" (
 :render_completed
 if "%VERBOSEWRAPPER%"=="n" ( cls )
 if "%ERROR%"=="n" (
+	set WHATTODONEXT=""
 	echo The entire rendering process has been complete^^!
 	echo:
 	echo Press 1 to open the rendered file
@@ -753,24 +754,26 @@ if "%ERROR%"=="n" (
 	echo:
 	:final_choice
 	set /p WHATTODONEXT= Option:
-	if "%WHATTODONEXT%"=="1" (
+	if "!whattodonext!"=="1" (
 		start "" "%OUTPUT_PATH%\%OUTPUT_FILE%"
 		echo:
 		goto final_choice
 	)
-	if "%WHATTODONEXT%"=="2" (
+	if "!whattodonext!"=="2" (
 		start explorer.exe /select,"%OUTPUT_PATH%\%OUTPUT_FILE%"
 		echo:
 		goto final_choice
 	)
-	if "%WHATTODONEXT%"=="3" exit
-	if "%WHATTODONEXT%"=="4" (
+	if "!whattodonext!"=="3" exit
+	if "!whattodonext!"=="4" (
 		set RESTARTVALUE=1
 		cls
 		goto restart
 	)
+	echo:
 	goto final_choice
 ) else (
+	set PROCESSFAILCH=""
 	echo ERROR: One or more of the FFMPEG processes failed!
 	echo:
 	echo For this reason, Wrapper: Offline did NOT remove any
@@ -784,16 +787,18 @@ if "%ERROR%"=="n" (
 	:processfailchoice
 	set ERROR=n
 	set /p PROCESSFAILCH= Option: 
-	if "%PROCESSFAILCH%"=="1" (
+	if "!processfailch!"=="1" (
 	set ERROR=n
 	goto render
 	)
-	if "%PROCESSFAILCH%"=="2" (
+	if "!processfailch!"=="2" (
 		set RESTARTVALUE=1
 		cls
 		goto restart
 	)
-	if "%PROCESSFAILCH%"=="3" ( start "" %0 & exit )
-	if "%PROCESSFAILCH%"=="4" exit
-	echo Time to choose. && goto processfailchoice
+	if "!processfailch!"=="3" ( start "" %0 & exit )
+	if "!processfailch!"=="4" exit
+	echo Time to choose.
+	echo:
+	goto processfailchoice
 )

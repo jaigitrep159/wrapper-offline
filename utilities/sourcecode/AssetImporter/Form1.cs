@@ -21,6 +21,12 @@ namespace AssetImporter
             textBox3.Text = Globals.absolutePath;
         }
 
+        static void Main(string[] args)
+        {
+            Form1 frm1 = new Form1();
+            frm1.textBox1.Text = args[0];
+        }
+
         private void reset()
         {
             checkBox3.Visible = false;
@@ -55,6 +61,7 @@ namespace AssetImporter
             public static String strWorkPath = System.IO.Path.GetDirectoryName(strExeFilePath);
             public static String absolutePath = strWorkPath + "\\..";
         }
+
         public void button1_Click(object sender, EventArgs e)
         {
 
@@ -482,6 +489,21 @@ namespace AssetImporter
                 label9.Text = "Progress:";
                 reset();
             }
+        }
+
+        private void textBox1_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Link;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void textBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[]; // get all files droppeds  
+            if (files != null && files.Any())
+                textBox1.Text = files.First(); //select the first one 
         }
     }
 }

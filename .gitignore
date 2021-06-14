@@ -9,7 +9,7 @@ wrapper/main-norpc.js
 wrapper/static/info-*.json
 !_*/_NO_REMÖVE
 utilities/backups/*
-utilities/import_these/*
+utilities/legacy/import_these/*
 utilities/renders/*
 utilities/misc/temp/*
 utilities/grounded_messages/*

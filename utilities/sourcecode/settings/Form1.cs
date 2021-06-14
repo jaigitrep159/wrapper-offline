@@ -13,6 +13,7 @@ namespace settings
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
@@ -88,6 +89,26 @@ namespace settings
             else
             {
                 comboBox6.Text = "Off";
+            }
+            if (File.Exists("D:\\gitlab\\wo\\Wrapper-Offline-Public\\wrapper\\pages\\html\\_OLDLISTVIEW.txt"))
+            {
+                comboBox9.Text = "Old List";
+            }
+            else
+            {
+                if (File.Exists("D:\\gitlab\\wo\\Wrapper-Offline-Public\\wrapper\\pages\\html\\_GRIDVIEW.txt"))
+                {
+                    comboBox9.Text = "Grid";
+                }
+                else
+                {
+                    comboBox9.Text = "List";
+                }
+            }
+            if (cfg.Contains("PORT="))
+            {
+                String port = cfg.Substring(2184, 6);
+                comboBox18.Text = port;
             }
         }
     }

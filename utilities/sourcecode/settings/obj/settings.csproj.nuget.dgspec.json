@@ -1,31 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\gitlab\\wo\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj": {}
+    "C:\\Users\\xomdjl_\\Documents\\GitHub\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj": {}
   },
   "projects": {
-    "D:\\gitlab\\wo\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj": {
+    "C:\\Users\\xomdjl_\\Documents\\GitHub\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\gitlab\\wo\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj",
+        "projectUniqueName": "C:\\Users\\xomdjl_\\Documents\\GitHub\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj",
         "projectName": "settings",
-        "projectPath": "D:\\gitlab\\wo\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj",
-        "packagesPath": "C:\\Users\\Keega\\.nuget\\packages\\",
-        "outputPath": "D:\\gitlab\\wo\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\obj\\",
+        "projectPath": "C:\\Users\\xomdjl_\\Documents\\GitHub\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\settings.csproj",
+        "packagesPath": "C:\\Users\\xomdjl_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\xomdjl_\\Documents\\GitHub\\Wrapper-Offline-Public\\utilities\\sourcecode\\settings\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Keega\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\xomdjl_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -60,7 +60,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

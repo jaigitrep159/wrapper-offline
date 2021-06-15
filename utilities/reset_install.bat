@@ -86,6 +86,13 @@ echo backup tool to back up all your personal
 echo files, like the stuff in your _SAVED folder
 echo or the stuff you've imported? [Y/N]
 echo:
+echo Remember to save your Notepad documents as 
+echo they will be closed automatically.
+echo:
+echo (don't forget to close any programs used to
+echo open ZIP files or the imported assets may not
+echo be deleted (properly))
+echo:
 :backuptoolconfirmretry
 set /p BACKUPCHOICE= Response:
 echo:
@@ -112,6 +119,7 @@ goto backuptoolconfirmretry
 set WRAPRESET=y
 echo The reset will start in exactly 10 seconds...
 PING -n 11 127.0.0.1>nul
+taskkill /f /im "notepad.exe" >nul
 
 :: Reset _SAVED folder
 rd /q /s wrapper\_SAVED
@@ -271,4 +279,4 @@ if "%SUBSCRIPT%"=="" (
 
 
 
-:: holy crap that took forever to fix for 1.3.1+ ~MJ
+:: holy crap that took forever to fix for 1.3.1+ ~ MJ

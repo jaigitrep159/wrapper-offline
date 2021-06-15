@@ -8,7 +8,7 @@ if "%SUBSCRIPT%"=="" ( start notepad.exe "%CD%\%~nx0" & exit )
 endlocal
 
 :: Shows exactly Offline is doing, and never clears the screen. Useful for development and troubleshooting. Default: n
-set VERBOSEWRAPPER=n
+set VERBOSEWRAPPER=y
 
 :: Won't check for dependencies (flash, node, etc) and goes straight to launching. Useful for speedy launching post-install. Default: n
 set SKIPCHECKDEPENDS=y
@@ -45,5 +45,5 @@ set DEVMODE=y
 set PORT=4343
 
 :: Automatically restarts the NPM whenever it crashes. Default: y
-set AUTONODE=y
+set AUTONODE=n
 
